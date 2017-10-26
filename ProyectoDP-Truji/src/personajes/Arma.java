@@ -34,6 +34,17 @@ public class Arma implements Comparable<Arma> {
 	}
 
 	@Override
+	public boolean equals(Object a) {
+		if (!(a instanceof Arma))
+			return false;
+		Arma aAux = (Arma) a;
+		if (nombre.equalsIgnoreCase(aAux.getNombre()))
+			return true;
+		else
+			return false;
+	}
+
+	@Override
 	public int compareTo(Arma a) {
 		return nombre.compareToIgnoreCase(a.getNombre());
 	}

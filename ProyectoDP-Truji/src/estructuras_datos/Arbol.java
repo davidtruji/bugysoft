@@ -1,6 +1,8 @@
 
 package estructuras_datos;
 
+import personajes.Arma;
+
 /**
  * Implementacion de arbol binario de busqueda.
  * 
@@ -256,26 +258,41 @@ public class Arbol<T extends Comparable<T>> {
 	 *            Argumentos del main
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Arbol<Integer> arbol = new Arbol<Integer>();
+		Arbol<Arma> arbol = new Arbol<Arma>();
 		System.out.println("Ejemplos sesion árbol binario de búsqueda");
 
-		Integer[] datos = { new Integer(20), new Integer(7), new Integer(18), new Integer(6), new Integer(5),
-				new Integer(1), new Integer(22) };
+		Arma[] datos = { new Arma("Mjolnir", 29), new Arma("Anillo", 1), new Arma("Garra", 27), new Arma("Armadura", 3),
+				new Arma("Red", 25), new Arma("Escudo", 5), new Arma("Lucille", 23), new Arma("Lawgiver", 7),
+				new Arma("GuanteInfinito", 21), new Arma("LazoVerdad", 9), new Arma("CadenaFuego", 19),
+				new Arma("Capa", 11), new Arma("Flecha", 17), new Arma("Tridente", 13), new Arma("Antorcha", 15),
+				new Arma("Baston", 28), new Arma("Latigo", 2), new Arma("MazaOro", 26), new Arma("CampoMagnetico", 4),
+				new Arma("Tentaculo", 24), new Arma("CampoEnergia", 6), new Arma("Cetro", 22),
+				new Arma("RayoEnergia", 8), new Arma("Laser", 20), new Arma("Bola", 10), new Arma("Espada", 18),
+				new Arma("Sable", 12), new Arma("Acido", 16), new Arma("Gema", 14), new Arma("Nullifier", 23),
+				new Arma("Mjolnir", 1), new Arma("Anillo", 29), new Arma("Garra", 3), new Arma("Armadura", 27),
+				new Arma("Red", 5), new Arma("Escudo", 25), new Arma("Lucille", 7), new Arma("Lawgiver", 23),
+				new Arma("GuanteInfinito", 9), new Arma("LazoVerdad", 21), new Arma("CadenaFuego", 11),
+				new Arma("Capa", 19), new Arma("Flecha", 13), new Arma("Tridente", 17), new Arma("Antorcha", 28),
+				new Arma("Baston", 15), new Arma("Latigo", 26), new Arma("MazaOro", 2), new Arma("CampoMagnetico", 24),
+				new Arma("Tentaculo", 4), new Arma("CampoEnergia", 22), new Arma("Cetro", 6),
+				new Arma("RayoEnergia", 20), new Arma("Laser", 8), new Arma("Bola", 18), new Arma("Espada", 10),
+				new Arma("Sable", 16), new Arma("Acido", 12), new Arma("Gema", 1), new Arma("Nullifier", 3) };
 
 		for (int i = 0; i < datos.length; i++) {
 			arbol.insertar(datos[i]);
 		}
 
 		// Insertando datos repetidos
-		if (arbol.insertar(new Integer(22)) == false)
+		if (arbol.insertar(new Arma("Latigo", 26)) == false)
 			System.out.println("El ABB no admite elementos duplicados");
+		else
+			System.out.println("El ABB añade elementos duplicados");
 
 		// Pertenencia de un dato
-		if (arbol.pertenece(new Integer(22)))
+		if (arbol.pertenece(new Arma("Red", 5)))
 			System.out.println("Pertenece");
 		else
-			System.out.println("NO Pertenece");
+			System.out.println("Pertenece Incorrecto");
 
 		// Recorrido en inOrden
 		System.out.println("InOrden");
@@ -283,16 +300,22 @@ public class Arbol<T extends Comparable<T>> {
 
 		// Probando el borrado de diferentes datos -- Descomentar estas líneas para ver
 		// qué ocurre
-		arbol.borrar(new Integer(20));
-		System.out.println("Borrado " + 20);
-		arbol.borrar(new Integer(15));
-		System.out.println("Borrado " + 15);
+		System.out.println("Intento de borrar RayoEnrgia");
+		arbol.borrar(new Arma("RayoEnergia", 20));
+		System.out.println("Borrado RayoEnrgia");
+		arbol.inOrden();
+
+		System.out.println("Intento de borrar Tridente");
+		arbol.borrar(new Arma("Tridente", 13));
+		System.out.println("Borrado el Tridente");
+		arbol.inOrden();
 
 		// Borrando datos del árbol
 		for (int i = 0; i < datos.length; i++) {
 			arbol.borrar(datos[i]);
 			System.out.println("Borrado " + datos[i]);
-			arbol.inOrden();
+
 		}
+		arbol.inOrden();
 	}
 }

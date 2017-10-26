@@ -8,7 +8,6 @@ import personajes.Personaje;
 @SuppressWarnings("unused")
 public class Sala {
 
-	
 	private boolean pnorte;
 	private boolean psur;
 	private boolean peste;
@@ -16,6 +15,42 @@ public class Sala {
 	private Integer numSala;
 	private Queue<Personaje> personajes;
 	// private Arbol<Arma> armas;
+
+	public boolean isPnorte() {
+		return pnorte;
+	}
+
+	public void setPnorte(boolean pnorte) {
+		this.pnorte = pnorte;
+	}
+
+	public boolean isPsur() {
+		return psur;
+	}
+
+	public void setPsur(boolean psur) {
+		this.psur = psur;
+	}
+
+	public boolean isPeste() {
+		return peste;
+	}
+
+	public void setPeste(boolean peste) {
+		this.peste = peste;
+	}
+
+	public boolean isPoeste() {
+		return poeste;
+	}
+
+	public void setPoeste(boolean poeste) {
+		this.poeste = poeste;
+	}
+
+	public void setNumSala(Integer numSala) {
+		this.numSala = numSala;
+	}
 
 	public Queue<Personaje> getPersonajes() {
 		return personajes;
