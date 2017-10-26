@@ -18,12 +18,7 @@ public class Mapa {
 			}
 		}
 	}
-	
-	
-	
-	
-	
-	
+		
 	
 	
 
