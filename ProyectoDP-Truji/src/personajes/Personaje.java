@@ -2,7 +2,11 @@ package personajes;
 
 public class Personaje {
 
-	int i=3;
+	
+	String nomHeroe;
+	
+	
+	
 	public Personaje() {
 
 	}
