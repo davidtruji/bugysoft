@@ -21,6 +21,12 @@ public class Mapa {
 		
 	
 	
+	
+	
+	
+	
+	
+	
 
 	// public void construirMapa() {
 	// int num = 0;
