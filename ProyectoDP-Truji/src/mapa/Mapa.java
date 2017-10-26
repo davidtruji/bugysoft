@@ -18,58 +18,6 @@ public class Mapa {
 			}
 		}
 	}
-	
-	
-
-	// public void construirMapa() {
-	// int num = 0;
-	//
-	// for (int i = 0; i < fila; i++) {
-	// for (int j = 0; j < columna; j++) {
-	// if (i == 0)
-	// mapa[i][j].asignarPnorte(true);
-	//
-	// if (j == 0)
-	// mapa[i][j].asignarPoeste(true);
-	//
-	// if (i == (fila - 1))
-	// mapa[i][j].asignarPeste(true);
-	//
-	// if (j == (columna - 1))
-	// mapa[i][j].asignarPsur(true);
-	//
-	// mapa[i][j].asignarNumSala(num);
-	// num++;
-	// }
-	// }
-	//
-	// }
-	//
-	// public void obtenerNumero() {
-	// for (int i = 0; i < this.fila; i++) {
-	// for (int j = 0; i < this.columna; j++) {
-	// System.out.println(mapa[i][j].obtenerNumSala());
-	//
-	// }
-	//
-	// }
-	// }
-	//
-	// public void asignarFila(int fila) {
-	// this.fila = fila;
-	// }
-	//
-	// public void asignarColumna(int columna) {
-	// this.columna = columna;
-	// }
-	//
-	// public int obtenerFila() {
-	// return fila;
-	// }
-	//
-	// public int obtenerColumna() {
-	// return columna;
-	// }
 
 	@Override
 	public String toString() {
