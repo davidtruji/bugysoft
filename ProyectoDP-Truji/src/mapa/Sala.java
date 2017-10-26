@@ -3,6 +3,8 @@ package mapa;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import estructuras_datos.Arbol;
+import personajes.Arma;
 import personajes.Personaje;
 
 @SuppressWarnings("unused")
@@ -14,7 +16,25 @@ public class Sala {
 	private boolean poeste;
 	private Integer numSala;
 	private Queue<Personaje> personajes;
-	// private Arbol<Arma> armas;
+	private Arbol<Arma> armas;
+
+	public Sala(int num, boolean norte, boolean sur, boolean este, boolean oeste) {
+		pnorte = norte;
+		psur = sur;
+		peste = este;
+		poeste = oeste;
+		numSala = num;
+		personajes = new LinkedList<Personaje>();
+		armas = new Arbol<Arma>();
+	}
+
+	public Arbol<Arma> getArmas() {
+		return armas;
+	}
+
+	public void setArmas(Arbol<Arma> armas) {
+		this.armas = armas;
+	}
 
 	public boolean isPnorte() {
 		return pnorte;
@@ -58,15 +78,6 @@ public class Sala {
 
 	public void setPersonajes(Queue<Personaje> personajes) {
 		this.personajes = personajes;
-	}
-
-	public Sala(int num, boolean norte, boolean sur, boolean este, boolean oeste) {
-		pnorte = norte;
-		psur = sur;
-		peste = este;
-		poeste = oeste;
-		numSala = num;
-		personajes = new LinkedList<Personaje>();
 	}
 
 	public int getNumSala() {

@@ -3,8 +3,8 @@ package personajes;
 public class Villano extends Personaje {
 	private Arma ArmaVillano;
 
-	public Villano(String nom) {
-		super(nom);
+	public Villano(String nom, char ini) {
+		super(nom, ini);
 		ArmaVillano = null;
 	}
 

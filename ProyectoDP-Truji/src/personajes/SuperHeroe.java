@@ -6,8 +6,8 @@ public class SuperHeroe extends Personaje {
 
 	private Arbol<Arma> ContenedorArmas;
 
-	public SuperHeroe(String nom) {
-		super(nom);
+	public SuperHeroe(String nom, char ini) {
+		super(nom, ini);
 		ContenedorArmas = new Arbol<Arma>();
 	}
 

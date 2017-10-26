@@ -3,10 +3,12 @@ package personajes;
 public class Personaje {
 
 	String nombre;
+	char inicial;
 
-	public Personaje(String nom) {
+	public Personaje(String nom, char inicial) {
 		super();
 		this.nombre = nom;
+		this.inicial = inicial;
 	}
 
 	public String getNombre() {
@@ -16,7 +18,13 @@ public class Personaje {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	
+
+	public char getInicial() {
+		return inicial;
+	}
+
+	public void setInicial(char inicial) {
+		this.inicial = inicial;
+	}
 
 }

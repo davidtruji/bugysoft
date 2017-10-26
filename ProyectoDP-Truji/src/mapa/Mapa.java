@@ -66,10 +66,10 @@ public class Mapa {
 					tablero[i][j].setPoeste(true);
 
 				if (i == (tablero.length - 1))
-					tablero[i][j].setPeste(true);
+					tablero[i][j].setPsur(true);
 
 				if (j == (tablero[0].length - 1))
-					tablero[i][j].setPsur(true);
+					tablero[i][j].setPeste(true);
 
 			}
 		}
@@ -80,32 +80,65 @@ public class Mapa {
 		String t = "";
 		Sala sala = null;
 		for (int i = 0; i < tablero.length; i++) {
+
+			// Dibuja Pared Norte
 			for (int j = 0; j < tablero[0].length; j++) {
 				sala = tablero[i][j];
-				// t = t + sala;
-				// if (sala < 100 && sala > 9)
-				// t = t + " ";
-				// else if (sala < 10)
-				// t = t + " ";
-				// else
-				// t = t + " ";
-
-				// Dibujar Pared Norte
 
 				if (sala.isPnorte())
-					t = t + "____";
+					t = t + "----";
 				else
 					t = t + "    ";
-				// Dibujar Pared Oeste, ID Sala, Pared Este
 
-				// Dibujar Pared Sur
+			}
+			t = t + "\n";
+			// Dibuja Pared Oeste, ID Sala, Pared Este
+			for (int j = 0; j < tablero[0].length; j++) {
+				sala = tablero[i][j];
 
+				if (sala.isPoeste())
+					t = t + "|";
+				else
+					t = t + " ";
+
+				t = t + sala;
+
+				if (sala.getNumSala() < 10)
+					t = t + " ";
+
+				if (sala.isPeste())
+					t = t + "|";
+				else
+					t = t + " ";
+
+			}
+			t = t + "\n";
+			// Dibujar Pared Sur
+			for (int j = 0; j < tablero[0].length; j++) {
+				sala = tablero[i][j];
+
+				if (sala.isPsur())
+					t = t + "----";
+				else
+					t = t + "    ";
 			}
 			t = t + "\n";
 		}
 
-		return t;
+		for (int i = 0; i < tablero.length; i++) {
 
+			for (int j = 0; j < tablero[0].length; j++) {
+				sala = tablero[i][j];
+				t = t + "Sala " + sala.getNumSala() + ":" + "\n";
+				t = t + "Armas:" + "\n";
+				sala.getArmas().inOrden();
+				t = t + "Personajes:" + "\n";
+				sala.getPersonajes().toString();
+			}
+
+		}
+
+		return t;
 	}
 
 	/**
@@ -124,72 +157,65 @@ public class Mapa {
 		int salaDailyPlanet = (dimX * dimY) - 1;
 		int alturaApertura = 4;
 		Mapa mapa = new Mapa(salaDailyPlanet, dimX, dimY, alturaApertura);
-		// // Creación de las armas para el hombre puerta
-		// int numArmasPuerta = 15;
-		// Arma [] armasPuerta = {new Arma("CampoEnergia", 5), new Arma("Armadura",13),
-		// new
-		// Arma("Anillo",11), new Arma("Acido",1), new Arma("Antorcha",5), new
-		// Arma("Bola",3), new Arma("Baston",22), new Arma("CadenaFuego",11), new
-		// Arma("Espada",11), new Arma("Cetro",20), new Arma("Capa",10), new
-		// Arma("CampoMagnetico",5), new Arma("Escudo",3), new Arma("Garra",22), new
-		// Arma("Flecha",12), new Arma("Gema",4)};
-		// // Creación del hombre puerta y configuración
-		// HombrePuerta doorMan = new HombrePuerta();
-		// // Configurar el hombre puerta introduciendo la combinación de armas
-		// doorMan.configurar(armasPuerta);
-		// // Cerrar el portal, por si inicialmente está abierto
-		// doorMan.cerrar();
-		// // Añadir el hombre puerta al mapa
+		// Creación de las armas para el hombre puerta
+		int numArmasPuerta = 15;
+		Arma[] armasPuerta = { new Arma("CampoEnergia", 5), new Arma("Armadura", 13), new Arma("Anillo", 11),
+				new Arma("Acido", 1), new Arma("Antorcha", 5), new Arma("Bola", 3), new Arma("Baston", 22),
+				new Arma("CadenaFuego", 11), new Arma("Espada", 11), new Arma("Cetro", 20), new Arma("Capa", 10),
+				new Arma("CampoMagnetico", 5), new Arma("Escudo", 3), new Arma("Garra", 22), new Arma("Flecha", 12),
+				new Arma("Gema", 4) };
+		// Creación del hombre puerta y configuración
+		HombrePuerta doorMan = new HombrePuerta();
+		// Configurar el hombre puerta introduciendo la combinación de armas
+		doorMan.configurar(armasPuerta);
+		// Cerrar el portal, por si inicialmente está abierto
+		doorMan.cerrar();
+
+		// Añadir el hombre puerta al mapa
 		// mapa.insertarHombrePuerta(doorMan);
-		// // Creación de las armas para repartir en salas
-		// int numArmasSalas = 60;
-		// Arma [] armasSalas = {new Arma("Mjolnir",29), new Arma("Anillo",1), new
-		// Arma("Garra",27),
-		// new Arma("Armadura",3), new Arma("Red",25), new Arma("Escudo",5),
-		// new Arma("Lucille",23), new Arma("Lawgiver",7), new
-		// Arma("GuanteInfinito",21),
-		// new Arma("LazoVerdad",9), new Arma("CadenaFuego",19), new Arma("Capa",11),
-		// new Arma("Flecha",17), new Arma("Tridente",13), new Arma("Antorcha",15),
-		// new Arma("Baston",28), new Arma("Latigo",2), new Arma("MazaOro",26),
-		// new Arma("CampoMagnetico",4), new Arma("Tentaculo",24),
-		// new Arma ("CampoEnergia",6), new Arma("Cetro",22), new Arma("RayoEnergia",8),
-		// new Arma("Laser",20), new Arma("Bola",10), new Arma("Espada",18),
-		// new Arma("Sable",12), new Arma("Acido",16), new Arma("Gema",14),
-		// new Arma("Nullifier",23), new Arma("Mjolnir",1), new Arma("Anillo",29),
-		// new Arma("Garra",3), new Arma("Armadura",27), new Arma("Red",5),
-		// new Arma("Escudo",25), new Arma("Lucille",7), new Arma("Lawgiver",23),
-		// new Arma("GuanteInfinito",9), new Arma("LazoVerdad",21),
-		// new Arma("CadenaFuego",11), new Arma("Capa",19), new Arma("Flecha",13),
-		// new Arma("Tridente",17), new Arma("Antorcha",28), new Arma("Baston",15),
-		// new Arma("Latigo",26), new Arma("MazaOro",2), new Arma("CampoMagnetico",24),
-		// new Arma("Tentaculo",4), new Arma("CampoEnergia",22), new Arma("Cetro",6),
-		// new Arma("RayoEnergia",20), new Arma("Laser",8), new Arma("Bola",18),
-		// new Arma("Espada",10), new Arma("Sable",16), new Arma("Acido",12),
-		// new Arma("Gema",1), new Arma("Nullifier",3)};
-		// int [] idSalasConArmas = {1, 2, 8, 14, 15, 21, 27, 35, 28, 29, 33, 34};
+		// Creación de las armas para repartir en salas
+		int numArmasSalas = 60;
+		Arma[] armasSalas = { new Arma("Mjolnir", 29), new Arma("Anillo", 1), new Arma("Garra", 27),
+				new Arma("Armadura", 3), new Arma("Red", 25), new Arma("Escudo", 5), new Arma("Lucille", 23),
+				new Arma("Lawgiver", 7), new Arma("GuanteInfinito", 21), new Arma("LazoVerdad", 9),
+				new Arma("CadenaFuego", 19), new Arma("Capa", 11), new Arma("Flecha", 17), new Arma("Tridente", 13),
+				new Arma("Antorcha", 15), new Arma("Baston", 28), new Arma("Latigo", 2), new Arma("MazaOro", 26),
+				new Arma("CampoMagnetico", 4), new Arma("Tentaculo", 24), new Arma("CampoEnergia", 6),
+				new Arma("Cetro", 22), new Arma("RayoEnergia", 8), new Arma("Laser", 20), new Arma("Bola", 10),
+				new Arma("Espada", 18), new Arma("Sable", 12), new Arma("Acido", 16), new Arma("Gema", 14),
+				new Arma("Nullifier", 23), new Arma("Mjolnir", 1), new Arma("Anillo", 29), new Arma("Garra", 3),
+				new Arma("Armadura", 27), new Arma("Red", 5), new Arma("Escudo", 25), new Arma("Lucille", 7),
+				new Arma("Lawgiver", 23), new Arma("GuanteInfinito", 9), new Arma("LazoVerdad", 21),
+				new Arma("CadenaFuego", 11), new Arma("Capa", 19), new Arma("Flecha", 13), new Arma("Tridente", 17),
+				new Arma("Antorcha", 28), new Arma("Baston", 15), new Arma("Latigo", 26), new Arma("MazaOro", 2),
+				new Arma("CampoMagnetico", 24), new Arma("Tentaculo", 4), new Arma("CampoEnergia", 22),
+				new Arma("Cetro", 6), new Arma("RayoEnergia", 20), new Arma("Laser", 8), new Arma("Bola", 18),
+				new Arma("Espada", 10), new Arma("Sable", 16), new Arma("Acido", 12), new Arma("Gema", 1),
+				new Arma("Nullifier", 3) };
+		int[] idSalasConArmas = { 1, 2, 8, 14, 15, 21, 27, 35, 28, 29, 33, 34 };
 		// mapa.distribuirArmas(idSalasConArmas, armasSalas);
-		// // La distribución de armas quedará de la siguiente forma:
-		// // (sala:1: {Mjolnir,29}, {Anillo,1}, {Garra,27}, {Armadura,3}, {Red,25},)
-		// // (sala:2: {Escudo,5}, {Lucille,23}, {Lawgiver,7}, {GuanteInfinito,21},
-		// {LazoVerdad,9},)
-		// // (sala:8: {CadenaFuego,19}, {Capa,11}, {Flecha,17}, {Tridente,13},
+		// La distribución de armas quedará de la siguiente forma:
+		// (sala:1: {Mjolnir,29}, {Anillo,1}, {Garra,27}, {Armadura,3}, {Red,25},)
+		// (sala:2: {Escudo,5}, {Lucille,23}, {Lawgiver,7},
+		// {GuanteInfinito,21},{LazoVerdad,9},)
+		// (sala:8: {CadenaFuego,19}, {Capa,11}, {Flecha,17}, {Tridente,13},
 		// {Antorcha,15},)
-		// // (sala:14: {Baston,28}, {Latigo,2}, {MazaOro,26}, {CampoMagnetico,4},
+		// (sala:14: {Baston,28}, {Latigo,2}, {MazaOro,26}, {CampoMagnetico,4},
 		// {Tentaculo,24},)
-		// // (sala:15: {CampoEnergia,6}, {Cetro,22}, {RayoEnergia,8}, {Laser,20},
+		// (sala:15: {CampoEnergia,6}, {Cetro,22}, {RayoEnergia,8}, {Laser,20},
 		// {Bola,10},)
-		// // (sala:21: {Espada,18}, {Sable,12}, {Acido,16}, {Gema,14}, {Nullifier,23},)
-		// // (sala:27: {Mjolnir,1}, {Anillo,29}, {Garra,3}, {Armadura,27}, {Red,5},)
-		// // (sala:35: {Escudo,25}, {Lucille,7}, {Lawgiver,23}, {GuanteInfinito,9},
+		// (sala:21: {Espada,18}, {Sable,12}, {Acido,16}, {Gema,14}, {Nullifier,23},)
+		// (sala:27: {Mjolnir,1}, {Anillo,29}, {Garra,3}, {Armadura,27}, {Red,5},)
+		// (sala:35: {Escudo,25}, {Lucille,7}, {Lawgiver,23}, {GuanteInfinito,9},
 		// {LazoVerdad,21},)
-		// // (sala:28: {CadenaFuego,11}, {Capa,19}, {Flecha,13}, {Tridente,17},
+		// (sala:28: {CadenaFuego,11}, {Capa,19}, {Flecha,13}, {Tridente,17},
 		// {Antorcha,28},)
-		// // (sala:29: {Baston,15}, {Latigo,26}, {MazaOro,2}, {CampoMagnetico,24},
+		// (sala:29: {Baston,15}, {Latigo,26}, {MazaOro,2}, {CampoMagnetico,24},
 		// {Tentaculo,4},)
-		// // (sala:33: {CampoEnergia,22}, {Cetro,6}, {RayoEnergia,20}, {Laser,8},
+		// (sala:33: {CampoEnergia,22}, {Cetro,6}, {RayoEnergia,20}, {Laser,8},
 		// {Bola,18},)
-		// // (sala:34: {Espada,10}, {Sable,16}, {Acido,12}, {Gema,1}, {Nullifier,3})
-		// // Creación de varios personajes
+		// (sala:34: {Espada,10}, {Sable,16}, {Acido,12}, {Gema,1}, {Nullifier,3})
+		// Creación de varios personajes
 		// SuperHeroe thor = new SuperHeroe("Thor", ‘T’);
 		// mapa.insertarPersonaje(thor,salaDailyPlanet);
 		// SuperHeroe ironMan = new SuperHeroe("IronMan", ‘I’);
