@@ -44,12 +44,12 @@ public class Mapa {
 			}
 		}
 		tablero = s;
-		salaDailyPlanet = (fil * col) - 1;
+		this.salaDailyPlanet = (fil * col) - 1;
 		alturaPuerta = altura;
 	}
 
 	public boolean esSalaDailyPlanet(int i, int j) {
-		if ((i * j) - 1 == salaDailyPlanet)
+		if (tablero[i][j].getNumSala() == salaDailyPlanet)
 			return true;
 		else
 			return false;
@@ -75,10 +75,55 @@ public class Mapa {
 		}
 	}
 
+	public void insertarHombrePuerta(HombrePuerta doorMan) {
+		for (int i = 0; i < tablero.length; i++) {
+			for (int j = 0; j < tablero[0].length; j++) {
+				if (esSalaDailyPlanet(i, j))
+					tablero[i][j].insertarHombrePuerta(doorMan);
+			}
+		}
+
+	}
+
+	public void distribuirArmas(int[] idSalasConArmas, Arma[] armasSalas) {
+		boolean enc = false;
+		int y = 0, x = 0;// Indices de los vectores de los parametros
+
+		for (int i = 0; i < tablero.length; i++) {
+			for (int j = 0; j < tablero[0].length; j++) {
+				Sala s = tablero[i][j];
+
+				while (y < idSalasConArmas.length && !enc) {
+					if (s.getNumSala() == idSalasConArmas[y])
+						enc = true;
+
+					y++;
+				}
+
+				if (enc && x < armasSalas.length) {
+
+					for (int z = 0; z < 5; z++) {
+						tablero[i][j].insertarArma(armasSalas[x]);
+						x++;
+					}
+
+					x = x + 5;
+
+				}
+				y = 0;
+				enc = false;
+			}
+
+		}
+
+	}
+
 	@Override
 	public String toString() {
 		String t = "";
 		Sala sala = null;
+
+		// t = t + "SALA DAILY PLANET ID: " + salaDailyPlanet + "\n";
 		for (int i = 0; i < tablero.length; i++) {
 
 			// Dibuja Pared Norte
@@ -101,7 +146,7 @@ public class Mapa {
 				else
 					t = t + " ";
 
-				t = t + sala;
+				t = t + sala.getNumSala();
 
 				if (sala.getNumSala() < 10)
 					t = t + " ";
@@ -129,11 +174,10 @@ public class Mapa {
 
 			for (int j = 0; j < tablero[0].length; j++) {
 				sala = tablero[i][j];
-				t = t + "Sala " + sala.getNumSala() + ":" + "\n";
-				t = t + "Armas:" + "\n";
-				sala.getArmas().inOrden();
-				t = t + "Personajes:" + "\n";
-				sala.getPersonajes().toString();
+				t = t + sala.toString() + "\n";
+				if (esSalaDailyPlanet(i, j)) {
+					t = t + "Hola soy el hombre puerta y duermo en la sala Daily Planet por las noches \n";
+				}
 			}
 
 		}
@@ -172,7 +216,7 @@ public class Mapa {
 		doorMan.cerrar();
 
 		// Añadir el hombre puerta al mapa
-		// mapa.insertarHombrePuerta(doorMan);
+		mapa.insertarHombrePuerta(doorMan);
 		// Creación de las armas para repartir en salas
 		int numArmasSalas = 60;
 		Arma[] armasSalas = { new Arma("Mjolnir", 29), new Arma("Anillo", 1), new Arma("Garra", 27),
@@ -193,7 +237,7 @@ public class Mapa {
 				new Arma("Espada", 10), new Arma("Sable", 16), new Arma("Acido", 12), new Arma("Gema", 1),
 				new Arma("Nullifier", 3) };
 		int[] idSalasConArmas = { 1, 2, 8, 14, 15, 21, 27, 35, 28, 29, 33, 34 };
-		// mapa.distribuirArmas(idSalasConArmas, armasSalas);
+		mapa.distribuirArmas(idSalasConArmas, armasSalas);
 		// La distribución de armas quedará de la siguiente forma:
 		// (sala:1: {Mjolnir,29}, {Anillo,1}, {Garra,27}, {Armadura,3}, {Red,25},)
 		// (sala:2: {Escudo,5}, {Lucille,23}, {Lawgiver,7},
@@ -215,6 +259,7 @@ public class Mapa {
 		// (sala:33: {CampoEnergia,22}, {Cetro,6}, {RayoEnergia,20}, {Laser,8},
 		// {Bola,18},)
 		// (sala:34: {Espada,10}, {Sable,16}, {Acido,12}, {Gema,1}, {Nullifier,3})
+
 		// Creación de varios personajes
 		// SuperHeroe thor = new SuperHeroe("Thor", ‘T’);
 		// mapa.insertarPersonaje(thor,salaDailyPlanet);
@@ -234,8 +279,9 @@ public class Mapa {
 		// mapa.simulacion();
 		// mapa.pintar(); //se mostrará en este caso únicamente la información del mapa
 		// TODO Realizar más pruebas
-		mapa.construirMapa();
+		// mapa.construirMapa();
 		System.out.println(mapa.toString());
 
 	}
+
 }

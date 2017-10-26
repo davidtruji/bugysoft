@@ -251,6 +251,27 @@ public class Arbol<T extends Comparable<T>> {
 		}
 	}
 
+	/*
+	 * To String inOrden
+	 */
+	@Override
+	public String toString() {
+		String s = "";
+		Arbol<T> aux = null;
+		if (!vacio()) {
+			if ((aux = getHijoIzq()) != null) {
+				s = s + aux.toString();
+			}
+
+			s = s + " " + datoRaiz.toString();
+
+			if ((aux = getHijoDer()) != null) {
+				s = s + aux.toString();
+			}
+		}
+		return s;
+	}
+
 	/**
 	 * Método que main que realiza las pruebas con el árbol.
 	 * 
@@ -309,6 +330,11 @@ public class Arbol<T extends Comparable<T>> {
 		arbol.borrar(new Arma("Tridente", 13));
 		System.out.println("Borrado el Tridente");
 		arbol.inOrden();
+
+		System.out.print("\n\n\n\n");
+		System.out.println("PROBANDO TO STRING");
+		System.out.print(arbol);
+		System.out.print("\n\n\n\n");
 
 		// Borrando datos del árbol
 		for (int i = 0; i < datos.length; i++) {
