@@ -89,7 +89,7 @@ public class Mapa {
 
 	public void insertarPersonaje(Personaje p, int id) {
 		int i, j;
-		int fil = tablero.length;
+		// int fil = tablero.length;
 		int col = tablero[0].length;
 		i = id / col;
 		j = id % col;
@@ -99,37 +99,10 @@ public class Mapa {
 	}
 
 	public void distribuirArmas(int[] idSalasConArmas, Arma[] armasSalas) {
-		boolean enc = false;
 		int x = 0;// Indices de los vectores de los parametros
 
-		// for (int i = 0; i < tablero.length; i++) {
-		// for (int j = 0; j < tablero[0].length; j++) {
-		// Sala s = tablero[i][j];
-		//
-		// while (y < idSalasConArmas.length && !enc) {
-		// if (s.getNumSala() == idSalasConArmas[y])
-		// enc = true;
-		//
-		// y++;
-		// }
-		//
-		// if (enc && x < armasSalas.length) {
-		//
-		// for (int z = 0; z < 5; z++) {
-		// tablero[i][j].insertarArma(armasSalas[x]);
-		// x++;
-		// }
-		//
-		// // x ++;
-		//
-		// }
-		// y = 0;
-		// enc = false;
-		// }
-		//
-		// }
 		int i, j, pos = 0;
-		int fil = tablero.length;
+		// int fil = tablero.length;
 		int col = tablero[0].length;
 		for (int y = 0; y < idSalasConArmas.length; y++) {
 			int id = idSalasConArmas[y];
@@ -200,9 +173,12 @@ public class Mapa {
 
 			for (int j = 0; j < tablero[0].length; j++) {
 				sala = tablero[i][j];
-				t = t + sala.toString() + "\n\n\n";
+
 				if (esSalaDailyPlanet(i, j)) {
+					t = t + "DAILY PLANET " + sala.toString() + "\n\n\n";
 					t = t + "Hola soy el hombre puerta y duermo en la sala Daily Planet por las noches \n";
+				} else {
+					t = t + sala.toString() + "\n\n\n";
 				}
 			}
 
@@ -301,8 +277,8 @@ public class Mapa {
 		mapa.insertarPersonaje(kurtConnnors, salaDailyPlanet);
 		Villano nebula = new Villano("Nebula", 'N', new Arma("RayoEnergia", 15));
 		mapa.insertarPersonaje(nebula, salaDailyPlanet);
-		mapa.simulacion();
-		mapa.pintar(); // se mostrará en este caso únicamente la información del mapa
+		// mapa.simulacion();
+		// mapa.pintar(); // se mostrará en este caso únicamente la información del mapa
 		// TODO Realizar más pruebas
 		mapa.construirMapa();
 		System.out.println(mapa.toString());

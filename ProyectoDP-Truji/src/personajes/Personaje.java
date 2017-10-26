@@ -27,4 +27,11 @@ public class Personaje {
 		this.inicial = inicial;
 	}
 
+	@Override
+	public String toString() {
+		String s = "";
+		s = s + "{" + nombre + "} ";
+		return s;
+	}
+
 }

@@ -3,9 +3,9 @@ package personajes;
 public class Villano extends Personaje {
 	private Arma ArmaVillano;
 
-	public Villano(String nom, char ini) {
+	public Villano(String nom, char ini, Arma a) {
 		super(nom, ini);
-		ArmaVillano = null;
+		ArmaVillano = a;
 	}
 
 	public Arma getArmaVillano() {
