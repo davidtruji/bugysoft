@@ -9,19 +9,19 @@ package estructuras_datos;
  *         <b> Profesores DP </b><br>
  *         Curso 14/15
  */
-public class Arbol<E> {
+public class Arbol<T extends Comparable<T>> {
 
 	/** Dato almacenado en cada nodo del árbol. */
-	private Integer datoRaiz;
+	private T datoRaiz;
 
 	/** Atributo que indica si el árbol está vacío. */
 	boolean esVacio;
 
 	/** Hijo izquierdo del nodo actual */
-	private Arbol hIzq;
+	private Arbol<T> hIzq;
 
 	/** Hijo derecho del nodo actual */
-	private Arbol hDer;
+	private Arbol<T> hDer;
 
 	/**
 	 * Constructor por defecto de la clase. Inicializa un árbol vacío.
@@ -32,13 +32,6 @@ public class Arbol<E> {
 		this.hDer = null;
 	}
 
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * Crea un nuevo árbol a partir de los datos pasados por parámetro.
 	 *
@@ -49,7 +42,7 @@ public class Arbol<E> {
 	 * @param hDer
 	 *            El hijo derecho del árbol que se está creando
 	 */
-	public Arbol(Arbol hIzq, Integer datoRaiz, Arbol hDer) {
+	public Arbol(Arbol<T> hIzq, T datoRaiz, Arbol<T> hDer) {
 		this.esVacio = false;
 		this.datoRaiz = datoRaiz;
 		this.hIzq = hIzq;
@@ -61,7 +54,7 @@ public class Arbol<E> {
 	 *
 	 * @return El hijo izquierdo
 	 */
-	public Arbol getHijoIzq() {
+	public Arbol<T> getHijoIzq() {
 		return hIzq;
 	}
 
@@ -70,7 +63,7 @@ public class Arbol<E> {
 	 *
 	 * @return Hijo derecho del árbol
 	 */
-	public Arbol getHijoDer() {
+	public Arbol<T> getHijoDer() {
 		return hDer;
 	}
 
@@ -79,7 +72,7 @@ public class Arbol<E> {
 	 *
 	 * @return La raíz del árbol
 	 */
-	public Integer getRaiz() {
+	public T getRaiz() {
 		return datoRaiz;
 	}
 
@@ -100,20 +93,20 @@ public class Arbol<E> {
 	 * @return verdadero si el dato se ha insertado correctamente, falso en caso
 	 *         contrario
 	 */
-	public boolean insertar(Integer dato) {
+	public boolean insertar(T dato) {
 		boolean resultado = true;
 		if (vacio()) {
 			datoRaiz = dato;
 			esVacio = false;
 		} else {
 			if (!(this.datoRaiz.equals(dato))) {
-				Arbol aux;
+				Arbol<T> aux;
 				if (dato.compareTo(this.datoRaiz) < 0) { // dato < datoRaiz
 					if ((aux = getHijoIzq()) == null)
-						hIzq = aux = new Arbol();
+						hIzq = aux = new Arbol<T>();
 				} else { // dato > datoRaiz
 					if ((aux = getHijoDer()) == null)
-						hDer = aux = new Arbol();
+						hDer = aux = new Arbol<T>();
 				}
 				resultado = aux.insertar(dato);
 			} else
@@ -122,8 +115,6 @@ public class Arbol<E> {
 		return resultado;
 	}
 
-	
-	
 	/**
 	 * Comprueba si un dato se encuentra almacenado en el árbol
 	 *
@@ -132,8 +123,8 @@ public class Arbol<E> {
 	 * @return verdadero si el dato se encuentra en el árbol, falso en caso
 	 *         contrario
 	 */
-	public boolean pertenece(Integer dato) {
-		Arbol aux = null;
+	public boolean pertenece(T dato) {
+		Arbol<T> aux = null;
 		boolean encontrado = false;
 		if (!vacio()) {
 			if (this.datoRaiz.equals(dato))
@@ -156,7 +147,7 @@ public class Arbol<E> {
 	 * @param dato
 	 *            El dato que se quiere borrar
 	 */
-	public void borrar(Integer dato) {
+	public void borrar(T dato) {
 		if (!vacio()) {
 			if (dato.compareTo(this.datoRaiz) < 0) { // dato<datoRaiz
 				hIzq = hIzq.borrarOrden(dato);
@@ -179,10 +170,10 @@ public class Arbol<E> {
 	 *            El dato a borrar
 	 * @return Devuelve el árbol resultante después de haber realizado el borrado
 	 */
-	private Arbol borrarOrden(Integer dato) {
-		Integer datoaux;
-		Arbol retorno = this;
-		Arbol aborrar, candidato, antecesor;
+	private Arbol<T> borrarOrden(T dato) {
+		T datoaux;
+		Arbol<T> retorno = this;
+		Arbol<T> aborrar, candidato, antecesor;
 
 		if (!vacio()) {
 			if (dato.compareTo(this.datoRaiz) < 0) { // dato<datoRaiz
@@ -244,7 +235,7 @@ public class Arbol<E> {
 	 * Recorrido inOrden del árbol.
 	 */
 	public void inOrden() {
-		Arbol aux = null;
+		Arbol<T> aux = null;
 		if (!vacio()) {
 			if ((aux = getHijoIzq()) != null) {
 				aux.inOrden();
@@ -266,7 +257,7 @@ public class Arbol<E> {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Arbol arbol = new Arbol();
+		Arbol<Integer> arbol = new Arbol<Integer>();
 		System.out.println("Ejemplos sesion árbol binario de búsqueda");
 
 		Integer[] datos = { new Integer(20), new Integer(7), new Integer(18), new Integer(6), new Integer(5),
