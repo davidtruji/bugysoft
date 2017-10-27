@@ -44,15 +44,42 @@ public class Arma implements Comparable<Arma> {
 			return false;
 	}
 
+	/*
+	 * THIS ES -1 MENOR / 0 IGUAL / 1 MAYOR QUE EL PARAMETRO
+	 */
 	@Override
 	public int compareTo(Arma a) {
-		return nombre.compareToIgnoreCase(a.getNombre());
+		int ret=999;
+
+		if (nombre.compareToIgnoreCase(a.getNombre()) != 0) {
+			if (poder > a.getPoder())
+				ret = 1;
+			else {
+
+				if (poder < a.getPoder())
+					ret = -1;
+				else {
+
+					if (poder == a.getPoder())
+						ret = nombre.compareToIgnoreCase(a.getNombre());
+
+				}
+
+			}
+
+		} else {
+			ret = 0;
+		}
+	
+
+		return ret;
+
 	}
 
 	public static void main(String[] args) {
 		System.out.println("Probando Armas.................");
-		Arma a1 = new Arma("X", 999);
-		Arma a2 = new Arma("x", 999);
+		Arma a1 = new Arma("a", 10);
+		Arma a2 = new Arma("b", 999);
 
 		if (a1.compareTo(a2) < 0)
 			System.out.println(a1 + " es menor que " + a2);
