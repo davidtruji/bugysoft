@@ -251,6 +251,23 @@ public class Arbol<T extends Comparable<T>> {
 		}
 	}
 
+	/**
+	 * Recorrido inOrden del árbol.
+	 */
+	public T mayor() {
+		Arbol<T> aux = null;
+		T mayor = null;
+		if (!vacio()) {
+			if ((aux = getHijoDer()) != null) {
+				mayor = aux.getHijoDer().mayor();
+			}
+
+			mayor = this.datoRaiz;
+
+		}
+		return mayor;
+	}
+
 	/*
 	 * To String inOrden
 	 */
@@ -334,6 +351,10 @@ public class Arbol<T extends Comparable<T>> {
 		System.out.print("\n\n\n\n");
 		System.out.println("PROBANDO TO STRING");
 		System.out.print(arbol);
+		System.out.print("\n\n\n\n");
+
+		System.out.println("PROBANDO MAYOR(), DEBE DEVOLVER: {Mjolnir, 29} Y DEVULEVE:");
+		System.out.print(arbol.mayor());
 		System.out.print("\n\n\n\n");
 
 		// Borrando datos del árbol

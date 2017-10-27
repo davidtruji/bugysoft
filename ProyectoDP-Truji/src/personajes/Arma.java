@@ -60,7 +60,6 @@ public class Arma implements Comparable<Arma> {
 					ret = -1;
 				else {
 
-					if (poder == a.getPoder())
 						ret = nombre.compareToIgnoreCase(a.getNombre());
 
 				}
@@ -78,8 +77,8 @@ public class Arma implements Comparable<Arma> {
 
 	public static void main(String[] args) {
 		System.out.println("Probando Armas.................");
-		Arma a1 = new Arma("a", 10);
-		Arma a2 = new Arma("b", 999);
+		Arma a1 = new Arma("z", 999);
+		Arma a2 = new Arma("a", 999);
 
 		if (a1.compareTo(a2) < 0)
 			System.out.println(a1 + " es menor que " + a2);
