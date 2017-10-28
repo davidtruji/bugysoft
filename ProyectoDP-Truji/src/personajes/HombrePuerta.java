@@ -24,6 +24,12 @@ public class HombrePuerta {
 		return Portal;
 	}
 
+	public boolean condicionApetura() {
+		// TODO acabar metodo apertura
+		return Portal;
+
+	}
+
 	public void setPortal(boolean portal) {
 		Portal = portal;
 	}

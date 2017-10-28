@@ -143,6 +143,31 @@ public class Arbol<T extends Comparable<T>> {
 		return encontrado;
 	}
 
+	/*
+	 * 
+	 * Devuelve el dato del parametro si esta contenido en el abol
+	 * 
+	 */
+	public T consultar(T dato) {
+		Arbol<T> aux = null;
+		T auxD = null;
+		if (!vacio()) {
+			if (dato.equals(this.getRaiz())) {
+				auxD = this.getRaiz();
+			} else {
+
+				if ((aux = getHijoIzq()) != null && auxD == null)
+					auxD = aux.consultar(dato);
+
+				if ((aux = getHijoDer()) != null && auxD == null)
+					auxD = aux.consultar(dato);
+
+			}
+
+		}
+		return auxD;
+	}
+
 	/**
 	 * Borrar un dato del árbol.
 	 *
@@ -150,7 +175,7 @@ public class Arbol<T extends Comparable<T>> {
 	 *            El dato que se quiere borrar
 	 */
 	public void borrar(T dato) {
-		if (!vacio()) {
+		if (!vacio() && pertenece(dato)) {
 			if (dato.compareTo(this.datoRaiz) < 0) { // dato<datoRaiz
 				hIzq = hIzq.borrarOrden(dato);
 			} else if (dato.compareTo(this.datoRaiz) > 0) { // dato>datoRaiz
@@ -252,7 +277,7 @@ public class Arbol<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Recorrido inOrden del árbol.
+	 * Devuelve el mayor elemento del árbol.
 	 */
 	public T mayor() {
 		Arbol<T> aux = null;
@@ -303,18 +328,8 @@ public class Arbol<T extends Comparable<T>> {
 				new Arma("Red", 25), new Arma("Escudo", 5), new Arma("Lucille", 23), new Arma("Lawgiver", 7),
 				new Arma("GuanteInfinito", 21), new Arma("LazoVerdad", 9), new Arma("CadenaFuego", 19),
 				new Arma("Capa", 11), new Arma("Flecha", 17), new Arma("Tridente", 13), new Arma("Antorcha", 15),
-				new Arma("Baston", 28), new Arma("Latigo", 2), new Arma("MazaOro", 26), new Arma("CampoMagnetico", 4),
-				new Arma("Tentaculo", 24), new Arma("CampoEnergia", 6), new Arma("Cetro", 22),
-				new Arma("RayoEnergia", 8), new Arma("Laser", 20), new Arma("Bola", 10), new Arma("Espada", 18),
-				new Arma("Sable", 12), new Arma("Acido", 16), new Arma("Gema", 14), new Arma("Nullifier", 23),
-				new Arma("Mjolnir", 1), new Arma("Anillo", 29), new Arma("Garra", 3), new Arma("Armadura", 27),
-				new Arma("Red", 5), new Arma("Escudo", 25), new Arma("Lucille", 7), new Arma("Lawgiver", 23),
-				new Arma("GuanteInfinito", 9), new Arma("LazoVerdad", 21), new Arma("CadenaFuego", 11),
-				new Arma("Capa", 19), new Arma("Flecha", 13), new Arma("Tridente", 17), new Arma("Antorcha", 28),
-				new Arma("Baston", 15), new Arma("Latigo", 26), new Arma("MazaOro", 2), new Arma("CampoMagnetico", 24),
-				new Arma("Tentaculo", 4), new Arma("CampoEnergia", 22), new Arma("Cetro", 6),
-				new Arma("RayoEnergia", 20), new Arma("Laser", 8), new Arma("Bola", 18), new Arma("Espada", 10),
-				new Arma("Sable", 16), new Arma("Acido", 12), new Arma("Gema", 1), new Arma("Nullifier", 3) };
+				new Arma("Baston", 28), new Arma("Latigo", 2), new Arma("MazaOro", 26),
+				new Arma("CampoMagnetico", 4), };
 
 		for (int i = 0; i < datos.length; i++) {
 			arbol.insertar(datos[i]);
@@ -339,8 +354,8 @@ public class Arbol<T extends Comparable<T>> {
 		// Probando el borrado de diferentes datos -- Descomentar estas líneas para ver
 		// qué ocurre
 		System.out.println("Intento de borrar RayoEnrgia");
-		arbol.borrar(new Arma("RayoEnergia", 20));
-		System.out.println("Borrado RayoEnrgia");
+		arbol.borrar(new Arma("Anillo", 20));
+		System.out.println("Borrado Anillo");
 		arbol.inOrden();
 
 		System.out.println("Intento de borrar Tridente");
@@ -355,6 +370,10 @@ public class Arbol<T extends Comparable<T>> {
 
 		System.out.println("PROBANDO MAYOR(), DEBE DEVOLVER: {Mjolnir, 29} Y DEVULEVE:");
 		System.out.print(arbol.mayor());
+		System.out.print("\n\n\n\n");
+
+		System.out.println("PROBANDO CONSULTAR(T DATO), DEBE DEVOLVER: {Escudo, 5} Y DEVUELVE:");
+		System.out.print(arbol.consultar(new Arma("Escudo", 999)));
 		System.out.print("\n\n\n\n");
 
 		// Borrando datos del árbol

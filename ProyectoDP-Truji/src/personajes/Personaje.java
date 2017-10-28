@@ -25,7 +25,10 @@ public class Personaje {
 
 	public void setInicial(char inicial) {
 		this.inicial = inicial;
+
 	}
+	
+	
 
 	@Override
 	public String toString() {

@@ -187,7 +187,7 @@ public class Mapa {
 		return t;
 	}
 
-	// TODO Acabas este metodo
+	// TODO Acabas simulacion
 	public void simulacion() {
 		int i, j, t = 0;
 		int id = salaDailyPlanet;
@@ -198,6 +198,7 @@ public class Mapa {
 
 		while (t < 5 && !portal) {
 
+			tablero[i][j].interaccionPersonaje();
 			t++;
 		}
 
@@ -219,7 +220,7 @@ public class Mapa {
 		int salaDailyPlanet = (dimX * dimY) - 1;
 		int alturaApertura = 4;
 		Mapa mapa = new Mapa(salaDailyPlanet, dimX, dimY, alturaApertura);
-		
+
 		// Creación de las armas para el hombre puerta
 		int numArmasPuerta = 15;
 		Arma[] armasPuerta = { new Arma("CampoEnergia", 5), new Arma("Armadura", 13), new Arma("Anillo", 11),
@@ -227,19 +228,19 @@ public class Mapa {
 				new Arma("CadenaFuego", 11), new Arma("Espada", 11), new Arma("Cetro", 20), new Arma("Capa", 10),
 				new Arma("CampoMagnetico", 5), new Arma("Escudo", 3), new Arma("Garra", 22), new Arma("Flecha", 12),
 				new Arma("Gema", 4) };
-		
+
 		// Creación del hombre puerta y configuración
 		HombrePuerta doorMan = new HombrePuerta();
-		
+
 		// Configurar el hombre puerta introduciendo la combinación de armas
 		doorMan.configurar(armasPuerta);
-		
+
 		// Cerrar el portal, por si inicialmente está abierto
 		doorMan.cerrar();
 
 		// Añadir el hombre puerta al mapa
 		mapa.insertarHombrePuerta(doorMan);
-		
+
 		// Creación de las armas para repartir en salas
 		int numArmasSalas = 60;
 		Arma[] armasSalas = { new Arma("Mjolnir", 29), new Arma("Anillo", 1), new Arma("Garra", 27),
@@ -259,13 +260,12 @@ public class Mapa {
 				new Arma("Cetro", 6), new Arma("RayoEnergia", 20), new Arma("Laser", 8), new Arma("Bola", 18),
 				new Arma("Espada", 10), new Arma("Sable", 16), new Arma("Acido", 12), new Arma("Gema", 1),
 				new Arma("Nullifier", 3) };
-		
-		
+
 		int[] idSalasConArmas = { 1, 2, 8, 14, 15, 21, 27, 35, 28, 29, 33, 34 };
 		mapa.distribuirArmas(idSalasConArmas, armasSalas);
-		
+
 		// La distribución de armas quedará de la siguiente forma:
-		
+
 		// (sala:1: {Mjolnir,29}, {Anillo,1}, {Garra,27}, {Armadura,3}, {Red,25},)
 		// (sala:2: {Escudo,5}, {Lucille,23}, {Lawgiver,7},
 		// {GuanteInfinito,21},{LazoVerdad,9},)
@@ -302,10 +302,11 @@ public class Mapa {
 		mapa.insertarPersonaje(kurtConnnors, salaDailyPlanet);
 		Villano nebula = new Villano("Nebula", 'N', new Arma("RayoEnergia", 15));
 		mapa.insertarPersonaje(nebula, salaDailyPlanet);
-		// mapa.simulacion();
+		
 		// mapa.pintar(); // se mostrará en este caso únicamente la información del mapa
 		mapa.construirMapa();
 		System.out.println(mapa.toString());
+		mapa.simulacion();
 
 	}
 

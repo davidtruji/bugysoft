@@ -7,6 +7,7 @@ import estructuras_datos.Arbol;
 import personajes.Arma;
 import personajes.HombrePuerta;
 import personajes.Personaje;
+import personajes.SuperHeroe;
 
 @SuppressWarnings("unused")
 public class Sala {
@@ -101,6 +102,24 @@ public class Sala {
 
 	public void insertarArma(Arma a) {
 		armas.insertar(a);
+	}
+
+	// Los personajes recojen el arma correspondiente y la usan en el señor puerta
+	public void interaccionPersonaje() {
+		Arma mejorArmaSala = armas.mayor();
+		System.out.println("Mejor arma de la sala:" + mejorArmaSala);
+		Personaje p = personajes.peek();
+		System.out.print("Personaje:" + p);
+
+		if (p instanceof SuperHeroe) {
+			System.out.print(" es heroe\n");
+			
+
+		} else {
+			System.out.print(" es Villano\n");
+
+		}
+
 	}
 
 	@Override
