@@ -285,10 +285,9 @@ public class Arbol<T extends Comparable<T>> {
 		if (!vacio()) {
 			if ((aux = getHijoDer()) != null) {
 				mayor = aux.mayor();
+			} else {
+				mayor = this.datoRaiz;
 			}
-
-			mayor = this.datoRaiz;
-
 		}
 		return mayor;
 	}
@@ -388,6 +387,17 @@ public class Arbol<T extends Comparable<T>> {
 
 		System.out.println("PROBANDO MAYOR(), DEBE DEVOLVER: {Mjolnir, 29} Y DEVULEVE:");
 		System.out.print(arbol.mayor());
+		System.out.print("\n\n\n\n");
+
+		Arbol<Arma> arbolAlt = new Arbol<Arma>();
+		Arma[] datosAlt = { new Arma("Mjolnir", 29), new Arma("Escopeta", 30), new Arma("Lanza Patatas", 20),
+				new Arma("Cuchillo", 10), new Arma("Cadena", 11), new Arma("Ametralleta", 22) };
+		for (int i = 0; i < datosAlt.length; i++) {
+			arbolAlt.insertar(datosAlt[i]);
+		}
+
+		System.out.println("PROBANDO ALTURA(), DEBE DEVOLVER: 4 Y DEVULEVE:");
+		System.out.print("Alura del arbol:" + arbolAlt.alturaArbol());
 		System.out.print("\n\n\n\n");
 
 		System.out.println("PROBANDO CONSULTAR(T DATO), DEBE DEVOLVER: {Escudo, 5} Y DEVUELVE:");

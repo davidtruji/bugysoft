@@ -1,5 +1,8 @@
 package mapa;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import personajes.Arma;
 import personajes.HombrePuerta;
 import personajes.Personaje;
@@ -48,6 +51,30 @@ public class Mapa {
 		tablero = s;
 		this.salaDailyPlanet = (fil * col) - 1;
 		alturaPuerta = altura;
+	}
+
+	public Sala[][] getTablero() {
+		return tablero;
+	}
+
+	public void setTablero(Sala[][] tablero) {
+		this.tablero = tablero;
+	}
+
+	public int getSalaDailyPlanet() {
+		return salaDailyPlanet;
+	}
+
+	public void setSalaDailyPlanet(int salaDailyPlanet) {
+		this.salaDailyPlanet = salaDailyPlanet;
+	}
+
+	public int getAlturaPuerta() {
+		return alturaPuerta;
+	}
+
+	public void setAlturaPuerta(int alturaPuerta) {
+		this.alturaPuerta = alturaPuerta;
 	}
 
 	public boolean esSalaDailyPlanet(int i, int j) {
@@ -187,20 +214,47 @@ public class Mapa {
 		return t;
 	}
 
-	// TODO Acabas simulacion
 	public void simulacion() {
-		int i, j, t = 0;
+		int i, j;
 		int id = salaDailyPlanet;
-		boolean portal = false;
+		// boolean portal = false;
 		int col = tablero[0].length;
 		i = id / col;
 		j = id % col;
+		HombrePuerta hp = null;
+		Personaje p;
+		Sala s = tablero[i][j];
+		// Queue<Personaje> perAux = new LinkedList<Personaje>();
+		// perAux = s.getPersonajes();
+		hp = s.getHombrePuerta();
 
-		
+		for (int t = 0; t < 5; t++) {
+			System.out.println(".......TURNO " + (t + 1) + ".......");
 
-			tablero[i][j].recojerArma();
-			t++;
-		
+			for (int pers = 0; pers < s.getPersonajes().size(); pers++) {
+				System.out.println("ESTADO DE LA SALA:\n" + s);
+
+				p = s.getPersonajes().get(pers);
+				if (!s.getArmas().vacio())
+					s.recojerArma(p);
+				s.interaccionConHombrePuerta(p);
+
+				hp.ActualizarEstadoPortal(this.getAlturaPuerta());
+
+				if (hp.isPortal())
+					System.out.println("Portal abieto!!! JUEGO TERMINADO GANADOR: " + s.getPersonajes().get(pers));
+				else
+					System.out.println("El portal permance cerrado...");
+
+				// s.borrarPersonaje();
+			}
+		}
+
+		System.out.println("SIMULACION ACABADA..............");
+		System.out.println("Estado Sala:\n" + s);
+		System.out.println("Estado del hombre puerta:\n" + hp.getContenedorArmas());
+		System.out.println("Altura: " + hp.getContenedorArmas().alturaArbol());
+
 
 	}
 
@@ -289,20 +343,49 @@ public class Mapa {
 
 		// Creación de varios personajes
 		SuperHeroe thor = new SuperHeroe("Thor", 'T');
+		// New: Thor's weapons
+		thor.insertarArmaHeroe(new Arma("Baston", 25));
+		thor.insertarArmaHeroe(new Arma("Armadura", 15));
+		thor.insertarArmaHeroe(new Arma("Mjolnir", 50));
+		thor.insertarArmaHeroe(new Arma("Lawgiver", 12));
 		mapa.insertarPersonaje(thor, salaDailyPlanet);
+
 		SuperHeroe ironMan = new SuperHeroe("IronMan", 'I');
+		// New: IronMan's weapons
+		ironMan.insertarArmaHeroe(new Arma("Escudo", 20));
+		ironMan.insertarArmaHeroe(new Arma("Garra", 10));
+		ironMan.insertarArmaHeroe(new Arma("Gema", 15));
 		mapa.insertarPersonaje(ironMan, salaDailyPlanet);
+
 		SuperHeroe storm = new SuperHeroe("Storm", 'S');
+		// New: Storm's weapons
+		storm.insertarArmaHeroe(new Arma("Baston", 25));
+		storm.insertarArmaHeroe(new Arma("Anillo", 10));
+		storm.insertarArmaHeroe(new Arma("Capa", 15));
 		mapa.insertarPersonaje(storm, salaDailyPlanet);
+
 		SuperHeroe captainAmerica = new SuperHeroe("Capitan América", 'C');
+		// New: Captain America's weapons
+		captainAmerica.insertarArmaHeroe(new Arma("Cetro", 22));
+		captainAmerica.insertarArmaHeroe(new Arma("Bola", 15));
+		captainAmerica.insertarArmaHeroe(new Arma("Garra", 24));
 		mapa.insertarPersonaje(captainAmerica, salaDailyPlanet);
+
+		// SuperHeroe thor = new SuperHeroe("Thor", 'T');
+		//mapa.insertarPersonaje(thor, salaDailyPlanet);
+		// SuperHeroe ironMan = new SuperHeroe("IronMan", 'I');
+		//mapa.insertarPersonaje(ironMan, salaDailyPlanet);
+		// SuperHeroe storm = new SuperHeroe("Storm", 'S');
+		//mapa.insertarPersonaje(storm, salaDailyPlanet);
+		// SuperHeroe captainAmerica = new SuperHeroe("Capitan América", 'C');
+		
 		Villano deadPool = new Villano("Dead Pool", 'D', new Arma("Sable", 17));
 		mapa.insertarPersonaje(deadPool, salaDailyPlanet);
 		Villano kurtConnnors = new Villano("Kurt Connors", 'K', new Arma("CampoEnergia", 15));
 		mapa.insertarPersonaje(kurtConnnors, salaDailyPlanet);
 		Villano nebula = new Villano("Nebula", 'N', new Arma("RayoEnergia", 15));
 		mapa.insertarPersonaje(nebula, salaDailyPlanet);
-		
+
 		// mapa.pintar(); // se mostrará en este caso únicamente la información del mapa
 		mapa.construirMapa();
 		System.out.println(mapa.toString());

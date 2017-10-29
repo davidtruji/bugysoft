@@ -24,10 +24,23 @@ public class HombrePuerta {
 		return Portal;
 	}
 
-	public boolean condicionApetura() {
-		// TODO acabar metodo apertura
-		return Portal;
+	public boolean condicionApetura(int altura) {
+		boolean portal = false;
+		if (altura > ContenedorArmas.alturaArbol()) {
+			portal = true;
+		}
 
+		return portal;
+
+	}
+
+	public void ActualizarEstadoPortal(int altura) {
+		
+		if(condicionApetura(altura))
+			Portal=true;
+		else
+			Portal=false;
+		
 	}
 
 	public void setPortal(boolean portal) {
