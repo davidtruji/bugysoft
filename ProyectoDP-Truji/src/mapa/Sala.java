@@ -97,6 +97,11 @@ public class Sala {
 		personajes.add(p);
 	}
 
+	public void borrarPersonaje() {
+		if (!personajes.isEmpty())
+			personajes.remove();
+	}
+
 	public void insertarHombrePuerta(HombrePuerta h) {
 		this.hombrePuerta = h;
 	}
@@ -105,6 +110,7 @@ public class Sala {
 		armas.insertar(a);
 	}
 
+	// Los personajes recojen el arma correspondiente
 	public void recojerArma() {
 		Arma aux = new Arma("x", 0);
 		System.out.println("Recojiendo Armas de la sala...");
@@ -153,30 +159,66 @@ public class Sala {
 
 	}
 
-	// Los personajes recojen el arma correspondiente y la usan en el señor puerta
-	// public void interaccionPersonaje() {
-	// Arma mejorArmaSala = armas.mayor();
-	// System.out.println("Mejor arma de la sala:" + mejorArmaSala);
-	// Personaje p = personajes.poll();
-	// System.out.print("Personaje:" + p);
-	//
-	// if (p instanceof SuperHeroe) {
-	// System.out.print(" es heroe\n");
-	// if (!((SuperHeroe) p).getContenedorArmas().pertenece(mejorArmaSala))
-	// ((SuperHeroe) p).insertarArmaHeroe(mejorArmaSala);
-	// else {
-	// ((SuperHeroe) p).getContenedorArmas().consultar(mejorArmaSala);
-	//
-	// }
-	//
-	// System.out.println(((SuperHeroe) p).getContenedorArmas());
-	//
-	// } else {
-	// System.out.print(" es Villano\n");
-	//
-	// }
-	//
-	// }
+	public void interaccionConHombrePuerta() {
+		System.out.println("Interaccion con hombre puerta...");
+		Personaje p = personajes.peek();
+
+		if (p instanceof SuperHeroe) {
+			Arma mejorArmaHeroe = ((SuperHeroe) p).mejorArma();
+
+			System.out.println("La mejor arma del heroe " + p + " es " + mejorArmaHeroe);
+
+			// Si el hombre puerta encuentra el arma...
+			if (hombrePuerta.getContenedorArmas().pertenece(mejorArmaHeroe)) {
+				Arma armaHP = hombrePuerta.getContenedorArmas().consultar(mejorArmaHeroe);
+				System.out.println("El hombre puerta la tiene: " + armaHP);
+
+				if (mejorArmaHeroe.getPoder() > armaHP.getPoder()) {
+					System.out.println("El arma del Heroe es mas poderosa... El hombre puerta la soltara...");
+					hombrePuerta.getContenedorArmas().inOrden();
+					hombrePuerta.getContenedorArmas().borrar(armaHP);
+					System.out.println("Soltada...");
+					System.out.println(hombrePuerta.getContenedorArmas().toString());
+				}
+
+			} else {
+				System.out.println("El hombre puerta no posee el arma: " + mejorArmaHeroe);
+
+			}
+
+			System.out.println("El heroe soltará su arma... " + mejorArmaHeroe);
+			System.out.println(((SuperHeroe) p).getContenedorArmas().toString());
+			((SuperHeroe) p).getContenedorArmas().borrar(mejorArmaHeroe);
+			System.out.println("Soltada...");
+			System.out.println(((SuperHeroe) p).getContenedorArmas().toString());
+
+		} else {
+			Arma armaVillano = ((Villano) p).getArmaVillano();
+			Arma mejorArmaHP = hombrePuerta.getContenedorArmas().mayor();
+			System.out.println("La mejor arma del hombre puerta  es " + mejorArmaHP);
+			System.out.println("El arma del Villano  es " + armaVillano);
+
+			if (armaVillano.getPoder() > mejorArmaHP.getPoder()) {
+				System.out.println("El arma del Villano  es mas poderosa...");
+				if (hombrePuerta.getContenedorArmas().pertenece(armaVillano)) {
+					System.out.println("El arma del Villano, sera borrada del hombre puerta...");
+					System.out.println(hombrePuerta.getContenedorArmas().toString());
+					hombrePuerta.getContenedorArmas().borrar(armaVillano);
+					System.out.println("Borrada...");
+					System.out.println(hombrePuerta.getContenedorArmas().toString());
+				} else {
+					System.out.println("Pero el hombre puerta no la tiene, no hara nada");
+
+				}
+
+			} else {
+				System.out.println("El villano es menos poderoso, no se hara nada");
+
+			}
+
+		}
+
+	}
 
 	@Override
 	public String toString() {
@@ -192,25 +234,40 @@ public class Sala {
 	public static void main(String args[]) {
 		System.out.println("PRUEBAS SALA............................");
 
-		Arma a = new Arma("Arma V", 28);
+		Arma a = new Arma("RED", 1);
 		Villano v = new Villano("Malo", 'M', a);
-		Arma a1 = new Arma("Mjolnir", 21);
+		Arma a1 = new Arma("Reda", 26);
+		Arma a2 = new Arma("Mjolniras", 50);
+		Arma a3 = new Arma("Mjolniraw", 10);
+
 		SuperHeroe h = new SuperHeroe("Bueno", 'B');
 		h.insertarArmaHeroe(a1);
+		h.insertarArmaHeroe(a2);
+		h.insertarArmaHeroe(a3);
+
 		Sala s = new Sala(0, false, false, false, false);
 		Arma[] armasSalas = { new Arma("Mjolnir", 29), new Arma("Anillo", 1), new Arma("Garra", 27),
 				new Arma("Armadura", 3), new Arma("Red", 25), new Arma("Escudo", 5), new Arma("Lucille", 23),
 				new Arma("Lawgiver", 7), new Arma("GuanteInfinito", 21), new Arma("LazoVerdad", 9),
 				new Arma("CadenaFuego", 19) };
 
+		HombrePuerta hp = new HombrePuerta();
+		hp.getContenedorArmas().insertar(new Arma("Red", 25));
+		hp.getContenedorArmas().insertar(new Arma("Palo", 12));
+		hp.getContenedorArmas().insertar(new Arma("Tenedor", 1));
+
+		s.insertarHombrePuerta(hp);
+
 		for (int i = 0; i < armasSalas.length; i++) {
 			s.insertarArma(armasSalas[i]);
 		}
 
-		s.insertarPersonaje(h);
+		s.insertarPersonaje(v);
 		System.out.print(s.toString());
 
-		s.recojerArma();
+		s.interaccionConHombrePuerta();
+
+		// s.recojerArma();
 
 	}
 

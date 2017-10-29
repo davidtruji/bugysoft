@@ -284,13 +284,20 @@ public class Arbol<T extends Comparable<T>> {
 		T mayor = null;
 		if (!vacio()) {
 			if ((aux = getHijoDer()) != null) {
-				mayor = aux.getHijoDer().mayor();
+				mayor = aux.mayor();
 			}
 
 			mayor = this.datoRaiz;
 
 		}
 		return mayor;
+	}
+
+	
+	
+	//TODO Implementar altura arbol
+	public int alturaArbol() {
+		return 0;
 	}
 
 	/*
