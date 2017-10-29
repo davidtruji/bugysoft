@@ -214,17 +214,10 @@ public class Sala {
 
 			if (armaVillano.getPoder() > mejorArmaHP.getPoder()) {
 				System.out.println("El arma del Villano  es mas poderosa...");
-				if (hombrePuerta.getContenedorArmas().pertenece(armaVillano)) {
-					System.out.println("El arma del Villano, sera borrada del hombre puerta...");
-					System.out.println(hombrePuerta.getContenedorArmas().toString());
-					hombrePuerta.getContenedorArmas().borrar(armaVillano);
-					System.out.println("Borrada...");
-					System.out.println(hombrePuerta.getContenedorArmas().toString());
-				} else {
-					System.out.println("Pero el hombre puerta no la tiene, no hara nada");
-
-				}
-
+				System.out.println("El hombre puerta borrará "+mejorArmaHP);
+				hombrePuerta.getContenedorArmas().borrar(mejorArmaHP);
+				System.out.println("Borrada...");
+				System.out.println(hombrePuerta.getContenedorArmas().toString());
 			} else {
 				System.out.println("El villano es menos poderoso, no se hara nada");
 

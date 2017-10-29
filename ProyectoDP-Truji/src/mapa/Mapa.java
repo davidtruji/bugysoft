@@ -227,11 +227,11 @@ public class Mapa {
 		// Queue<Personaje> perAux = new LinkedList<Personaje>();
 		// perAux = s.getPersonajes();
 		hp = s.getHombrePuerta();
-
-		for (int t = 0; t < 5; t++) {
+		int t = 0;
+		while (t < 5 && !hp.isPortal() && !hp.isPortal()) {
 			System.out.println(".......TURNO " + (t + 1) + ".......");
-
-			for (int pers = 0; pers < s.getPersonajes().size(); pers++) {
+			int pers = 0;
+			while (pers < s.getPersonajes().size() && !hp.isPortal()) {
 				System.out.println("ESTADO DE LA SALA:\n" + s);
 
 				p = s.getPersonajes().get(pers);
@@ -242,19 +242,20 @@ public class Mapa {
 				hp.ActualizarEstadoPortal(this.getAlturaPuerta());
 
 				if (hp.isPortal())
-					System.out.println("Portal abieto!!! JUEGO TERMINADO GANADOR: " + s.getPersonajes().get(pers));
+					System.out.println("#####################Portal abieto!!! JUEGO TERMINADO GANADOR: " + s.getPersonajes().get(pers));
 				else
 					System.out.println("El portal permance cerrado...");
 
 				// s.borrarPersonaje();
+				pers++;
 			}
+			t++;
 		}
 
 		System.out.println("SIMULACION ACABADA..............");
 		System.out.println("Estado Sala:\n" + s);
 		System.out.println("Estado del hombre puerta:\n" + hp.getContenedorArmas());
 		System.out.println("Altura: " + hp.getContenedorArmas().alturaArbol());
-
 
 	}
 
@@ -372,13 +373,13 @@ public class Mapa {
 		mapa.insertarPersonaje(captainAmerica, salaDailyPlanet);
 
 		// SuperHeroe thor = new SuperHeroe("Thor", 'T');
-		//mapa.insertarPersonaje(thor, salaDailyPlanet);
+		// mapa.insertarPersonaje(thor, salaDailyPlanet);
 		// SuperHeroe ironMan = new SuperHeroe("IronMan", 'I');
-		//mapa.insertarPersonaje(ironMan, salaDailyPlanet);
+		// mapa.insertarPersonaje(ironMan, salaDailyPlanet);
 		// SuperHeroe storm = new SuperHeroe("Storm", 'S');
-		//mapa.insertarPersonaje(storm, salaDailyPlanet);
+		// mapa.insertarPersonaje(storm, salaDailyPlanet);
 		// SuperHeroe captainAmerica = new SuperHeroe("Capitan América", 'C');
-		
+
 		Villano deadPool = new Villano("Dead Pool", 'D', new Arma("Sable", 17));
 		mapa.insertarPersonaje(deadPool, salaDailyPlanet);
 		Villano kurtConnnors = new Villano("Kurt Connors", 'K', new Arma("CampoEnergia", 15));
