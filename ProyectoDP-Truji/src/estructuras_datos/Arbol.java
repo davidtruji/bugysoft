@@ -293,11 +293,22 @@ public class Arbol<T extends Comparable<T>> {
 		return mayor;
 	}
 
-	
-	
-	//TODO Implementar altura arbol
 	public int alturaArbol() {
-		return 0;
+		int alturaIzq = 0;
+		int alturaDer = 0;
+		int altura = 0;
+		if (hIzq != null) {
+			alturaIzq = hIzq.alturaArbol();
+		}
+		if (hDer != null) {
+			alturaDer = hDer.alturaArbol();
+		}
+		if (alturaIzq > alturaDer) {
+			altura = alturaIzq + 1;
+		} else {
+			altura = alturaDer + 1;
+		}
+		return altura;
 	}
 
 	/*
