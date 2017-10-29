@@ -125,6 +125,8 @@ public class Arbol<T extends Comparable<T>> {
 	 * @return verdadero si el dato se encuentra en el árbol, falso en caso
 	 *         contrario
 	 */
+
+	// TODO ESTA BIEN?¿ si
 	public boolean pertenece(T dato) {
 		Arbol<T> aux = null;
 		boolean encontrado = false;
@@ -276,20 +278,29 @@ public class Arbol<T extends Comparable<T>> {
 		}
 	}
 
-	/**
-	 * Devuelve el mayor elemento del árbol.
-	 */
-	public T mayor() {
-		Arbol<T> aux = null;
-		T mayor = null;
+	
+
+	public Arma mayor() {
+		Arbol<Arma> aux = null;
+
+	
+		Arma Mayor = (Arma) datoRaiz;
+
 		if (!vacio()) {
-			if ((aux = getHijoDer()) != null) {
-				mayor = aux.mayor();
-			} else {
-				mayor = this.datoRaiz;
+
+			if ((aux = (Arbol<Arma>) getHijoIzq()) != null) {
+				Mayor = aux.mayor();
 			}
+
+			if (Mayor.getPoder() < ((Arma) datoRaiz).getPoder())
+				Mayor = (Arma) this.datoRaiz;
+
+			if ((aux = (Arbol<Arma>) getHijoDer()) != null) {
+				Mayor = aux.mayor();
+			}
+
 		}
-		return mayor;
+		return Mayor;
 	}
 
 	public int alturaArbol() {
@@ -390,8 +401,7 @@ public class Arbol<T extends Comparable<T>> {
 		System.out.print("\n\n\n\n");
 
 		Arbol<Arma> arbolAlt = new Arbol<Arma>();
-		Arma[] datosAlt = { new Arma("Mjolnir", 29), new Arma("Escopeta", 30), new Arma("Lanza Patatas", 20),
-				new Arma("Cuchillo", 10), new Arma("Cadena", 11), new Arma("Ametralleta", 22) };
+		Arma[] datosAlt = { new Arma("A", 29), new Arma("E", 30), new Arma("X", 20), new Arma("R", 10) };
 		for (int i = 0; i < datosAlt.length; i++) {
 			arbolAlt.insertar(datosAlt[i]);
 		}
@@ -404,8 +414,6 @@ public class Arbol<T extends Comparable<T>> {
 		System.out.print(arbol.consultar(new Arma("Escudo", 999)));
 		System.out.print("\n");
 		Arma a = arbol.consultar(new Arma("Escudo", 999));
-		a.setPoder(57);
-		arbol.inOrden();
 		System.out.print("\n\n\n\n");
 
 		// Borrando datos del árbol

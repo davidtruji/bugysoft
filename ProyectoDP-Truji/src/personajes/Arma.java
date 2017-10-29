@@ -49,27 +49,26 @@ public class Arma implements Comparable<Arma> {
 	 */
 	@Override
 	public int compareTo(Arma a) {
-		int ret=999;
+		int ret = nombre.compareToIgnoreCase(a.nombre);
 
-		if (nombre.compareToIgnoreCase(a.getNombre()) != 0) {
-			if (poder > a.getPoder())
-				ret = 1;
-			else {
-
-				if (poder < a.getPoder())
-					ret = -1;
-				else {
-
-						ret = nombre.compareToIgnoreCase(a.getNombre());
-
-				}
-
-			}
-
-		} else {
-			ret = 0;
-		}
-	
+		// if (nombre.compareToIgnoreCase(a.getNombre()) != 0) {
+		// if (poder > a.getPoder())
+		// ret = 1;
+		// else {
+		//
+		// if (poder < a.getPoder())
+		// ret = -1;
+		// else {
+		//
+		// ret = nombre.compareToIgnoreCase(a.getNombre());
+		//
+		// }
+		//
+		// }
+		//
+		// } else {
+		// ret = 0;
+		// }
 
 		return ret;
 

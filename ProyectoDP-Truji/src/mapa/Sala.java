@@ -122,104 +122,118 @@ public class Sala {
 	// Los personajes recojen el arma correspondiente
 	public void recojerArma(Personaje p) {
 		Arma aux = new Arma("x", 0);
-		System.out.println("Recojiendo Armas de la sala...");
+		System.out.println(">>Recojiendo Armas de la sala...");
 		Arma mejorArmaSala = armas.mayor();
+		
+		if(mejorArmaSala!=null)
 		System.out.println("Mejor arma de la sala:" + mejorArmaSala);
+		else
+			System.out.println("Mejor arma de la sala: ");
+
 
 		// Personaje p = personajes.get(i);
-		System.out.print("Personaje:" + p);
+		// System.out.print("Personaje:" + p);
 
-		if (p instanceof SuperHeroe) {
-			System.out.print(" es heroe\n");
-			if (!((SuperHeroe) p).getContenedorArmas().pertenece(mejorArmaSala)) {
-				System.out.println("Insertando Arma " + mejorArmaSala + " en heroe " + p);
-				((SuperHeroe) p).insertarArmaHeroe(mejorArmaSala);
-				System.out.println("Armas de " + p + ": " + ((SuperHeroe) p).getContenedorArmas().toString());
-				System.out.println("Borrando mejor arma de sala... no deberia estar: " + mejorArmaSala);
-				armas.borrar(mejorArmaSala);
-				System.out.println(armas);
+		if (!armas.vacio()) {
+			if (p instanceof SuperHeroe) {
+				// System.out.print(" es heroe\n");
+				if (!((SuperHeroe) p).getContenedorArmas().pertenece(mejorArmaSala)) {
+					System.out.println("Super Héroe recoje: " + mejorArmaSala);
+					((SuperHeroe) p).insertarArmaHeroe(mejorArmaSala);
+					// System.out.println("Armas de " + p + ": " + ((SuperHeroe)
+					// p).getContenedorArmas().toString());
+					System.out.println("Borrando mejor arma de sala: " + mejorArmaSala);
+					armas.borrar(mejorArmaSala);
+					// System.out.println(armas);
+				} else {
+					aux = ((SuperHeroe) p).getContenedorArmas().consultar(mejorArmaSala);
+					System.out.println("Super Héroe combina Arma " + mejorArmaSala + "con" + aux);
+					aux.setPoder(mejorArmaSala.getPoder() + aux.getPoder());
+					System.out.println("La Arma resultante sería " + aux);
+					// System.out.println("Armas de " + p + ":" + ((SuperHeroe)
+					// p).getContenedorArmas().toString());
+					System.out.println("Borrando mejor arma de sala: " + mejorArmaSala);
+					armas.borrar(mejorArmaSala);
+					// System.out.println(armas);
+				}
+
+				// System.out.println("Armas de " + p + ": " + ((SuperHeroe)
+				// p).getContenedorArmas().toString());
+
 			} else {
-				aux = ((SuperHeroe) p).getContenedorArmas().consultar(mejorArmaSala);
-				System.out.println("Combinando Arma " + mejorArmaSala + "con la de " + p + " " + aux);
-				aux.setPoder(mejorArmaSala.getPoder() + aux.getPoder());
-				System.out.println("La Arma resultante sería " + aux);
-				System.out.println("Armas de " + p + ":" + ((SuperHeroe) p).getContenedorArmas().toString());
-				System.out.println("Borrando mejor arma de sala... no deberia estar: " + mejorArmaSala);
-				armas.borrar(mejorArmaSala);
-				System.out.println(armas);
+				// System.out.print(" es Villano\n");
+				System.out.println("Arma de " + p + " :" + ((Villano) p).getArmaVillano());
+				aux = ((Villano) p).getArmaVillano();
+
+				if (aux.getPoder() < mejorArmaSala.getPoder()) {
+					System.out.println("Villano recoje: " + mejorArmaSala);
+
+					((Villano) p).setArmaVillano(mejorArmaSala);
+					System.out.println("Villano deja: " + aux);
+					armas.borrar(mejorArmaSala);
+					armas.insertar(aux);
+				}
+
+				// System.out.println("Armas de la sala: " + armas);
+				// System.out.println("Arma del Villano: " + ((Villano) p).getArmaVillano());
+
 			}
-
-			System.out.println("Armas de " + p + ": " + ((SuperHeroe) p).getContenedorArmas().toString());
-
 		} else {
-			System.out.print(" es Villano\n");
-			System.out.println("Arma de " + p + " :" + ((Villano) p).getArmaVillano());
-			aux = ((Villano) p).getArmaVillano();
-
-			if (aux.getPoder() < mejorArmaSala.getPoder()) {
-				((Villano) p).setArmaVillano(mejorArmaSala);
-				armas.borrar(mejorArmaSala);
-				armas.insertar(aux);
-			}
-
-			System.out.println("Armas de la sala: " + armas);
-			System.out.println("Arma del Villano: " + ((Villano) p).getArmaVillano());
-
+			System.out.println("Ningún arma en la sala...");
 		}
-
 	}
 
 	public void interaccionConHombrePuerta(Personaje p) {
-		System.out.println("Interaccion con hombre puerta...");
+		System.out.println(">>Luchando con hombre puerta...");
 		// Personaje p = personajes.peek();
 
 		if (p instanceof SuperHeroe) {
 			if (!((SuperHeroe) p).getContenedorArmas().vacio()) {
 				Arma mejorArmaHeroe = ((SuperHeroe) p).mejorArma();
 
-				System.out.println("La mejor arma del heroe " + p + " es " + mejorArmaHeroe);
+				System.out.println("Super héroe usa: " + mejorArmaHeroe);
 
 				// Si el hombre puerta encuentra el arma...
 				if (hombrePuerta.getContenedorArmas().pertenece(mejorArmaHeroe)) {
 					Arma armaHP = hombrePuerta.getContenedorArmas().consultar(mejorArmaHeroe);
-					System.out.println("El hombre puerta la tiene: " + armaHP);
+					System.out.println("Hombre puerta usa: " + armaHP);
 
 					if (mejorArmaHeroe.getPoder() > armaHP.getPoder()) {
-						System.out.println("El arma del Heroe es mas poderosa... El hombre puerta la soltara...");
-						System.out.println(hombrePuerta.getContenedorArmas());
+						System.out.println("El arma del Heroe gana, hombre puerta pierde su arma: " + armaHP);
+						// System.out.println(hombrePuerta.getContenedorArmas());
 						hombrePuerta.getContenedorArmas().borrar(armaHP);
-						System.out.println("Soltada...");
-						System.out.println(hombrePuerta.getContenedorArmas().toString());
+						// System.out.println("Soltada...");
+						// System.out.println(hombrePuerta.getContenedorArmas().toString());
 					}
 
 				} else {
-					System.out.println("El hombre puerta no posee el arma: " + mejorArmaHeroe);
+					System.out.println("El hombre puerta no posee el arma, no habrá lucha");
 
 				}
 
-				System.out.println("El heroe soltará su arma... " + mejorArmaHeroe);
-				System.out.println(((SuperHeroe) p).getContenedorArmas().toString());
+				System.out.println("El héroe pierde su arma: " + mejorArmaHeroe);
+				// System.out.println(((SuperHeroe) p).getContenedorArmas().toString());
 				((SuperHeroe) p).getContenedorArmas().borrar(mejorArmaHeroe);
-				System.out.println("Soltada...");
-				System.out.println(((SuperHeroe) p).getContenedorArmas().toString());
+				// System.out.println("Soltada...");
+				// System.out.println(((SuperHeroe) p).getContenedorArmas().toString());
 			} else {
-				System.out.println(p + " No tiene ningun arma...");
+				System.out.println("El super héroe no tiene ningun arma...");
 
 			}
 		} else {
 			Arma armaVillano = ((Villano) p).getArmaVillano();
 			Arma mejorArmaHP = hombrePuerta.getContenedorArmas().mayor();
-			System.out.println("La mejor arma del hombre puerta  es " + mejorArmaHP);
-			System.out.println("El arma del Villano  es " + armaVillano);
+			System.out.println("Hombre puerta usa: " + mejorArmaHP);
+			System.out.println("Villano usa: " + armaVillano);
 
 			if (armaVillano.getPoder() > mejorArmaHP.getPoder()) {
-				System.out.println("El arma del Villano  es mas poderosa...");
-				System.out.println("El hombre puerta borrará "+mejorArmaHP);
+				System.out.println("Villano gana, el hombre puerta pierde: " + mejorArmaHP);
+				// System.out.println("El hombre puerta borrará " + mejorArmaHP);
 				hombrePuerta.getContenedorArmas().borrar(mejorArmaHP);
-				System.out.println("Borrada...");
-				System.out.println(hombrePuerta.getContenedorArmas().toString());
+				// System.out.println("Borrada...");
+				// System.out.println(hombrePuerta.getContenedorArmas().toString());
 			} else {
-				System.out.println("El villano es menos poderoso, no se hara nada");
+				System.out.println("Hombre puerta gana, no se hará nada");
 
 			}
 

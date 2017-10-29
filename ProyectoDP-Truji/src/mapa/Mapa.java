@@ -228,27 +228,37 @@ public class Mapa {
 		// perAux = s.getPersonajes();
 		hp = s.getHombrePuerta();
 		int t = 0;
+		System.out.println("Hombre puerta: " + hp.getContenedorArmas().toString());
+
 		while (t < 5 && !hp.isPortal() && !hp.isPortal()) {
-			System.out.println(".......TURNO " + (t + 1) + ".......");
+			System.out.println("\n\n");
+			System.out.println("..............TURNO " + (t + 1) + "..............");
 			int pers = 0;
 			while (pers < s.getPersonajes().size() && !hp.isPortal()) {
-				System.out.println("ESTADO DE LA SALA:\n" + s);
+				System.out.print("\n");
 
 				p = s.getPersonajes().get(pers);
-				if (!s.getArmas().vacio())
-					s.recojerArma(p);
+
+				System.out.println("[  Acciones de " + p + "  ]");
+
 				s.interaccionConHombrePuerta(p);
+				s.recojerArma(p);
 
 				hp.ActualizarEstadoPortal(this.getAlturaPuerta());
 
 				if (hp.isPortal())
-					System.out.println("#####################Portal abieto!!! JUEGO TERMINADO GANADOR: " + s.getPersonajes().get(pers));
+					System.out.println("##################### Portal abierto!!! JUEGO TERMINADO GANADOR: "
+							+ s.getPersonajes().get(pers));
 				else
 					System.out.println("El portal permance cerrado...");
 
 				// s.borrarPersonaje();
 				pers++;
 			}
+			System.out.print("\n");
+			System.out.println("ESTADO DE LA SALA:\n" + s);
+			System.out.println("Hombre puerta: " + hp.getContenedorArmas().toString());
+
 			t++;
 		}
 
