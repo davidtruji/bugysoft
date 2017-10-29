@@ -374,6 +374,10 @@ public class Arbol<T extends Comparable<T>> {
 
 		System.out.println("PROBANDO CONSULTAR(T DATO), DEBE DEVOLVER: {Escudo, 5} Y DEVUELVE:");
 		System.out.print(arbol.consultar(new Arma("Escudo", 999)));
+		System.out.print("\n");
+		Arma a = arbol.consultar(new Arma("Escudo", 999));
+		a.setPoder(57);
+		arbol.inOrden();
 		System.out.print("\n\n\n\n");
 
 		// Borrando datos del árbol
@@ -382,6 +386,5 @@ public class Arbol<T extends Comparable<T>> {
 			System.out.println("Borrado " + datos[i]);
 
 		}
-		arbol.inOrden();
 	}
 }

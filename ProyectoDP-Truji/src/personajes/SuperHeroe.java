@@ -15,6 +15,10 @@ public class SuperHeroe extends Personaje {
 		return ContenedorArmas;
 	}
 
+	public void insertarArmaHeroe(Arma a) {
+		ContenedorArmas.insertar(a);
+	}
+
 	public Arma mejorArma() {
 
 		return ContenedorArmas.mayor();

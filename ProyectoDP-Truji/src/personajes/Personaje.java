@@ -6,7 +6,6 @@ public class Personaje {
 	char inicial;
 
 	public Personaje(String nom, char inicial) {
-		super();
 		this.nombre = nom;
 		this.inicial = inicial;
 	}
@@ -22,6 +21,7 @@ public class Personaje {
 	public char getInicial() {
 		return inicial;
 	}
+
 
 	public void setInicial(char inicial) {
 		this.inicial = inicial;

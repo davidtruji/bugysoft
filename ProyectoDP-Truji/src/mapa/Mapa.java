@@ -196,11 +196,11 @@ public class Mapa {
 		i = id / col;
 		j = id % col;
 
-		while (t < 5 && !portal) {
+		
 
-			tablero[i][j].interaccionPersonaje();
+			tablero[i][j].recojerArma();
 			t++;
-		}
+		
 
 	}
 
