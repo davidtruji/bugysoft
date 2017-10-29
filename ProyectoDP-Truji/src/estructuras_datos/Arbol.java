@@ -278,29 +278,28 @@ public class Arbol<T extends Comparable<T>> {
 		}
 	}
 
-	
-
 	public Arma mayor() {
-		Arbol<Arma> aux = null;
 
-	
-		Arma Mayor = (Arma) datoRaiz;
+		return mayorR((Arma) datoRaiz);
+	}
 
+	public Arma mayorR(Arma mayor) {
+		Arbol<T> aux = null;
+		Arma raiz = (Arma) datoRaiz;
+		Arma ret = mayor;
 		if (!vacio()) {
-
-			if ((aux = (Arbol<Arma>) getHijoIzq()) != null) {
-				Mayor = aux.mayor();
+			if (raiz.getPoder() > ret.getPoder()) {
+				ret = raiz;
 			}
 
-			if (Mayor.getPoder() < ((Arma) datoRaiz).getPoder())
-				Mayor = (Arma) this.datoRaiz;
+			if ((aux = getHijoIzq()) != null)
+				ret = aux.mayorR(ret);
 
-			if ((aux = (Arbol<Arma>) getHijoDer()) != null) {
-				Mayor = aux.mayor();
-			}
+			if ((aux = getHijoDer()) != null)
+				ret = aux.mayorR(ret);
 
 		}
-		return Mayor;
+		return ret;
 	}
 
 	public int alturaArbol() {

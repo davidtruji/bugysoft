@@ -1,8 +1,5 @@
 package mapa;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 import personajes.Arma;
 import personajes.HombrePuerta;
 import personajes.Personaje;
