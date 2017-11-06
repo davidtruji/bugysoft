@@ -1,31 +1,67 @@
+
 package personajes;
 
+/**
+ * 
+ * ProyectoDP-Truji
+ * @Fichero: Arma.java
+ * @Autor: David Trujillo Torres
+ * @Fecha: 6 nov. 2017
+ */
 public class Arma implements Comparable<Arma> {
 
 	private String nombre;
 	private Integer poder;
 
+	
+	
+	/**
+	 * Constructor del arma
+	 * @param nombre
+	 *        Entra un nombre.
+	 * @param poder
+	 *        Entra un poder.
+	 */
 	public Arma(String nombre, Integer poder) {
 		this.nombre = nombre;
 		this.poder = poder;
 	}
 
+	/**
+	 * Get del nombre del arma
+	 * @return String con el nombre del arma
+	 */
 	public String getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * Set del nombre del arma
+	 * @param nombre String que sera el nombre
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	/**
+	 * Get del poder del arma
+	 * @return Un entero que representa el poder del arma
+	 */
 	public Integer getPoder() {
 		return poder;
 	}
 
+	/**
+	 * Set del poder del arma
+	 * @param poder Entero que sera el poder del arma
+	 */
 	public void setPoder(Integer poder) {
 		this.poder = poder;
 	}
 
+	/**
+	 * To String de la clase arma
+	 */
 	@Override
 	public String toString() {
 		String s = "";
@@ -33,6 +69,9 @@ public class Arma implements Comparable<Arma> {
 		return s;
 	}
 
+	/**
+	 * Equals de la clase arma
+	 */
 	@Override
 	public boolean equals(Object a) {
 		if (!(a instanceof Arma))
@@ -44,36 +83,19 @@ public class Arma implements Comparable<Arma> {
 			return false;
 	}
 
-	/*
-	 * THIS ES -1 MENOR / 0 IGUAL / 1 MAYOR QUE EL PARAMETRO
+	/**
+	 * ConpareTo de la clase arma
 	 */
 	@Override
 	public int compareTo(Arma a) {
 		int ret = nombre.compareToIgnoreCase(a.nombre);
-
-		// if (nombre.compareToIgnoreCase(a.getNombre()) != 0) {
-		// if (poder > a.getPoder())
-		// ret = 1;
-		// else {
-		//
-		// if (poder < a.getPoder())
-		// ret = -1;
-		// else {
-		//
-		// ret = nombre.compareToIgnoreCase(a.getNombre());
-		//
-		// }
-		//
-		// }
-		//
-		// } else {
-		// ret = 0;
-		// }
-
 		return ret;
-
 	}
 
+	/**
+	 * Main de arma utilizado para pruebas internas
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		System.out.println("Probando Armas.................");
 		Arma a1 = new Arma("z", 999);
