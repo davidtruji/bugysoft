@@ -211,26 +211,27 @@ public class Mapa {
 		return t;
 	}
 
+	/*
+	 * Metodo que simula 5 turnos de nuestro juego en la misma sala
+	 */
 	public void simulacion() {
 		int i, j;
 		int id = salaDailyPlanet;
-		// boolean portal = false;
 		int col = tablero[0].length;
 		i = id / col;
 		j = id % col;
 		HombrePuerta hp = null;
 		Personaje p;
 		Sala s = tablero[i][j];
-		// Queue<Personaje> perAux = new LinkedList<Personaje>();
-		// perAux = s.getPersonajes();
 		hp = s.getHombrePuerta();
 		int t = 0;
 		System.out.println("Hombre puerta: " + hp.getContenedorArmas().toString());
 
-		while (t < 5 && !hp.isPortal() && !hp.isPortal()) {
+		while (t < 5 && !hp.isPortal()) {
 			System.out.println("\n\n");
 			System.out.println("..............TURNO " + (t + 1) + "..............");
 			int pers = 0;
+
 			while (pers < s.getPersonajes().size() && !hp.isPortal()) {
 				System.out.print("\n");
 
@@ -248,8 +249,7 @@ public class Mapa {
 							+ s.getPersonajes().get(pers));
 				else
 					System.out.println("El portal permance cerrado...");
-
-				// s.borrarPersonaje();
+				
 				pers++;
 			}
 			System.out.print("\n");
@@ -379,14 +379,6 @@ public class Mapa {
 		captainAmerica.insertarArmaHeroe(new Arma("Garra", 24));
 		mapa.insertarPersonaje(captainAmerica, salaDailyPlanet);
 
-		// SuperHeroe thor = new SuperHeroe("Thor", 'T');
-		// mapa.insertarPersonaje(thor, salaDailyPlanet);
-		// SuperHeroe ironMan = new SuperHeroe("IronMan", 'I');
-		// mapa.insertarPersonaje(ironMan, salaDailyPlanet);
-		// SuperHeroe storm = new SuperHeroe("Storm", 'S');
-		// mapa.insertarPersonaje(storm, salaDailyPlanet);
-		// SuperHeroe captainAmerica = new SuperHeroe("Capitan América", 'C');
-
 		Villano deadPool = new Villano("Dead Pool", 'D', new Arma("Sable", 17));
 		mapa.insertarPersonaje(deadPool, salaDailyPlanet);
 		Villano kurtConnnors = new Villano("Kurt Connors", 'K', new Arma("CampoEnergia", 15));
@@ -394,7 +386,6 @@ public class Mapa {
 		Villano nebula = new Villano("Nebula", 'N', new Arma("RayoEnergia", 15));
 		mapa.insertarPersonaje(nebula, salaDailyPlanet);
 
-		// mapa.pintar(); // se mostrará en este caso únicamente la información del mapa
 		mapa.construirMapa();
 		System.out.println(mapa.toString());
 		mapa.simulacion();

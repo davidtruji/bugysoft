@@ -125,8 +125,6 @@ public class Arbol<T extends Comparable<T>> {
 	 * @return verdadero si el dato se encuentra en el árbol, falso en caso
 	 *         contrario
 	 */
-
-	// TODO ESTA BIEN?¿ si
 	public boolean pertenece(T dato) {
 		Arbol<T> aux = null;
 		boolean encontrado = false;
@@ -278,11 +276,21 @@ public class Arbol<T extends Comparable<T>> {
 		}
 	}
 
+	
+	/**
+	 * Metodo que devuelve el mayor Arma del arbol llamando al metodo recursivo
+	 * @return el mayor Arma del arbol
+	 */
 	public Arma mayor() {
 
 		return mayorR((Arma) datoRaiz);
 	}
 
+	/**
+	 * Metodo recursivo que devulve el mayor elemento del arbol
+	 * @param mayor el mayor arma hasta ahora
+	 * @return el mayor arma de todo el arbol
+	 */
 	public Arma mayorR(Arma mayor) {
 		Arbol<T> aux = null;
 		Arma raiz = (Arma) datoRaiz;
@@ -302,6 +310,10 @@ public class Arbol<T extends Comparable<T>> {
 		return ret;
 	}
 
+	/**
+	 * Metodo que devulve la altura del arbol
+	 * @return la altura del arbol
+	 */
 	public int alturaArbol() {
 		int alturaIzq = 0;
 		int alturaDer = 0;

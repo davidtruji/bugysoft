@@ -208,7 +208,6 @@ public class Sala {
 
 				} else {
 					System.out.println("El hombre puerta no posee el arma, no habrá lucha");
-
 				}
 
 				System.out.println("El héroe pierde su arma: " + mejorArmaHeroe);
