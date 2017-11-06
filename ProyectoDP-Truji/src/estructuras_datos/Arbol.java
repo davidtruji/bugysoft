@@ -4,12 +4,12 @@ package estructuras_datos;
 import personajes.Arma;
 
 /**
- * Implementacion de arbol binario de busqueda.
  * 
- * @version 1.0
- * @author Asignatura Desarrollo de Programas<br/>
- *         <b> Profesores DP </b><br>
- *         Curso 14/15
+ * ProyectoDP-Truji
+ * @Fichero: Arbol.java
+ * @Autor: David Trujillo Torres
+ * @Fecha: 6 nov. 2017
+ * @param <T>
  */
 public class Arbol<T extends Comparable<T>> {
 
@@ -424,7 +424,6 @@ public class Arbol<T extends Comparable<T>> {
 		System.out.println("PROBANDO CONSULTAR(T DATO), DEBE DEVOLVER: {Escudo, 5} Y DEVUELVE:");
 		System.out.print(arbol.consultar(new Arma("Escudo", 999)));
 		System.out.print("\n");
-		Arma a = arbol.consultar(new Arma("Escudo", 999));
 		System.out.print("\n\n\n\n");
 
 		// Borrando datos del árbol

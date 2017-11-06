@@ -3,7 +3,6 @@ package mapa;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-
 import estructuras_datos.Arbol;
 import personajes.Arma;
 import personajes.HombrePuerta;
@@ -11,6 +10,14 @@ import personajes.Personaje;
 import personajes.SuperHeroe;
 import personajes.Villano;
 
+/**
+ * 
+ * ProyectoDP-Truji
+ * 
+ * @Fichero: Sala.java
+ * @Autor: David Trujillo Torres
+ * @Fecha: 6 nov. 2017
+ */
 @SuppressWarnings("unused")
 public class Sala {
 
@@ -23,6 +30,20 @@ public class Sala {
 	private Arbol<Arma> armas;
 	private HombrePuerta hombrePuerta;
 
+	/**
+	 * Costructor de las salas.
+	 * 
+	 * @param num
+	 *            Id de las salas.
+	 * @param norte
+	 *            Pared norte.
+	 * @param sur
+	 *            Pared sur.
+	 * @param este
+	 *            Pared este.
+	 * @param oeste
+	 *            Pared oeste.
+	 */
 	public Sala(int num, boolean norte, boolean sur, boolean este, boolean oeste) {
 		pnorte = norte;
 		psur = sur;
@@ -34,14 +55,26 @@ public class Sala {
 		hombrePuerta = null;
 	}
 
+	/**
+	 * Get de la lista de personajes que estan en la sala
+	 * 
+	 * @return List de tipos Personaje
+	 */
 	public List<Personaje> getPersonajes() {
 		return personajes;
 	}
 
+	/**
+	 * Set de la lista de personajes que estan en la sala
+	 * 
+	 * @param personajes
+	 *            Tipo list que sera la lista de personajes de la sala
+	 */
 	public void setPersonajes(List<Personaje> personajes) {
 		this.personajes = personajes;
 	}
 
+	// TODO QUITAR HOMBRE PUERTA DE LA SALA
 	public HombrePuerta getHombrePuerta() {
 		return hombrePuerta;
 	}
@@ -50,86 +83,169 @@ public class Sala {
 		this.hombrePuerta = hombrePuerta;
 	}
 
+	/**
+	 * Get del arbol de armas de la sala
+	 * 
+	 * @return Arbol de armas
+	 */
 	public Arbol<Arma> getArmas() {
 		return armas;
 	}
 
+	/**
+	 * Set del arbol de armas de la sala
+	 * 
+	 * @param armas
+	 *            arbol de armas
+	 */
 	public void setArmas(Arbol<Arma> armas) {
 		this.armas = armas;
 	}
 
+	/**
+	 * Metodo que devulve si hay pared en la direccion indicada
+	 * 
+	 * @return true si hay pared false en caso contrario
+	 */
 	public boolean isPnorte() {
 		return pnorte;
 	}
 
+	/**
+	 * Metodo que pone pared o la quita en la direccion indicada
+	 * 
+	 * @param psur
+	 *            True si hay pared false si no
+	 */
 	public void setPnorte(boolean pnorte) {
 		this.pnorte = pnorte;
 	}
 
+	/**
+	 * Metodo que devulve si hay pared en la direccion indicada
+	 * 
+	 * @return true si hay pared false en caso contrario
+	 */
 	public boolean isPsur() {
 		return psur;
 	}
 
+	/**
+	 * Metodo que pone pared o la quita en la direccion indicada
+	 * 
+	 * @param psur
+	 *            True si hay pared false si no
+	 */
 	public void setPsur(boolean psur) {
 		this.psur = psur;
 	}
 
+	/**
+	 * Metodo que devulve si hay pared en la direccion indicada
+	 * 
+	 * @return true si hay pared false en caso contrario
+	 */
 	public boolean isPeste() {
 		return peste;
 	}
 
+	/**
+	 * Metodo que pone pared o la quita en la direccion indicada
+	 * 
+	 * @param peste
+	 *            True si hay pared false si no
+	 */
 	public void setPeste(boolean peste) {
 		this.peste = peste;
 	}
 
+	/**
+	 * Metodo que devulve si hay pared en la direccion indicada
+	 * 
+	 * @return true si hay pared false en caso contrario
+	 */
 	public boolean isPoeste() {
 		return poeste;
 	}
 
+	/**
+	 * Metodo que pone pared o la quita en la direccion indicada
+	 * 
+	 * @param poeste
+	 *            True si hay pared false si no
+	 */
 	public void setPoeste(boolean poeste) {
 		this.poeste = poeste;
 	}
 
+	/**
+	 * Set del id de la sala
+	 * 
+	 * @param numSala
+	 *            entero que representara el id de la sala
+	 */
 	public void setNumSala(Integer numSala) {
 		this.numSala = numSala;
 	}
 
+	/**
+	 * Get id de la sala
+	 * 
+	 * @return Entero que representa el id de la sala
+	 */
 	public int getNumSala() {
 		return numSala;
 	}
 
-	public void setNumSala(int numSala) {
-		this.numSala = numSala;
-	}
-
+	/**
+	 * Inserta un personaje en la lisya de la sala
+	 * 
+	 * @param p
+	 *            personaje a insertar
+	 */
 	public void insertarPersonaje(Personaje p) {
 		personajes.add(p);
 	}
 
+	/**
+	 * Borra el primer personaje de la lista de personajes
+	 */
 	public void borrarPersonaje() {
 		if (!personajes.isEmpty())
 			personajes.remove(0);
 	}
 
+	// TODO Hombre puerta en mapa
 	public void insertarHombrePuerta(HombrePuerta h) {
 		this.hombrePuerta = h;
 	}
 
+	/**
+	 * Inserta un arma en el arbol de armas de la sala
+	 * 
+	 * @param a
+	 *            arma a insertar
+	 */
 	public void insertarArma(Arma a) {
 		armas.insertar(a);
 	}
 
-	// Los personajes recojen el arma correspondiente
+	// TODO polimorfismos
+	/**
+	 * Metodo que hace que el personaje de la lista recoja un arma de la sala
+	 * 
+	 * @param p
+	 *            personaje que recojera el arma
+	 */
 	public void recojerArma(Personaje p) {
 		Arma aux = new Arma("x", 0);
 		System.out.println(">>Recojiendo Armas de la sala...");
 		Arma mejorArmaSala = armas.mayor();
-		
-		if(mejorArmaSala!=null)
-		System.out.println("Mejor arma de la sala:" + mejorArmaSala);
+
+		if (mejorArmaSala != null)
+			System.out.println("Mejor arma de la sala:" + mejorArmaSala);
 		else
 			System.out.println("Mejor arma de la sala: ");
-
 
 		// Personaje p = personajes.get(i);
 		// System.out.print("Personaje:" + p);
@@ -183,6 +299,13 @@ public class Sala {
 		}
 	}
 
+	// TODO polimorfismo
+	/**
+	 * El personaje pasado por parametro luchara con el hombre puerta
+	 * 
+	 * @param p
+	 *            el personaje que luchara
+	 */
 	public void interaccionConHombrePuerta(Personaje p) {
 		System.out.println(">>Luchando con hombre puerta...");
 		// Personaje p = personajes.peek();
@@ -240,6 +363,9 @@ public class Sala {
 
 	}
 
+	/**
+	 * To String de la clase sala
+	 */
 	@Override
 	public String toString() {
 		String s = "";
@@ -251,6 +377,11 @@ public class Sala {
 		return s;
 	}
 
+	/**
+	 * Main de la clase sala se usa para pruebas internas
+	 * 
+	 * @param args
+	 */
 	public static void main(String args[]) {
 		System.out.println("PRUEBAS SALA............................");
 

@@ -6,6 +6,14 @@ import personajes.Personaje;
 import personajes.SuperHeroe;
 import personajes.Villano;
 
+/**
+ * 
+ * ProyectoDP-Truji
+ * 
+ * @Fichero: Mapa.java
+ * @Autor: David Trujillo Torres
+ * @Fecha: 6 nov. 2017
+ */
 public class Mapa {
 
 	private Sala tablero[][];
@@ -249,7 +257,7 @@ public class Mapa {
 							+ s.getPersonajes().get(pers));
 				else
 					System.out.println("El portal permance cerrado...");
-				
+
 				pers++;
 			}
 			System.out.print("\n");
@@ -284,7 +292,7 @@ public class Mapa {
 		Mapa mapa = new Mapa(salaDailyPlanet, dimX, dimY, alturaApertura);
 
 		// Creación de las armas para el hombre puerta
-		int numArmasPuerta = 15;
+		// int numArmasPuerta = 15;
 		Arma[] armasPuerta = { new Arma("CampoEnergia", 5), new Arma("Armadura", 13), new Arma("Anillo", 11),
 				new Arma("Acido", 1), new Arma("Antorcha", 5), new Arma("Bola", 3), new Arma("Baston", 22),
 				new Arma("CadenaFuego", 11), new Arma("Espada", 11), new Arma("Cetro", 20), new Arma("Capa", 10),
@@ -304,7 +312,7 @@ public class Mapa {
 		mapa.insertarHombrePuerta(doorMan);
 
 		// Creación de las armas para repartir en salas
-		int numArmasSalas = 60;
+		// int numArmasSalas = 60;
 		Arma[] armasSalas = { new Arma("Mjolnir", 29), new Arma("Anillo", 1), new Arma("Garra", 27),
 				new Arma("Armadura", 3), new Arma("Red", 25), new Arma("Escudo", 5), new Arma("Lucille", 23),
 				new Arma("Lawgiver", 7), new Arma("GuanteInfinito", 21), new Arma("LazoVerdad", 9),
