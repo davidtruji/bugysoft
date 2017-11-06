@@ -20,6 +20,14 @@ public class Mapa {
 	private int salaDailyPlanet;
 	private int alturaPuerta;
 
+	/**
+	 * Constructor de mapa que recibe como parametros las dimensiones de este
+	 * 
+	 * @param fil
+	 *            numero de filas
+	 * @param col
+	 *            numero de columnas
+	 */
 	public Mapa(int fil, int col) {
 		int num_sala = 0;
 
@@ -34,6 +42,12 @@ public class Mapa {
 		salaDailyPlanet = (fil * col) - 1;
 	}
 
+	/**
+	 * Contructor de mapa que recibe como parametro el array de salas
+	 * 
+	 * @param t
+	 *            Array bidimensional de salas
+	 */
 	public Mapa(Sala t[][]) {
 		tablero = new Sala[t.length][t[0].length];
 		for (int i = 0; i < t.length; i++) {
@@ -43,6 +57,19 @@ public class Mapa {
 		}
 	}
 
+	/**
+	 * Constructor de mapa que recibe como parametros el id del Daily Plnet,
+	 * dimensiones y la altura del hombre puerta
+	 * 
+	 * @param salaDailyPlanet
+	 *            Id de la sala DP
+	 * @param fil
+	 *            numero de filas
+	 * @param col
+	 *            numero de columnas
+	 * @param altura
+	 *            altura del hombre puerta
+	 */
 	public Mapa(int salaDailyPlanet, int fil, int col, int altura) {
 		int num_sala = 0;
 
@@ -58,30 +85,71 @@ public class Mapa {
 		alturaPuerta = altura;
 	}
 
+	/**
+	 * Metodo que devuleve el tablero
+	 * 
+	 * @return Matriz de salas
+	 */
 	public Sala[][] getTablero() {
 		return tablero;
 	}
 
+	/**
+	 * Set del tablero del mapa
+	 * 
+	 * @param tablero
+	 *            Matriz de salas
+	 */
 	public void setTablero(Sala[][] tablero) {
 		this.tablero = tablero;
 	}
 
+	/**
+	 * Metodo que devuelve el id de la sala DP
+	 * 
+	 * @return Entero con el id de DP
+	 */
 	public int getSalaDailyPlanet() {
 		return salaDailyPlanet;
 	}
 
+	/**
+	 * Metodo Set de la sala DP
+	 * 
+	 * @param salaDailyPlanet
+	 *            Entero que sera el id de la sala DP
+	 */
 	public void setSalaDailyPlanet(int salaDailyPlanet) {
 		this.salaDailyPlanet = salaDailyPlanet;
 	}
 
+	/**
+	 * Devuelve la altura del hombre puerta
+	 * 
+	 * @return Entero con la altura del hombre puerta
+	 */
 	public int getAlturaPuerta() {
 		return alturaPuerta;
 	}
 
+	/**
+	 * Set de la altura del hombre puerta
+	 * 
+	 * @param alturaPuerta
+	 */
 	public void setAlturaPuerta(int alturaPuerta) {
 		this.alturaPuerta = alturaPuerta;
 	}
 
+	/**
+	 * Metodo que devulve si la sala pasada por parametros es la sala DP
+	 * 
+	 * @param i
+	 *            cordenada de filas
+	 * @param j
+	 *            cordenada de columna
+	 * @return true si es la sala DP y false en caso contrario
+	 */
 	public boolean esSalaDailyPlanet(int i, int j) {
 		if (tablero[i][j].getNumSala() == salaDailyPlanet)
 			return true;
@@ -89,6 +157,9 @@ public class Mapa {
 			return false;
 	}
 
+	/**
+	 * Metodo que construye un mapa con paredes solo en los limites del mapa
+	 */
 	public void construirMapa() {
 
 		for (int i = 0; i < tablero.length; i++) {
@@ -109,6 +180,12 @@ public class Mapa {
 		}
 	}
 
+	/**
+	 * Metodo que inserta al hombre puerta en la sala DP
+	 * 
+	 * @param doorMan
+	 *            Hombre puerta a insertar
+	 */
 	public void insertarHombrePuerta(HombrePuerta doorMan) {
 		for (int i = 0; i < tablero.length; i++) {
 			for (int j = 0; j < tablero[0].length; j++) {
@@ -119,6 +196,14 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Metodo que inserta a un personaje en una sala del mapa
+	 * 
+	 * @param p
+	 *            personaje a insertar
+	 * @param id
+	 *            id de la sala donde se debe insertar
+	 */
 	public void insertarPersonaje(Personaje p, int id) {
 		int i, j;
 		// int fil = tablero.length;
@@ -130,6 +215,15 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Metodo que distribuye un array con armas segun los requisitos de la primera
+	 * entrega
+	 * 
+	 * @param idSalasConArmas
+	 *            Array que contiene Orden en que las armas deben ser dejadas
+	 * @param armasSalas
+	 *            Array con todas las armas que se deben dejar
+	 */
 	public void distribuirArmas(int[] idSalasConArmas, Arma[] armasSalas) {
 		int x = 0;// Indices de los vectores de los parametros
 
@@ -149,6 +243,9 @@ public class Mapa {
 
 	}
 
+	/**
+	 * To String de la clase Mapa
+	 */
 	@Override
 	public String toString() {
 		String t = "";
@@ -219,8 +316,8 @@ public class Mapa {
 		return t;
 	}
 
-	/*
-	 * Metodo que simula 5 turnos de nuestro juego en la misma sala
+	/**
+	 * Metodo que simula la ejecucion del juego en la sala DP durante 5 turnos
 	 */
 	public void simulacion() {
 		int i, j;
@@ -275,11 +372,9 @@ public class Mapa {
 	}
 
 	/**
-	 * Programa principal - EC1.
+	 * Main de la clase mapa, desde donde se ejecuta el juego
 	 * 
 	 * @param args
-	 *            Argumentos que recibe el programa principal
-	 * @return Retorna la salida del programa
 	 */
 	public static void main(String args[]) {
 		// Creación del mapa
