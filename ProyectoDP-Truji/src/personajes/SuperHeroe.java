@@ -129,6 +129,33 @@ public class SuperHeroe extends Personaje {
 	 */
 	@Override
 	public void interaccionHombrePuerta(HombrePuerta hp) {
+		System.out.println(">>Luchando con hombre puerta...");
+
+		if (!getContenedorArmas().vacio()) {
+			Arma mejorArmaHeroe = mejorArma();
+
+			System.out.println("Super héroe usa: " + mejorArmaHeroe);
+
+			// Si el hombre puerta encuentra el arma...
+			if (hp.getContenedorArmas().pertenece(mejorArmaHeroe)) {
+				Arma armaHP = hp.getContenedorArmas().consultar(mejorArmaHeroe);
+				System.out.println("Hombre puerta usa: " + armaHP);
+
+				if (mejorArmaHeroe.getPoder() > armaHP.getPoder()) {
+					System.out.println("El arma del Heroe gana, hombre puerta pierde su arma: " + armaHP);
+					hp.getContenedorArmas().borrar(armaHP);
+				}
+
+			} else {
+				System.out.println("El hombre puerta no posee el arma, no habrá lucha");
+			}
+
+			System.out.println("El héroe pierde su arma: " + mejorArmaHeroe);
+			getContenedorArmas().borrar(mejorArmaHeroe);
+			
+		} else {
+			System.out.println("El super héroe no tiene ningun arma...");
+		}
 
 	}
 

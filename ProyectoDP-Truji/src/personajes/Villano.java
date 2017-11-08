@@ -91,10 +91,21 @@ public class Villano extends Personaje {
 	 */
 	@Override
 	public void interaccionHombrePuerta(HombrePuerta hp) {
-		// TODO Auto-generated method stub
+		System.out.println(">>Luchando con hombre puerta...");
 
-		
-		
+		Arma armaVillano = getArmaVillano();
+		Arma mejorArmaHP = hp.getContenedorArmas().mayor();
+		System.out.println("Hombre puerta usa: " + mejorArmaHP);
+		System.out.println("Villano usa: " + armaVillano);
+
+		if (armaVillano.getPoder() > mejorArmaHP.getPoder()) {
+			System.out.println("Villano gana, el hombre puerta pierde: " + mejorArmaHP);
+			hp.getContenedorArmas().borrar(mejorArmaHP);
+		} else {
+			System.out.println("Hombre puerta gana, no se hará nada");
+
+		}
+
 	}
 
 }

@@ -344,8 +344,11 @@ public class Mapa {
 
 				System.out.println("[  Acciones de " + p + "  ]");
 
-				s.interaccionConHombrePuerta(p);
-				s.recojerArma(p);
+				// TODO cambiado con el polimorfismo
+				p.interaccionHombrePuerta(hp);
+
+				// TODO cambiado con el polimorfismo
+				p.recogerArmaPersonaje(s);
 
 				hp.ActualizarEstadoPortal(this.getAlturaPuerta());
 
