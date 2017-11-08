@@ -86,11 +86,11 @@ public class Mapa {
 		alturaPuerta = altura;
 	}
 
-	public HombrePuerta getHp() {
+	public HombrePuerta getHombrePuerta() {
 		return hp;
 	}
 
-	public void setHp(HombrePuerta hp) {
+	public void setHombrePuerta(HombrePuerta hp) {
 		this.hp = hp;
 	}
 
@@ -392,7 +392,7 @@ public class Mapa {
 		doorMan.cerrar();
 
 		// Añadir el hombre puerta al mapa
-		mapa.setHp(doorMan);
+		mapa.setHombrePuerta(doorMan);
 
 		// Creación de las armas para repartir en salas
 		// int numArmasSalas = 60;
