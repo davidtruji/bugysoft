@@ -18,6 +18,7 @@ public class Mapa {
 
 	private Sala tablero[][];
 	private int salaDailyPlanet;
+	private HombrePuerta hp;
 	private int alturaPuerta;
 
 	/**
@@ -83,6 +84,14 @@ public class Mapa {
 		tablero = s;
 		this.salaDailyPlanet = (fil * col) - 1;
 		alturaPuerta = altura;
+	}
+
+	public HombrePuerta getHp() {
+		return hp;
+	}
+
+	public void setHp(HombrePuerta hp) {
+		this.hp = hp;
 	}
 
 	/**
@@ -180,30 +189,6 @@ public class Mapa {
 		}
 	}
 
-	/**
-	 * Metodo que inserta al hombre puerta en la sala DP
-	 * 
-	 * @param doorMan
-	 *            Hombre puerta a insertar
-	 */
-	public void insertarHombrePuerta(HombrePuerta doorMan) {
-		for (int i = 0; i < tablero.length; i++) {
-			for (int j = 0; j < tablero[0].length; j++) {
-				if (esSalaDailyPlanet(i, j))
-					tablero[i][j].insertarHombrePuerta(doorMan);
-			}
-		}
-
-	}
-
-	/**
-	 * Metodo que inserta a un personaje en una sala del mapa
-	 * 
-	 * @param p
-	 *            personaje a insertar
-	 * @param id
-	 *            id de la sala donde se debe insertar
-	 */
 	public void insertarPersonaje(Personaje p, int id) {
 		int i, j;
 		// int fil = tablero.length;
@@ -325,10 +310,10 @@ public class Mapa {
 		int col = tablero[0].length;
 		i = id / col;
 		j = id % col;
-		HombrePuerta hp = null;
+		// HombrePuerta hp = null;
 		Personaje p;
 		Sala s = tablero[i][j];
-		hp = s.getHombrePuerta();
+		// hp = s.getHombrePuerta();
 		int t = 0;
 		System.out.println("Hombre puerta: " + hp.getContenedorArmas().toString());
 
@@ -407,7 +392,7 @@ public class Mapa {
 		doorMan.cerrar();
 
 		// Añadir el hombre puerta al mapa
-		mapa.insertarHombrePuerta(doorMan);
+		mapa.setHp(doorMan);
 
 		// Creación de las armas para repartir en salas
 		// int numArmasSalas = 60;

@@ -28,7 +28,6 @@ public class Sala {
 	private Integer numSala;
 	private List<Personaje> personajes;
 	private Arbol<Arma> armas;
-	private HombrePuerta hombrePuerta;
 
 	/**
 	 * Costructor de las salas.
@@ -52,7 +51,6 @@ public class Sala {
 		numSala = num;
 		personajes = new LinkedList<Personaje>();
 		armas = new Arbol<Arma>();
-		hombrePuerta = null;
 	}
 
 	/**
@@ -72,15 +70,6 @@ public class Sala {
 	 */
 	public void setPersonajes(List<Personaje> personajes) {
 		this.personajes = personajes;
-	}
-
-	// TODO QUITAR HOMBRE PUERTA DE LA SALA
-	public HombrePuerta getHombrePuerta() {
-		return hombrePuerta;
-	}
-
-	public void setHombrePuerta(HombrePuerta hombrePuerta) {
-		this.hombrePuerta = hombrePuerta;
 	}
 
 	/**
@@ -215,11 +204,6 @@ public class Sala {
 			personajes.remove(0);
 	}
 
-	// TODO Hombre puerta en mapa
-	public void insertarHombrePuerta(HombrePuerta h) {
-		this.hombrePuerta = h;
-	}
-
 	/**
 	 * Inserta un arma en el arbol de armas de la sala
 	 * 
@@ -229,7 +213,6 @@ public class Sala {
 	public void insertarArma(Arma a) {
 		armas.insertar(a);
 	}
-
 
 	/**
 	 * To String de la clase sala
@@ -275,15 +258,12 @@ public class Sala {
 		hp.getContenedorArmas().insertar(new Arma("Palo", 12));
 		hp.getContenedorArmas().insertar(new Arma("Tenedor", 1));
 
-		s.insertarHombrePuerta(hp);
-
 		for (int i = 0; i < armasSalas.length; i++) {
 			s.insertarArma(armasSalas[i]);
 		}
 
 		s.insertarPersonaje(v);
 		System.out.print(s.toString());
-
 
 	}
 
