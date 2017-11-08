@@ -1,5 +1,7 @@
 package personajes;
 
+import mapa.Sala;
+
 /**
  * 
  * ProyectoDP-Truji
@@ -8,7 +10,7 @@ package personajes;
  * @Autor: David Trujillo Torres
  * @Fecha: 6 nov. 2017
  */
-public class Personaje {
+public abstract class Personaje {
 
 	String nombre;
 	char inicial;
@@ -64,6 +66,17 @@ public class Personaje {
 		this.inicial = inicial;
 
 	}
+
+	/**
+	 * Metodo que ejecuta un personaje para recojer arma de la sala pasada por
+	 * parametro
+	 */
+	public abstract void recogerArmaPersonaje(Sala s);
+
+	/**
+	 * Metodo que ejecuta cada personaje para interaccionar con el hombre puerta
+	 */
+	public abstract void interaccionHombrePuerta(HombrePuerta hp);
 
 	/**
 	 * Metodo To String de la clase personaje

@@ -1,5 +1,7 @@
 package personajes;
 
+import mapa.Sala;
+
 /**
  * 
  * ProyectoDP-Truji
@@ -44,6 +46,55 @@ public class Villano extends Personaje {
 	 */
 	public void setArmaVillano(Arma armaVillano) {
 		ArmaVillano = armaVillano;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see personajes.Personaje#recogerArmaPersonaje()
+	 */
+	@Override
+	public void recogerArmaPersonaje(Sala s) {
+		// TODO Auto-generated method stub
+		Arma aux = new Arma("x", 0);
+		System.out.println(">>Recojiendo Armas de la sala...");
+		Arma mejorArmaSala = s.getArmas().mayor();
+
+		if (mejorArmaSala != null)
+			System.out.println("Mejor arma de la sala:" + mejorArmaSala);
+		else
+			System.out.println("Mejor arma de la sala: ");
+
+		if (!s.getArmas().vacio()) {
+			System.out.println("Arma de " + this.toString() + " :" + getArmaVillano());
+			aux = getArmaVillano();
+
+			if (aux.getPoder() < mejorArmaSala.getPoder()) {
+				System.out.println("Villano recoje: " + mejorArmaSala);
+
+				setArmaVillano(mejorArmaSala);
+				System.out.println("Villano deja: " + aux);
+				s.getArmas().borrar(mejorArmaSala);
+				s.getArmas().insertar(aux);
+			}
+
+		} else {
+			System.out.println("Ningún arma en la sala...");
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see personajes.Personaje#interaccionHombrePuerta()
+	 */
+	@Override
+	public void interaccionHombrePuerta(HombrePuerta hp) {
+		// TODO Auto-generated method stub
+
+		
+		
 	}
 
 }

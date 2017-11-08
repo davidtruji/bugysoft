@@ -1,6 +1,7 @@
 package personajes;
 
 import estructuras_datos.Arbol;
+import mapa.Sala;
 
 /**
  * 
@@ -77,6 +78,58 @@ public class SuperHeroe extends Personaje {
 	 */
 	public void setContenedorArmas(Arbol<Arma> contenedorArmas) {
 		ContenedorArmas = contenedorArmas;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see personajes.Personaje#recogerArmaPersonaje()
+	 */
+	@Override
+	public void recogerArmaPersonaje(Sala s) {
+		Arma aux = new Arma("x", 0);
+		System.out.println(">>Recojiendo Armas de la sala...");
+		Arma mejorArmaSala = s.getArmas().mayor();
+
+		if (mejorArmaSala != null)
+			System.out.println("Mejor arma de la sala:" + mejorArmaSala);
+		else
+			System.out.println("Mejor arma de la sala: ");
+
+		if (!s.getArmas().vacio()) {
+
+			if (!getContenedorArmas().pertenece(mejorArmaSala)) {
+
+				System.out.println("Super Héroe recoje: " + mejorArmaSala);
+				insertarArmaHeroe(mejorArmaSala);
+				System.out.println("Borrando mejor arma de sala: " + mejorArmaSala);
+				s.getArmas().borrar(mejorArmaSala);
+
+			} else {
+
+				aux = getContenedorArmas().consultar(mejorArmaSala);
+				System.out.println("Super Héroe combina Arma " + mejorArmaSala + "con" + aux);
+				aux.setPoder(mejorArmaSala.getPoder() + aux.getPoder());
+				System.out.println("La Arma resultante sería " + aux);
+				System.out.println("Borrando mejor arma de sala: " + mejorArmaSala);
+				s.getArmas().borrar(mejorArmaSala);
+
+			}
+
+		} else {
+			System.out.println("Ningún arma en la sala...");
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see personajes.Personaje#interaccionHombrePuerta()
+	 */
+	@Override
+	public void interaccionHombrePuerta(HombrePuerta hp) {
+
 	}
 
 }
