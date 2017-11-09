@@ -301,6 +301,28 @@ public class Mapa {
 		return t;
 	}
 
+	private void MostrarCabeceraAscii() {
+		System.out.println(
+				"████████╗██╗  ██╗███████╗    ███╗   ███╗ █████╗ ██████╗ ██╗   ██╗███████╗██╗     ██╗      ██████╗ ██╗   ██╗███████╗");
+		System.out.println(
+				"╚══██╔══╝██║  ██║██╔════╝    ████╗ ████║██╔══██╗██╔══██╗██║   ██║██╔════╝██║     ██║     ██╔═══██╗██║   ██║██╔════╝");
+		System.out.println(
+				"   ██║   ███████║█████╗      ██╔████╔██║███████║██████╔╝██║   ██║█████╗  ██║     ██║     ██║   ██║██║   ██║███████╗");
+		System.out.println(
+				"   ██║   ██╔══██║██╔══╝      ██║╚██╔╝██║██╔══██║██╔══██╗╚██╗ ██╔╝██╔══╝  ██║     ██║     ██║   ██║██║   ██║╚════██║");
+		System.out.println(
+				"   ██║   ██║  ██║███████╗    ██║ ╚═╝ ██║██║  ██║██║  ██║ ╚████╔╝ ███████╗███████╗███████╗╚██████╔╝╚██████╔╝███████║");
+		System.out.println(
+				"   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝╚══════╝╚══════╝ ╚═════╝  ╚═════╝ ╚══════╝");
+		System.out.println("██████╗ ██████╗      ██████╗ ██████╗ ███╗   ███╗██╗ ██████╗███████╗");
+		System.out.println("██╔══██╗██╔══██╗    ██╔════╝██╔═══██╗████╗ ████║██║██╔════╝██╔════╝");
+		System.out.println("██║  ██║██████╔╝    ██║     ██║   ██║██╔████╔██║██║██║     ███████╗");
+		System.out.println("██║  ██║██╔═══╝     ██║     ██║   ██║██║╚██╔╝██║██║██║     ╚════██║");
+		System.out.println("██████╔╝██║         ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║╚██████╗███████║");
+		System.out.println("╚═════╝ ╚═╝          ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝ ╚═════╝╚══════╝");
+		System.out.println("              POR: David Trujillo Torres & Alberto GAY");
+	}
+
 	/**
 	 * Metodo que simula la ejecucion del juego en la sala DP durante 5 turnos
 	 */
@@ -365,25 +387,7 @@ public class Mapa {
 	 * @param args
 	 */
 	public static void main(String args[]) {
-		System.out.println(
-				"████████╗██╗  ██╗███████╗    ███╗   ███╗ █████╗ ██████╗ ██╗   ██╗███████╗██╗     ██╗      ██████╗ ██╗   ██╗███████╗");
-		System.out.println(
-				"╚══██╔══╝██║  ██║██╔════╝    ████╗ ████║██╔══██╗██╔══██╗██║   ██║██╔════╝██║     ██║     ██╔═══██╗██║   ██║██╔════╝");
-		System.out.println(
-				"   ██║   ███████║█████╗      ██╔████╔██║███████║██████╔╝██║   ██║█████╗  ██║     ██║     ██║   ██║██║   ██║███████╗");
-		System.out.println(
-				"   ██║   ██╔══██║██╔══╝      ██║╚██╔╝██║██╔══██║██╔══██╗╚██╗ ██╔╝██╔══╝  ██║     ██║     ██║   ██║██║   ██║╚════██║");
-		System.out.println(
-				"   ██║   ██║  ██║███████╗    ██║ ╚═╝ ██║██║  ██║██║  ██║ ╚████╔╝ ███████╗███████╗███████╗╚██████╔╝╚██████╔╝███████║");
-		System.out.println(
-				"   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝╚══════╝╚══════╝ ╚═════╝  ╚═════╝ ╚══════╝");
-		System.out.println("██████╗ ██████╗      ██████╗ ██████╗ ███╗   ███╗██╗ ██████╗███████╗");
-		System.out.println("██╔══██╗██╔══██╗    ██╔════╝██╔═══██╗████╗ ████║██║██╔════╝██╔════╝");
-		System.out.println("██║  ██║██████╔╝    ██║     ██║   ██║██╔████╔██║██║██║     ███████╗");
-		System.out.println("██║  ██║██╔═══╝     ██║     ██║   ██║██║╚██╔╝██║██║██║     ╚════██║");
-		System.out.println("██████╔╝██║         ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║╚██████╗███████║");
-		System.out.println("╚═════╝ ╚═╝          ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝ ╚═════╝╚══════╝");
-		System.out.println("              POR: David Trujillo Torres & Alberto GAY");
+
 		// Creación del mapa
 		// Parámetros: sala del Daily Planet, no columnas, no filas y profundidad de
 		// apertura del portal
@@ -392,7 +396,7 @@ public class Mapa {
 		int salaDailyPlanet = (dimX * dimY) - 1;
 		int alturaApertura = 4;
 		Mapa mapa = new Mapa(salaDailyPlanet, dimX, dimY, alturaApertura);
-
+		mapa.MostrarCabeceraAscii();
 		// Creación de las armas para el hombre puerta
 		// int numArmasPuerta = 15;
 		Arma[] armasPuerta = { new Arma("CampoEnergia", 5), new Arma("Armadura", 13), new Arma("Anillo", 11),
