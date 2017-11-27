@@ -1,5 +1,9 @@
 package mapa;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import estructuras_datos.Grafo;
 import personajes.Arma;
 import personajes.HombrePuerta;
 import personajes.Personaje;
@@ -20,6 +24,8 @@ public class Mapa {
 	private int salaDailyPlanet;
 	private HombrePuerta hp;
 	private int alturaPuerta;
+	private Grafo grafo = new Grafo();
+	private List<Pared> paredes = new LinkedList<Pared>();
 
 	/**
 	 * Constructor de mapa que recibe como parametros las dimensiones de este
@@ -79,11 +85,13 @@ public class Mapa {
 			for (int j = 0; j < s[0].length; j++) {
 				s[i][j] = new Sala(num_sala, false, false, false, false);
 				num_sala++;
+				grafo.nuevoNodo(num_sala);
 			}
 		}
 		tablero = s;
 		this.salaDailyPlanet = (fil * col) - 1;
 		alturaPuerta = altura;
+		construirParedes();
 	}
 
 	public HombrePuerta getHombrePuerta() {
@@ -164,6 +172,82 @@ public class Mapa {
 			return true;
 		else
 			return false;
+	}
+
+	public void kruscal() {
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	/**
+	 * Mete todas las paredes del mapa en la lista de paredes
+	 */
+	public void construirParedes() {
+		Pared p = null;
+		for (int i = 0; i < tablero.length; i++) {
+			for (int j = 0; j < tablero[0].length; j++) {
+
+				if (i == 0 && j < tablero[0].length - 1) {
+					p = new Pared();
+					p.setOrigen(tablero[i][j].getNumSala());
+					p.setDestino(tablero[i][j + 1].getNumSala());
+					paredes.add(p);
+					p = new Pared();
+					p.setOrigen(tablero[i][j + 1].getNumSala());
+					p.setDestino(tablero[i][j].getNumSala());
+					paredes.add(p);
+
+				}
+
+				if (j == 0 && i < tablero.length - 1) {
+					p = new Pared();
+					p.setOrigen(tablero[i][j].getNumSala());
+					p.setDestino(tablero[i + 1][j].getNumSala());
+					paredes.add(p);
+					p = new Pared();
+					p.setOrigen(tablero[i + 1][j].getNumSala());
+					p.setDestino(tablero[i][j].getNumSala());
+					paredes.add(p);
+
+				}
+
+				if (i > 0 && j < tablero[0].length - 1) {
+					p = new Pared();
+					p.setOrigen(tablero[i][j].getNumSala());
+					p.setDestino(tablero[i][j + 1].getNumSala());
+					paredes.add(p);
+					p = new Pared();
+					p.setOrigen(tablero[i][j + 1].getNumSala());
+					p.setDestino(tablero[i][j].getNumSala());
+					paredes.add(p);
+
+				}
+
+				if (j > 0 && i < tablero.length - 1) {
+					p = new Pared();
+					p.setOrigen(tablero[i][j].getNumSala());
+					p.setDestino(tablero[i + 1][j].getNumSala());
+					paredes.add(p);
+					p = new Pared();
+					p.setOrigen(tablero[i + 1][j].getNumSala());
+					p.setDestino(tablero[i][j].getNumSala());
+					paredes.add(p);
+
+				}
+
+			}
+		}
 	}
 
 	/**
