@@ -32,6 +32,17 @@ public class Pared {
 		this.destino = destino;
 	}
 
-	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		String s = "";
+		s = "[" + origen + " " + destino + "]";
+		return s;
+
+	}
 
 }

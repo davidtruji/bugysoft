@@ -12,13 +12,20 @@ import estructuras_datos.Arbol;
  */
 public class HombrePuerta {
 
-	boolean Portal;// TRUE ABIERTO / FALSE CERRADO
-	Arbol<Arma> ContenedorArmas;
+	private boolean Portal;// TRUE ABIERTO / FALSE CERRADO
+	private Arbol<Arma> ContenedorArmas;
+	private int profundidad;
 
 	/**
 	 * Constructor por defecto del hombre puerta
 	 */
 	public HombrePuerta() {
+		Portal = false;
+		ContenedorArmas = new Arbol<Arma>();
+	}
+
+	public HombrePuerta(int profundidad) {
+		this.profundidad = profundidad;
 		Portal = false;
 		ContenedorArmas = new Arbol<Arma>();
 	}

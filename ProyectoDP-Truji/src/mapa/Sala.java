@@ -21,37 +21,37 @@ import personajes.Villano;
 @SuppressWarnings("unused")
 public class Sala {
 
-	private boolean pnorte;
-	private boolean psur;
-	private boolean peste;
-	private boolean poeste;
-	private Integer numSala;
+	// private boolean pnorte;
+	// private boolean psur;
+	// private boolean peste;
+	// private boolean poeste;
+	private Integer idSala;
 	private List<Personaje> personajes;
 	private Arbol<Arma> armas;
+	private Integer marca;
 
 	/**
 	 * Costructor de las salas.
 	 * 
-	 * @param num
-	 *            Id de las salas.
-	 * @param norte
-	 *            Pared norte.
-	 * @param sur
-	 *            Pared sur.
-	 * @param este
-	 *            Pared este.
-	 * @param oeste
-	 *            Pared oeste.
+	 * @param idSala Id de la sala
 	 */
-	public Sala(int num, boolean norte, boolean sur, boolean este, boolean oeste) {
-		pnorte = norte;
-		psur = sur;
-		peste = este;
-		poeste = oeste;
-		numSala = num;
+	public Sala(int idSala) {
+		marca=idSala;
+		this.idSala = idSala;
 		personajes = new LinkedList<Personaje>();
 		armas = new Arbol<Arma>();
 	}
+
+//	/**
+//	 * @param idSala
+//	 * @param marca
+//	 */
+//	public Sala(int idSala, int marca) {
+//		this.marca = marca;
+//		this.idSala = idSala;
+//		personajes = new LinkedList<Personaje>();
+//		armas = new Arbol<Arma>();
+//	}
 
 	/**
 	 * Get de la lista de personajes que estan en la sala
@@ -92,89 +92,13 @@ public class Sala {
 	}
 
 	/**
-	 * Metodo que devulve si hay pared en la direccion indicada
-	 * 
-	 * @return true si hay pared false en caso contrario
-	 */
-	public boolean isPnorte() {
-		return pnorte;
-	}
-
-	/**
-	 * Metodo que pone pared o la quita en la direccion indicada
-	 * 
-	 * @param psur
-	 *            True si hay pared false si no
-	 */
-	public void setPnorte(boolean pnorte) {
-		this.pnorte = pnorte;
-	}
-
-	/**
-	 * Metodo que devulve si hay pared en la direccion indicada
-	 * 
-	 * @return true si hay pared false en caso contrario
-	 */
-	public boolean isPsur() {
-		return psur;
-	}
-
-	/**
-	 * Metodo que pone pared o la quita en la direccion indicada
-	 * 
-	 * @param psur
-	 *            True si hay pared false si no
-	 */
-	public void setPsur(boolean psur) {
-		this.psur = psur;
-	}
-
-	/**
-	 * Metodo que devulve si hay pared en la direccion indicada
-	 * 
-	 * @return true si hay pared false en caso contrario
-	 */
-	public boolean isPeste() {
-		return peste;
-	}
-
-	/**
-	 * Metodo que pone pared o la quita en la direccion indicada
-	 * 
-	 * @param peste
-	 *            True si hay pared false si no
-	 */
-	public void setPeste(boolean peste) {
-		this.peste = peste;
-	}
-
-	/**
-	 * Metodo que devulve si hay pared en la direccion indicada
-	 * 
-	 * @return true si hay pared false en caso contrario
-	 */
-	public boolean isPoeste() {
-		return poeste;
-	}
-
-	/**
-	 * Metodo que pone pared o la quita en la direccion indicada
-	 * 
-	 * @param poeste
-	 *            True si hay pared false si no
-	 */
-	public void setPoeste(boolean poeste) {
-		this.poeste = poeste;
-	}
-
-	/**
 	 * Set del id de la sala
 	 * 
 	 * @param numSala
 	 *            entero que representara el id de la sala
 	 */
-	public void setNumSala(Integer numSala) {
-		this.numSala = numSala;
+	public void setIdSala(Integer idSala) {
+		this.idSala = idSala;
 	}
 
 	/**
@@ -182,8 +106,8 @@ public class Sala {
 	 * 
 	 * @return Entero que representa el id de la sala
 	 */
-	public int getNumSala() {
-		return numSala;
+	public int getIdSala() {
+		return idSala;
 	}
 
 	/**
@@ -220,7 +144,7 @@ public class Sala {
 	@Override
 	public String toString() {
 		String s = "";
-		s = "[Sala ID " + numSala + "]" + "\n";
+		s = "[Sala ID " + idSala + "]" + "\n";
 		s = s + "Personajes:\n";
 		s = s + personajes.toString() + "\n";
 		s = s + "Armas:\n";
@@ -247,7 +171,7 @@ public class Sala {
 		h.insertarArmaHeroe(a2);
 		h.insertarArmaHeroe(a3);
 
-		Sala s = new Sala(0, false, false, false, false);
+		Sala s = new Sala(0);
 		Arma[] armasSalas = { new Arma("Mjolnir", 29), new Arma("Anillo", 1), new Arma("Garra", 27),
 				new Arma("Armadura", 3), new Arma("Red", 25), new Arma("Escudo", 5), new Arma("Lucille", 23),
 				new Arma("Lawgiver", 7), new Arma("GuanteInfinito", 21), new Arma("LazoVerdad", 9),
