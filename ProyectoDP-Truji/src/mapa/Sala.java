@@ -53,6 +53,14 @@ public class Sala {
 //		armas = new Arbol<Arma>();
 //	}
 
+	public Integer getMarca() {
+		return marca;
+	}
+
+	public void setMarca(Integer marca) {
+		this.marca = marca;
+	}
+
 	/**
 	 * Get de la lista de personajes que estan en la sala
 	 * 

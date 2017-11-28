@@ -2,6 +2,8 @@ package mapa;
 
 import java.util.List;
 
+import personajes.Arma;
+
 public class Pared {
 	private int origen;
 	private int destino;
@@ -44,5 +46,22 @@ public class Pared {
 		return s;
 
 	}
+
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see java.lang.Object#equals(java.lang.Object)
+//	 */
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (!(obj instanceof Pared))
+//			return false;
+//		Pared objAux = (Pared) obj;
+//		if ((objAux.getOrigen() == origen && objAux.getDestino() == destino)
+//				|| (objAux.getOrigen() == destino && objAux.getDestino() == origen))
+//			return true;
+//		else
+//			return false;
+//	}
 
 }

@@ -209,14 +209,86 @@ public class Mapa {
 			return false;
 	}
 
+	/**
+	 * Algoritmo de derrivo de paredes kruscal
+	 */
 	public void kruscal() {
 		int randomN;
+		Pared paredAux = new Pared(), paredAuxInversa = new Pared();
+		Sala sOri, sDest;
 
 		while (!paredes.isEmpty()) {
-			randomN = GenAleatorios.generarNumero(paredes.size() - 1);
+			// System.out.println(paredes);
 
+			randomN = GenAleatorios.generarNumero(paredes.size());
+			System.out.println("Numero random: " + randomN);
+
+			paredAux = paredes.get(randomN);
+			System.out.println("Pared a tirar: " + paredAux);
+
+			paredAuxInversa.setDestino(paredAux.getOrigen());
+			paredAuxInversa.setOrigen(paredAux.getDestino());
+			
+			paredes.remove(paredAux);
+			//paredes.remove(paredAuxInversa);
+
+			sOri = getSala(paredAux.getOrigen());
+			sDest = getSala(paredAux.getDestino());
+
+			if (sOri.getMarca() != sDest.getMarca()) {
+				grafo.nuevoArco(paredAux.getOrigen(), paredAux.getDestino(), 1);
+				grafo.nuevoArco(paredAux.getDestino(), paredAux.getOrigen(), 1);
+				marcarSalasId(sOri.getMarca(), sDest.getMarca());
+
+			}
+			System.out.println(this);
 		}
+		System.out.println("Laberinto Objetivo:");
+		System.out.println(" _ _ _ _ _ _ ");
+		System.out.println("|_ _  |_ _  |");
+		System.out.println("|_    |_    |");
+		System.out.println("|_ _|_  | |_|");
+		System.out.println("|  _     _| |");
+		System.out.println("|_ _|_|  _  |");
+		System.out.println("|_ _ _ _ _|_|");
+	}
 
+	/**
+	 * Cambia la marca de las salas con una marca determinada por una nueva marca
+	 * 
+	 * @param marca
+	 *            es la marca a cambiar
+	 * @param nuevaMarca
+	 *            es la marca por la que se va a cambiar
+	 */
+	public void marcarSalasId(int marca, int nuevaMarca) {
+		Sala s = null;
+		for (int i = 0; i < tablero.length; i++) {
+			for (int j = 0; j < tablero[0].length; j++) {
+				s = tablero[i][j];
+				if (s.getMarca() == marca)
+					s.setMarca(nuevaMarca);
+
+			}
+		}
+	}
+
+	/**
+	 * Retorna la sala con el ID indicado
+	 * 
+	 * @param idSala
+	 *            es el ID de la sala a devolver
+	 * @return la sala con el ID indicado
+	 */
+	Sala getSala(int idSala) {
+		Sala s = new Sala(0);
+		int i, j;
+		int col = tablero[0].length;
+		i = idSala / col;
+		j = idSala % col;
+
+		s = tablero[i][j];
+		return s;
 	}
 
 	/**
@@ -224,59 +296,45 @@ public class Mapa {
 	 */
 	public void construirParedes() {
 		Pared p = null;
+
 		for (int i = 0; i < tablero.length; i++) {
 			for (int j = 0; j < tablero[0].length; j++) {
 
-				if (i == 0 && j < tablero[0].length - 1) {
+				// Pared N
+				if (i > 0) {
 					p = new Pared();
 					p.setOrigen(tablero[i][j].getIdSala());
-					p.setDestino(tablero[i][j + 1].getIdSala());
+					p.setDestino(tablero[i][j].getIdSala() - dimX);
 					paredes.add(p);
-					p = new Pared();
-					p.setOrigen(tablero[i][j + 1].getIdSala());
-					p.setDestino(tablero[i][j].getIdSala());
-					paredes.add(p);
-
 				}
 
-				if (j == 0 && i < tablero.length - 1) {
+				// Pared E
+				if (j < dimX - 1) {
 					p = new Pared();
 					p.setOrigen(tablero[i][j].getIdSala());
-					p.setDestino(tablero[i + 1][j].getIdSala());
+					p.setDestino(tablero[i][j].getIdSala() + 1);
 					paredes.add(p);
-					p = new Pared();
-					p.setOrigen(tablero[i + 1][j].getIdSala());
-					p.setDestino(tablero[i][j].getIdSala());
-					paredes.add(p);
-
 				}
 
-				if (i > 0 && j < tablero[0].length - 1) {
+				// Pared S
+				if (i < dimY - 1) {
 					p = new Pared();
 					p.setOrigen(tablero[i][j].getIdSala());
-					p.setDestino(tablero[i][j + 1].getIdSala());
+					p.setDestino(tablero[i][j].getIdSala() + dimX);
 					paredes.add(p);
-					p = new Pared();
-					p.setOrigen(tablero[i][j + 1].getIdSala());
-					p.setDestino(tablero[i][j].getIdSala());
-					paredes.add(p);
-
 				}
 
-				if (j > 0 && i < tablero.length - 1) {
+				// Pared O
+				if (j > 0) {
 					p = new Pared();
 					p.setOrigen(tablero[i][j].getIdSala());
-					p.setDestino(tablero[i + 1][j].getIdSala());
+					p.setDestino(tablero[i][j].getIdSala() - 1);
 					paredes.add(p);
-					p = new Pared();
-					p.setOrigen(tablero[i + 1][j].getIdSala());
-					p.setDestino(tablero[i][j].getIdSala());
-					paredes.add(p);
-
 				}
 
 			}
 		}
+
 	}
 
 	private boolean paredNorte(int idSala) {
@@ -303,32 +361,8 @@ public class Mapa {
 
 	}
 
-	// /**
-	// * Metodo que construye un mapa con paredes solo en los limites del mapa
-	// */
-	// public void construirMapaa() {
-	//
-	// for (int i = 0; i < tablero.length; i++) {
-	// for (int j = 0; j < tablero[0].length; j++) {
-	// if (i == 0)
-	// tablero[i][j].setPnorte(true);
-	//
-	// if (j == 0)
-	// tablero[i][j].setPoeste(true);
-	//
-	// if (i == (tablero.length - 1))
-	// tablero[i][j].setPsur(true);
-	//
-	// if (j == (tablero[0].length - 1))
-	// tablero[i][j].setPeste(true);
-	//
-	// }
-	// }
-	// }
-
 	public void insertarPersonaje(Personaje p, int id) {
 		int i, j;
-		// int fil = tablero.length;
 		int col = tablero[0].length;
 		i = id / col;
 		j = id % col;
@@ -365,7 +399,7 @@ public class Mapa {
 	}
 
 	/**
-	 * To String de la clase Mapaa
+	 * To String de la clase Mapa
 	 */
 	@Override
 	public String toString() {
@@ -375,9 +409,9 @@ public class Mapa {
 		int idIzq, idDer;
 
 		// Dibuja Pared Norte
-		for (int j = 0; j < (tablero[0].length * 2)+1; j++) {
+		for (int j = 0; j < (tablero[0].length - 1) + 1; j++) {
 
-			t = t + "_";
+			t = t + " _";
 
 		}
 		t = t + "\n";
@@ -400,16 +434,15 @@ public class Mapa {
 					else
 						t = t + " ";
 
-
 				}
 
 				if (sala.getPersonajes().isEmpty()) {
-
+					// t = t + sala.getMarca();
 					if (paredSur(sala.getIdSala()))
 						t = t + "_";
 					else
 						t = t + " ";
-
+					// TODO:Cambiar a como estaba antes al acabar pruebas kruscal
 				} else if (sala.getPersonajes().size() == 1) {
 					c = sala.getPersonajes().get(0).getInicial();
 
@@ -430,6 +463,9 @@ public class Mapa {
 		return t;
 	}
 
+	/**
+	 * Metodo de pruebas del toString de la clase mapa
+	 */
 	public void pruebasToString() {
 
 		Mapa m = new Mapa(35, 6, 6, 4);
@@ -492,6 +528,9 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Muestra el titulo del programa con caracteres ascii
+	 */
 	private void MostrarCabeceraAscii() {
 		System.out.print("\n\n");
 		System.out.println(
@@ -591,10 +630,11 @@ public class Mapa {
 		// Parameters: dailyPlanet square, columns number, rows number,
 		// Initial depth for the lock
 		// The constructor must create the different squares for the map
-		Mapa map = new Mapa(dailyPlanetSquare, dimX, dimY, initialDepth);
+		Mapa map = new Mapa(dailyPlanetSquare, dimY, dimX, initialDepth);
 		// map.construirParedes();
-		map.pruebasToString();
-		//System.out.println(map);
+		// map.pruebasToString();
+		map.kruscal();
+		// System.out.println(map);
 		// System.out.println(map.getParedes().toString());
 		// Generate the weapons and distribute them. In this stage, we pass to the map
 		// an array
