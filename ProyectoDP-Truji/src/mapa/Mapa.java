@@ -372,9 +372,10 @@ public class Mapa {
 		String t = "";
 		Sala sala = null;
 		char c = ' ';
+		int idIzq, idDer;
 
 		// Dibuja Pared Norte
-		for (int j = 0; j < tablero[0].length * 2; j++) {
+		for (int j = 0; j < (tablero[0].length * 2)+1; j++) {
 
 			t = t + "_";
 
@@ -389,11 +390,25 @@ public class Mapa {
 
 				if (j == 0)
 					t = t + "|";
-				else if (paredOeste(sala.getIdSala()))
-					t = t + "|";
+				else {
+
+					idIzq = sala.getIdSala() - 1;
+					idDer = sala.getIdSala();
+
+					if (!grafo.adyacente(idIzq, idDer))
+						t = t + "|";
+					else
+						t = t + " ";
+
+
+				}
 
 				if (sala.getPersonajes().isEmpty()) {
-					t = t + "_";
+
+					if (paredSur(sala.getIdSala()))
+						t = t + "_";
+					else
+						t = t + " ";
 
 				} else if (sala.getPersonajes().size() == 1) {
 					c = sala.getPersonajes().get(0).getInicial();
@@ -406,31 +421,75 @@ public class Mapa {
 
 				if (j == dimX - 1)
 					t = t + "|";
-				else if (paredEste(sala.getIdSala()) && !paredOeste(sala.getIdSala() + 1))
-					t = t + "|";
 
 			}
 			t = t + "\n";
 
 		}
 
-		// for (int i = 0; i < tablero.length; i++) {
-		//
-		// for (int j = 0; j < tablero[0].length; j++) {
-		// sala = tablero[i][j];
-		//
-		// if (esSalaDailyPlanet(i, j)) {
-		// t = t + "DAILY PLANET " + sala.toString() + "\n\n\n";
-		// t = t + "Hola soy el hombre puerta y duermo en la sala Daily Planet por las
-		// noches \n";
-		// } else {
-		// t = t + sala.toString() + "\n\n\n";
-		// }
-		// }
-		//
-		// }
-
 		return t;
+	}
+
+	public void pruebasToString() {
+
+		Mapa m = new Mapa(35, 6, 6, 4);
+
+		System.out.println("Dibujo del mapa predeterminado(VACIO)");
+		System.out.println("_____________");
+		System.out.println("|_|_|_|_|_|_|");
+		System.out.println("|_|_|_|_|_|_|");
+		System.out.println("|_|_|_|_|_|_|");
+		System.out.println("|_|_|_|_|_|_|");
+		System.out.println("|_|_|_|_|_|_|");
+		System.out.println("|_|_|_|_|_|_|");
+		System.out.println(m);
+		System.out.print("\n\n");
+
+		System.out.println("Dibujo del mapa:");
+		System.out.println("_____________");
+		System.out.println("|A _|_|_|_|_|");
+		System.out.println("|_|_|_|_|_|_|");
+		System.out.println("|_|_|_|_|_|_|");
+		System.out.println("|_|_|_|_|_|_|");
+		System.out.println("|_|_|_|_|_|_|");
+		System.out.println("|_|_|_|_|_|_|");
+		m.insertarPersonaje(new SuperHeroe("Acuaman", 'A'), 0);
+		m.getGrafo().nuevoArco(0, 1, -1);
+		m.getGrafo().nuevoArco(0, 6, -1);
+		System.out.println(m);
+		System.out.print("\n\n");
+
+		System.out.println("Dibujo del mapa:");
+		System.out.println("_____________");
+		System.out.println("|A _ _ _ _ _|");
+		System.out.println("| |_|_|_|_|_|");
+		System.out.println("| |_|_|_|_|_|");
+		System.out.println("| |_|_|_|_|_|");
+		System.out.println("| |_|_|_|_|_|");
+		System.out.println("|_|_|_|_|_|_|");
+		m.getGrafo().nuevoArco(1, 2, -1);
+		m.getGrafo().nuevoArco(2, 3, -1);
+		m.getGrafo().nuevoArco(3, 4, -1);
+		m.getGrafo().nuevoArco(4, 5, -1);
+		m.getGrafo().nuevoArco(6, 12, -1);
+		m.getGrafo().nuevoArco(12, 18, -1);
+		m.getGrafo().nuevoArco(18, 24, -1);
+		m.getGrafo().nuevoArco(24, 30, -1);
+		System.out.println(m);
+		System.out.print("\n\n");
+
+		System.out.println("Dibujo del mapa:");
+		System.out.println("_____________");
+		System.out.println("|2 _ _ _ _ _|");
+		System.out.println("| |_|_|_|_|_|");
+		System.out.println("| |_|_|_|_|_|");
+		System.out.println("| |_|_|_|_|_|");
+		System.out.println("| |_|_|_|_|_|");
+		System.out.println("|_|_|_|_|_|_|");
+		m.insertarPersonaje(new Villano("Señor X", 'X', new Arma("Espada", 10)), 0);
+		System.out.println(m);
+		System.out.print("\n\n");
+
 	}
 
 	private void MostrarCabeceraAscii() {
@@ -533,8 +592,9 @@ public class Mapa {
 		// Initial depth for the lock
 		// The constructor must create the different squares for the map
 		Mapa map = new Mapa(dailyPlanetSquare, dimX, dimY, initialDepth);
-		map.construirParedes();
-		System.out.println(map);
+		// map.construirParedes();
+		map.pruebasToString();
+		//System.out.println(map);
 		// System.out.println(map.getParedes().toString());
 		// Generate the weapons and distribute them. In this stage, we pass to the map
 		// an array
