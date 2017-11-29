@@ -57,8 +57,7 @@ public class Pared {
 //		if (!(obj instanceof Pared))
 //			return false;
 //		Pared objAux = (Pared) obj;
-//		if ((objAux.getOrigen() == origen && objAux.getDestino() == destino)
-//				|| (objAux.getOrigen() == destino && objAux.getDestino() == origen))
+//		if ((objAux.getOrigen() == origen && objAux.getDestino() == destino))
 //			return true;
 //		else
 //			return false;

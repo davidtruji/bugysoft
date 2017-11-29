@@ -2,6 +2,8 @@ package mapa;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import estructuras_datos.Grafo;
 import personajes.Arma;
 import personajes.HombrePuerta;
@@ -121,6 +123,130 @@ public class Mapa {
 		this.grafo = grafo;
 	}
 
+	/**
+	 * Tira la pared pasada por parametro
+	 * 
+	 * @param p
+	 *            es la pared a derrivar
+	 */
+	public void tirarPared(Pared p) {
+
+		grafo.nuevoArco(p.getOrigen(), p.getDestino(), 1);
+		grafo.nuevoArco(p.getDestino(), p.getOrigen(), 1);
+
+	}
+
+	/**
+	 * Tira la pared de la sala indicada y direccion indicada
+	 * 
+	 * @param idSala
+	 *            de la sala
+	 * @param idSalaDest
+	 *            de la sala destino
+	 */
+	public void tirarPared(int idSala, int idSalaDest) {
+
+		grafo.nuevoArco(idSala, idSalaDest, 1);
+		grafo.nuevoArco(idSalaDest, idSala, 1);
+
+	}
+
+	/**
+	 * Devuleve si al tirar la pared de una sala quedan espacios vacios
+	 * 
+	 * @param idSala
+	 *            de la sala a comprobar
+	 * @param dir
+	 *            de la pared que se quiere derrivar
+	 * @return si quedan espacios al derrivar la pared
+	 */
+	public boolean espacioVacio(int idSala, Dir dir) {
+		boolean espacioVacio = false;
+
+		switch (dir) {
+		case N:
+			if (!paredOeste(idSala - dimX)) {
+				if (!paredOeste(idSala)) {
+					if (!paredNorte(idSala - 1)) {
+						espacioVacio = true;
+					}
+				}
+			}
+
+			if (!paredEste(idSala - dimX)) {
+				if (!paredEste(idSala)) {
+					if (!paredNorte(idSala + 1)) {
+						espacioVacio = true;
+					}
+				}
+			}
+
+			break;
+		case E:
+
+			if (!paredEste(idSala - dimX)) {
+				if (!paredNorte(idSala + 1)) {
+					if (!paredNorte(idSala)) {
+						espacioVacio = true;
+					}
+				}
+			}
+
+			if (!paredEste(idSala + dimX)) {
+				if (!paredSur(idSala + 1)) {
+					if (!paredSur(idSala)) {
+						espacioVacio = true;
+					}
+				}
+			}
+
+			break;
+		case S:
+			if (!paredOeste(idSala)) {
+				if (!paredOeste(idSala + dimX)) {
+					if (!paredSur(idSala - 1)) {
+						espacioVacio = true;
+					}
+				}
+			}
+
+			if (!paredEste(idSala)) {
+				if (!paredEste(idSala + dimX)) {
+					if (!paredSur(idSala + 1)) {
+						espacioVacio = true;
+					}
+				}
+			}
+
+			break;
+		case W:
+
+			if (!paredOeste(idSala - dimX)) {
+				if (!paredNorte(idSala)) {
+					if (!paredNorte(idSala - 1)) {
+						espacioVacio = true;
+					}
+				}
+			}
+
+			if (!paredSur(idSala)) {
+				if (!paredOeste(idSala + dimX)) {
+					if (!paredSur(idSala - 1)) {
+						espacioVacio = true;
+					}
+				}
+			}
+
+			break;
+
+		default:
+			System.out.println("Mapa.comprobarEspacioVacio() error en la direccion introducida");
+			break;
+		}
+
+		return espacioVacio;
+	}
+
 	public List<Pared> getParedes() {
 		return paredes;
 	}
@@ -228,16 +354,15 @@ public class Mapa {
 
 			paredAuxInversa.setDestino(paredAux.getOrigen());
 			paredAuxInversa.setOrigen(paredAux.getDestino());
-			
+
 			paredes.remove(paredAux);
-			//paredes.remove(paredAuxInversa);
+			paredes.remove(paredAuxInversa);
 
 			sOri = getSala(paredAux.getOrigen());
 			sDest = getSala(paredAux.getDestino());
 
 			if (sOri.getMarca() != sDest.getMarca()) {
-				grafo.nuevoArco(paredAux.getOrigen(), paredAux.getDestino(), 1);
-				grafo.nuevoArco(paredAux.getDestino(), paredAux.getOrigen(), 1);
+				tirarPared(paredAux);
 				marcarSalasId(sOri.getMarca(), sDest.getMarca());
 
 			}
@@ -251,6 +376,48 @@ public class Mapa {
 		System.out.println("|  _     _| |");
 		System.out.println("|_ _|_|  _  |");
 		System.out.println("|_ _ _ _ _|_|");
+
+		// System.out.println("Mapa.kruscal(), atajos; " + crearAtajos());
+	}
+
+	/**
+	 * Derriba N paredes, N es el 5% de las salas que tiene el tablero
+	 */
+	public void crearAtajos() {
+		int atajosCreados = 0;
+		int atajos = (int) ((dimX * dimY) * 0.05);
+		int randomN;
+
+		// Orden: Norte, Sur, Oeste y Este.
+		while (atajosCreados != atajos) {
+
+			randomN = GenAleatorios.generarNumero(dimX * dimY);
+			// System.out.println("Numero random: " + randomN + " atajos: " + atajos);
+
+			if (paredNorte(randomN) && !espacioVacio(randomN, Dir.N)) {
+
+				tirarPared(randomN, randomN - dimX);
+				atajosCreados++;
+
+			} else if (paredSur(randomN) && !espacioVacio(randomN, Dir.S)) {
+
+				tirarPared(randomN, randomN + dimX);
+				atajosCreados++;
+
+			} else if (paredOeste(randomN) && !espacioVacio(randomN, Dir.W)) {
+
+				tirarPared(randomN, randomN - 1);
+				atajosCreados++;
+
+			} else if (paredEste(randomN) && !espacioVacio(randomN, Dir.E)) {
+
+				tirarPared(randomN, randomN + 1);
+				atajosCreados++;
+
+			}
+
+		}
+
 	}
 
 	/**
@@ -339,25 +506,35 @@ public class Mapa {
 
 	private boolean paredNorte(int idSala) {
 
-		return !grafo.adyacente(idSala, idSala - dimX);
+		if (idSala > dimX - 1 && !grafo.adyacente(idSala, idSala - dimX))
+			return true;
+		else
+			return false;
 
 	}
 
 	private boolean paredEste(int idSala) {
-
-		return !grafo.adyacente(idSala, idSala + 1);
+		if ((idSala + 1) % dimX != 0 && !grafo.adyacente(idSala, idSala + 1))
+			return true;
+		else
+			return false;
 
 	}
 
 	private boolean paredOeste(int idSala) {
 
-		return !grafo.adyacente(idSala, idSala - 1);
+		if (idSala % dimX != 0 && !grafo.adyacente(idSala, idSala - 1))
+			return true;
+		else
+			return false;
 
 	}
 
 	private boolean paredSur(int idSala) {
-
-		return !grafo.adyacente(idSala, idSala + dimX);
+		if (idSala < (dimX * dimY) - dimX && !grafo.adyacente(idSala, idSala + dimX))
+			return true;
+		else
+			return false;
 
 	}
 
@@ -438,7 +615,7 @@ public class Mapa {
 
 				if (sala.getPersonajes().isEmpty()) {
 					// t = t + sala.getMarca();
-					if (paredSur(sala.getIdSala()))
+					if (paredSur(sala.getIdSala()) || i == dimY - 1)
 						t = t + "_";
 					else
 						t = t + " ";
@@ -631,10 +808,12 @@ public class Mapa {
 		// Initial depth for the lock
 		// The constructor must create the different squares for the map
 		Mapa map = new Mapa(dailyPlanetSquare, dimY, dimX, initialDepth);
+		map.MostrarCabeceraAscii();
 		// map.construirParedes();
 		// map.pruebasToString();
 		map.kruscal();
-		// System.out.println(map);
+		map.crearAtajos();
+		System.out.println(map);
 		// System.out.println(map.getParedes().toString());
 		// Generate the weapons and distribute them. In this stage, we pass to the map
 		// an array
