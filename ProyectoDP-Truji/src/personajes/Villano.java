@@ -1,6 +1,7 @@
 package personajes;
 
 import estructuras_datos.Arbol;
+import mapa.Mapa;
 import mapa.Sala;
 
 /**
@@ -43,9 +44,12 @@ public class Villano extends Personaje {
 	 */
 	public Villano(String nom, char ini, int turno) {
 		super(nom, ini, turno);
+		Mapa m = Mapa.getInstancia();
 		ArmaVillano = null;
-		Dir[] ruta = { Dir.E, Dir.E };
+		// S S N W S S W S E E N S S
+		Dir[] ruta = { Dir.S, Dir.S, Dir.N, Dir.W, Dir.S, Dir.S, Dir.W, Dir.S, Dir.E, Dir.E, Dir.N, Dir.S, Dir.S };
 		setRuta(ruta);
+		setPosicion(m.getDimX() - 1);
 	}
 
 	/**
@@ -76,30 +80,33 @@ public class Villano extends Personaje {
 	public void recogerArmaPersonaje(Sala s) {
 
 		Arma aux = new Arma("x", 0);
-		System.out.println(">>Recojiendo Armas de la sala...");
+		// System.out.println(">>Recojiendo Armas de la sala...");
 		Arma mejorArmaSala = s.getArmas().mayor();
 
 		if (mejorArmaSala != null)
-			System.out.println("Mejor arma de la sala:" + mejorArmaSala);
-		else
-			System.out.println("Mejor arma de la sala: ");
+			// System.out.println("Mejor arma de la sala:" + mejorArmaSala);
+			// else
+			// System.out.println("Mejor arma de la sala: ");
 
-		if (!s.getArmas().vacio()) {
-			System.out.println("Arma de " + this.toString() + " :" + getArmaVillano());
-			aux = getArmaVillano();
+			if (!s.getArmas().vacio()) {
+				// System.out.println("Arma de " + this.toString() + " :" + getArmaVillano());
+				aux = getArmaVillano();
 
-			if (aux.getPoder() < mejorArmaSala.getPoder()) {
-				System.out.println("Villano recoje: " + mejorArmaSala);
+				if (aux == null) {
+					setArmaVillano(mejorArmaSala);
+					s.getArmas().borrar(mejorArmaSala);
+				} else if (aux.getPoder() < mejorArmaSala.getPoder()) {
+					// System.out.println("Villano recoje: " + mejorArmaSala);
 
-				setArmaVillano(mejorArmaSala);
-				System.out.println("Villano deja: " + aux);
-				s.getArmas().borrar(mejorArmaSala);
-				s.getArmas().insertar(aux);
+					setArmaVillano(mejorArmaSala);
+					// System.out.println("Villano deja: " + aux);
+					s.getArmas().borrar(mejorArmaSala);
+					s.getArmas().insertar(aux);
+				}
+
+			} else {
+				// System.out.println("Ningún arma en la sala...");
 			}
-
-		} else {
-			System.out.println("Ningún arma en la sala...");
-		}
 
 	}
 
@@ -110,20 +117,26 @@ public class Villano extends Personaje {
 	 */
 	@Override
 	public void interaccionHombrePuerta(HombrePuerta hp) {
-		System.out.println(">>Luchando con hombre puerta...");
+		Mapa m = Mapa.getInstancia();
 
-		Arma armaVillano = getArmaVillano();
-		Arma mejorArmaHP = hp.getContenedorArmas().mayor();
-		System.out.println("Hombre puerta usa: " + mejorArmaHP);
-		System.out.println("Villano usa: " + armaVillano);
+		if (getPosicion() == m.getSalaDailyPlanet()) {
+			// System.out.println(">>Luchando con hombre puerta...");
 
-		if (armaVillano.getPoder() > mejorArmaHP.getPoder()) {
-			System.out.println("Villano gana, el hombre puerta pierde: " + mejorArmaHP);
-			hp.getContenedorArmas().borrar(mejorArmaHP);
-		} else {
-			System.out.println("Hombre puerta gana, no se hará nada");
+			Arma armaVillano = getArmaVillano();
+			Arma mejorArmaHP = hp.getContenedorArmas().mayor();
+			// System.out.println("Hombre puerta usa: " + mejorArmaHP);
+			// System.out.println("Villano usa: " + armaVillano);
 
+			if (armaVillano.getPoder() > mejorArmaHP.getPoder()) {
+				// System.out.println("Villano gana, el hombre puerta pierde: " + mejorArmaHP);
+				hp.getContenedorArmas().borrar(mejorArmaHP);
+			} else {
+				// System.out.println("Hombre puerta gana, no se hará nada");
+
+			}
 		}
+
+		hp.ActualizarEstadoPortal();
 
 	}
 
@@ -137,11 +150,20 @@ public class Villano extends Personaje {
 		String s = "";
 
 		if (ArmaVillano != null)
-			s = "(villain:" + getInicial() + ":ID:" + getTurno() + ":" + ArmaVillano + ")";
+			s = "(villain:" + getInicial() + ":" + getPosicion() + ":" + getTurno() + ":" + ArmaVillano + ")";
 		else
-			s = "(villain:" + getInicial() + ":ID:" + getTurno() + ":)";
+			s = "(villain:" + getInicial() + ":" + getPosicion() + ":" + getTurno() + ":)";
 
 		return s;
+	}
+
+	/* (non-Javadoc)
+	 * @see personajes.Personaje#interaccionEntrePersonajes()
+	 */
+	@Override
+	public void interaccionEntrePersonajes() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

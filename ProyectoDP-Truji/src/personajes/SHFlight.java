@@ -1,6 +1,3 @@
-/**
- * 
- */
 package personajes;
 
 import mapa.Mapa;
@@ -20,13 +17,13 @@ public class SHFlight extends SuperHeroe {
 	 */
 	public SHFlight(String nom, char ini, int turno) {
 		super(nom, ini, turno);
-		Dir[] ruta = { Dir.E, Dir.E };
+		Mapa m = Mapa.getInstancia();
+		// E E E N E E S
+		Dir[] ruta = { Dir.E, Dir.E, Dir.E, Dir.N, Dir.E, Dir.E, Dir.S };
 		setRuta(ruta);
+		setPosicion(m.getDimX() * m.getDimY() - m.getDimX());
 	}
 
-	
-	
-	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -35,15 +32,11 @@ public class SHFlight extends SuperHeroe {
 	@Override
 	public String toString() {
 		String s = "";
-		s = "(shflight:" + getInicial() + ":ID:" + getTurno() + ":" + getContenedorArmas() + ")";
+		s = "(shflight:" + getInicial() + ":" + getPosicion() + ":" + getTurno() + ":" + getContenedorArmas() + ")";
 
 		return s;
 	}
-	
-	
-	
-	
-	
+
 	/**
 	 * @param args
 	 */

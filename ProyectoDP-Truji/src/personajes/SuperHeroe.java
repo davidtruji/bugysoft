@@ -1,6 +1,7 @@
 package personajes;
 
 import estructuras_datos.Arbol;
+import mapa.Mapa;
 import mapa.Sala;
 
 /**
@@ -104,41 +105,41 @@ public class SuperHeroe extends Personaje {
 	@Override
 	public void recogerArmaPersonaje(Sala s) {
 		Arma aux = new Arma("x", 0);
-		System.out.println(">>Recojiendo Armas de la sala...");
+		// System.out.println(">>Recojiendo Armas de la sala...");
 		Arma mejorArmaSala = s.getArmas().mayor();
 
-		if (mejorArmaSala != null)
-			System.out.println("Mejor arma de la sala:" + mejorArmaSala);
-		else
-			System.out.println("Mejor arma de la sala: ");
+		// if (mejorArmaSala != null)
+		// System.out.println("Mejor arma de la sala:" + mejorArmaSala);
+		// else
+		// System.out.println("Mejor arma de la sala: ");
 
 		if (!s.getArmas().vacio()) {
 
 			if (!getContenedorArmas().pertenece(mejorArmaSala)) {
 
-				System.out.println("Super Héroe recoje: " + mejorArmaSala);
+				// System.out.println("Super Héroe recoje: " + mejorArmaSala);
 				insertarArmaHeroe(mejorArmaSala);
-				System.out.println("Borrando mejor arma de sala: " + mejorArmaSala);
+				// System.out.println("Borrando mejor arma de sala: " + mejorArmaSala);
 				s.getArmas().borrar(mejorArmaSala);
 
 			} else {
 
 				aux = getContenedorArmas().consultar(mejorArmaSala);
-				System.out.println("Super Héroe combina Arma " + mejorArmaSala + "con" + aux);
+				// System.out.println("Super Héroe combina Arma " + mejorArmaSala + "con" +
+				// aux);
 				aux.setPoder(mejorArmaSala.getPoder() + aux.getPoder());
-				System.out.println("La Arma resultante sería " + aux);
-				System.out.println("Borrando mejor arma de sala: " + mejorArmaSala);
+				// System.out.println("La Arma resultante sería " + aux);
+				// System.out.println("Borrando mejor arma de sala: " + mejorArmaSala);
 				s.getArmas().borrar(mejorArmaSala);
 
 			}
 
 		} else {
-			System.out.println("Ningún arma en la sala...");
+			// System.out.println("Ningún arma en la sala...");
 		}
 
-	}	
-	
-	
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -146,34 +147,50 @@ public class SuperHeroe extends Personaje {
 	 */
 	@Override
 	public void interaccionHombrePuerta(HombrePuerta hp) {
-		System.out.println(">>Luchando con hombre puerta...");
+		// System.out.println(">>Luchando con hombre puerta...");
+		Mapa m = Mapa.getInstancia();
 
-		if (!getContenedorArmas().vacio()) {
-			Arma mejorArmaHeroe = mejorArma();
+		if (m.getSalaDailyPlanet() == getPosicion()) {
+			if (!getContenedorArmas().vacio()) {
+				Arma mejorArmaHeroe = mejorArma();
 
-			System.out.println("Super héroe usa: " + mejorArmaHeroe);
+				// System.out.println("Super héroe usa: " + mejorArmaHeroe);
 
-			// Si el hombre puerta encuentra el arma...
-			if (hp.getContenedorArmas().pertenece(mejorArmaHeroe)) {
-				Arma armaHP = hp.getContenedorArmas().consultar(mejorArmaHeroe);
-				System.out.println("Hombre puerta usa: " + armaHP);
+				// Si el hombre puerta encuentra el arma...
+				if (hp.getContenedorArmas().pertenece(mejorArmaHeroe)) {
+					Arma armaHP = hp.getContenedorArmas().consultar(mejorArmaHeroe);
+					// System.out.println("Hombre puerta usa: " + armaHP);
 
-				if (mejorArmaHeroe.getPoder() > armaHP.getPoder()) {
-					System.out.println("El arma del Heroe gana, hombre puerta pierde su arma: " + armaHP);
-					hp.getContenedorArmas().borrar(armaHP);
+					if (mejorArmaHeroe.getPoder() > armaHP.getPoder()) {
+						// System.out.println("El arma del Heroe gana, hombre puerta pierde su arma: " +
+						// armaHP);
+						hp.getContenedorArmas().borrar(armaHP);
+					}
+
+				} else {
+					// System.out.println("El hombre puerta no posee el arma, no habrá lucha");
 				}
 
+				// System.out.println("El héroe pierde su arma: " + mejorArmaHeroe);
+				getContenedorArmas().borrar(mejorArmaHeroe);
+
 			} else {
-				System.out.println("El hombre puerta no posee el arma, no habrá lucha");
+				// System.out.println("El super héroe no tiene ningun arma...");
 			}
 
-			System.out.println("El héroe pierde su arma: " + mejorArmaHeroe);
-			getContenedorArmas().borrar(mejorArmaHeroe);
-
-		} else {
-			System.out.println("El super héroe no tiene ningun arma...");
 		}
 
+		hp.ActualizarEstadoPortal();
+
+	}
+
+	/* (non-Javadoc)
+	 * @see personajes.Personaje#interaccionEntrePersonajes()
+	 */
+	@Override
+	public void interaccionEntrePersonajes() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

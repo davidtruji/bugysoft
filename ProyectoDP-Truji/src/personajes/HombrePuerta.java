@@ -28,6 +28,12 @@ public class HombrePuerta {
 		this.profundidad = profundidad;
 		Portal = false;
 		ContenedorArmas = new Arbol<Arma>();
+		Arma[] armasPuerta = { new Arma("CampoEnergia", 5), new Arma("Armadura", 13), new Arma("Anillo", 11),
+				new Arma("Acido", 1), new Arma("Antorcha", 5), new Arma("Bola", 3), new Arma("Baston", 22),
+				new Arma("CadenaFuego", 11), new Arma("Espada", 11), new Arma("Cetro", 20), new Arma("Capa", 10),
+				new Arma("CampoMagnetico", 5), new Arma("Escudo", 3), new Arma("Garra", 22), new Arma("Flecha", 12),
+				new Arma("Gema", 4) };
+		configurar(armasPuerta);
 	}
 
 	/**
@@ -65,9 +71,9 @@ public class HombrePuerta {
 	 *            altura del arbol para abrir el portal
 	 * @return True si se cumple la condicion false en caso contrario
 	 */
-	public boolean condicionApetura(int altura) {
+	public boolean condicionApetura() {
 		boolean portal = false;
-		if (altura > ContenedorArmas.alturaArbol()) {
+		if (profundidad > ContenedorArmas.alturaArbol()) {
 			portal = true;
 		}
 
@@ -82,9 +88,9 @@ public class HombrePuerta {
 	 * @param altura
 	 *            altura del portal para abrirse
 	 */
-	public void ActualizarEstadoPortal(int altura) {
+	public void ActualizarEstadoPortal() {
 
-		if (condicionApetura(altura))
+		if (condicionApetura())
 			Portal = true;
 		else
 			Portal = false;

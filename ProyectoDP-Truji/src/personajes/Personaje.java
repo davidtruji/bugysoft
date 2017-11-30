@@ -19,7 +19,8 @@ public abstract class Personaje {
 
 	private String nombre;
 	private char inicial;
-	private int turno;
+	private int turnoComienzo;
+	private int turnoUltimo;
 	private int posicion;
 	private Dir[] ruta;
 
@@ -37,7 +38,9 @@ public abstract class Personaje {
 	public Personaje(String nombre, char inicial, int turno) {
 		this.nombre = nombre;
 		this.inicial = inicial;
-		this.turno = turno;
+		this.turnoComienzo = turno;
+		turnoUltimo = -1;
+
 	}
 
 	/**
@@ -93,11 +96,11 @@ public abstract class Personaje {
 	}
 
 	public int getTurno() {
-		return turno;
+		return turnoComienzo;
 	}
 
 	public void setTurno(int turno) {
-		this.turno = turno;
+		this.turnoComienzo = turno;
 	}
 
 	public Dir[] getRuta() {
@@ -116,6 +119,24 @@ public abstract class Personaje {
 		this.posicion = posicion;
 	}
 
+	public int getTurnoUltimo() {
+		return turnoUltimo;
+	}
+
+	public void setTurnoUltimo(int turnoUltimo) {
+		this.turnoUltimo = turnoUltimo;
+	}
+
+	public boolean esSuTurno() {
+		boolean suTurno = false;
+		Mapa m = Mapa.getInstancia();
+
+		if (m.getTurno() > turnoUltimo)
+			suTurno = true;
+
+		return suTurno;
+	}
+
 	/**
 	 * Metodo que ejecuta un personaje para recojer arma de la sala pasada por
 	 * parametro
@@ -127,8 +148,35 @@ public abstract class Personaje {
 	 */
 	public abstract void interaccionHombrePuerta(HombrePuerta hp);
 
+	public void realizarAcciones() {
+		// TODO: ACABAR ACCIONES
+
+		Mapa m = Mapa.getInstancia();
+
+		// 1. Interaccion con el hombre puerta
+		interaccionHombrePuerta(m.getHp());
+		// 2. Movimiento
+		mover();
+		// 3. Recoger Armas
+		recogerArmaPersonaje(m.getSala(posicion));
+		// 4. Interaccion con otros personajes
+		interaccionEntrePersonajes();
+
+		// turnoUltimo++;
+	}
+
+	/**
+	 * 
+	 */
+	public abstract void interaccionEntrePersonajes();
+
+	/**
+	 * 
+	 */
+	// public abstract void interaccionEntrePersonajes();
+
 	private boolean movimientoPosible(Dir dir) {
-		Mapa m = Mapa.getInstancia(0, 0, 0, 0);
+		Mapa m = Mapa.getInstancia();
 		int dimX, dimY;
 		dimX = m.getDimX();
 		dimY = m.getDimY();
@@ -182,21 +230,22 @@ public abstract class Personaje {
 		return posible;
 	}
 
-	public void mover() {
-		Mapa m = Mapa.getInstancia(0, 0, 0, 0);
+	public Boolean mover() {
+		Mapa m = Mapa.getInstancia();
+		Boolean movido = false;
 		int dimX, dimY;
 		dimX = m.getDimX();
 		dimY = m.getDimY();
 		int dest;
 
-		if (ruta.length != 0) {
+		if (ruta.length != 0 && posicion != m.getSalaDailyPlanet()) {
 
 			Dir dir = ruta[0];
 
 			switch (dir) {
 			case N:
 				if (movimientoPosible(dir)) {
-
+					movido = true;
 					// borrar de sala origen
 					m.borrarPersonaje(this, posicion);
 
@@ -211,6 +260,7 @@ public abstract class Personaje {
 			case E:
 
 				if (movimientoPosible(dir)) {
+					movido = true;
 					// borrar de sala origen
 					m.borrarPersonaje(this, posicion);
 
@@ -225,6 +275,8 @@ public abstract class Personaje {
 				break;
 			case S:
 				if (movimientoPosible(dir)) {
+					movido = true;
+
 					// borrar de sala origen
 					m.borrarPersonaje(this, posicion);
 
@@ -239,6 +291,8 @@ public abstract class Personaje {
 			case W:
 
 				if (movimientoPosible(dir)) {
+					movido = true;
+
 					// borrar de sala origen
 					m.borrarPersonaje(this, posicion);
 
@@ -258,8 +312,10 @@ public abstract class Personaje {
 			}
 
 			// TODO:CHAPUSA ENOLME
-			ruta[0] = ruta[1];
+			for (int n = 0; n < ruta.length - 1; n++)
+				ruta[n] = ruta[n + 1];
 		}
+		return movido;
 	}
 
 	@Override

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package personajes;
 
 /**
@@ -18,10 +15,13 @@ public class SHPhysical extends SuperHeroe {
 	 */
 	public SHPhysical(String nom, char ini, int turno) {
 		super(nom, ini, turno);
-		Dir[] ruta = { Dir.E, Dir.E };
+		// E E S S E S S E E S
+		Dir[] ruta = { Dir.E, Dir.E, Dir.S, Dir.S, Dir.E, Dir.S, Dir.S, Dir.E, Dir.E, Dir.S };
 		setRuta(ruta);
+		setPosicion(0);
+
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -30,12 +30,10 @@ public class SHPhysical extends SuperHeroe {
 	@Override
 	public String toString() {
 		String s = "";
-		s = "(shphysical:" + getInicial() + ":ID:" + getTurno() + ":" + getContenedorArmas() + ")";
+		s = "(shphysical:" + getInicial() + ":" + getPosicion() + ":" + getTurno() + ":" + getContenedorArmas() + ")";
 
 		return s;
 	}
-	
-	
 
 	/**
 	 * @param args

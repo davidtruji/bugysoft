@@ -145,7 +145,7 @@ public class Cargador {
 
 		SHPhysical sh = new SHPhysical(nom, marca, turno);
 
-		Mapa.getInstancia(0, 0, 0, 0).insertarPersonaje(sh, 0);
+		Mapa.getInstancia().insertarPersonaje(sh, 0);
 		;
 
 	}
@@ -168,7 +168,7 @@ public class Cargador {
 
 		SHExtraSensorial sh = new SHExtraSensorial(nom, marca, turno);
 
-		Mapa.getInstancia(0, 0, 0, 0).insertarPersonaje(sh, 0);
+		Mapa.getInstancia().insertarPersonaje(sh, 0);
 	}
 
 	/**
@@ -189,11 +189,11 @@ public class Cargador {
 
 		SHFlight sh = new SHFlight(nom, marca, turno);
 
-		Mapa m = Mapa.getInstancia(0, 0, 0, 0);
+		Mapa m = Mapa.getInstancia();
 		int dimX = m.getDimX();
 		int dimY = m.getDimY();
 
-		Mapa.getInstancia(0, 0, 0, 0).insertarPersonaje(sh, dimX * dimY - dimX);
+		Mapa.getInstancia().insertarPersonaje(sh, dimX * dimY - dimX);
 	}
 
 	/**
@@ -214,9 +214,9 @@ public class Cargador {
 
 		Villano v = new Villano(nom, marca, turno);
 
-		Mapa m = Mapa.getInstancia(0, 0, 0, 0);
+		Mapa m = Mapa.getInstancia();
 		int dimX = m.getDimX();
-		Mapa.getInstancia(0, 0, 0, 0).insertarPersonaje(v, dimX - 1);
+		Mapa.getInstancia().insertarPersonaje(v, dimX - 1);
 	}
 
 }
