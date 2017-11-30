@@ -16,9 +16,8 @@ public class SHExtraSensorial extends SuperHeroe {
 	 * @param nom
 	 * @param ini
 	 */
-	public SHExtraSensorial(String nom, char ini) {
-		super(nom, ini);
-		// TODO Auto-generated constructor stub
+	public SHExtraSensorial(String nom, char ini,int turno) {
+		super(nom, ini, turno);
 	}
 
 	/**

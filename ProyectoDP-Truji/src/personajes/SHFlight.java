@@ -15,8 +15,8 @@ public class SHFlight extends SuperHeroe{
 	 * @param nom
 	 * @param ini
 	 */
-	public SHFlight(String nom, char ini) {
-		super(nom, ini);
+	public SHFlight(String nom, char ini, int turno) {
+		super(nom, ini, turno);
 		// TODO Auto-generated constructor stub
 	}
 

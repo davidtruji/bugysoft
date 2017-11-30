@@ -12,8 +12,26 @@ import mapa.Sala;
  */
 public abstract class Personaje {
 
-	String nombre;
-	char inicial;
+	private String nombre;
+	private char inicial;
+	private int turno;
+
+	/**
+	 * Constructor de personaje que recibe como parametros su nombre y su inicial y
+	 * turno de comienzo
+	 * 
+	 * @param nombre
+	 *            del personaje
+	 * @param inicial
+	 *            que es la marca del personaje
+	 * @param turno
+	 *            en que comienza la partida
+	 */
+	public Personaje(String nombre, char inicial, int turno) {
+		this.nombre = nombre;
+		this.inicial = inicial;
+		this.turno = turno;
+	}
 
 	/**
 	 * Constructor de personaje que recibe como parametros su nombre y su inicial
@@ -65,6 +83,14 @@ public abstract class Personaje {
 	public void setInicial(char inicial) {
 		this.inicial = inicial;
 
+	}
+
+	public int getTurno() {
+		return turno;
+	}
+
+	public void setTurno(int turno) {
+		this.turno = turno;
 	}
 
 	/**

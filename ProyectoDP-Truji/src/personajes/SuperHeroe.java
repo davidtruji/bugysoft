@@ -29,6 +29,22 @@ public class SuperHeroe extends Personaje {
 	}
 
 	/**
+	 * Constructor de super heroe que recibe su nombre y su inicial y su turno de
+	 * comienzo
+	 * 
+	 * @param nom
+	 *            es nombre del heroe
+	 * @param ini
+	 *            es la marca del heroe
+	 * @param turno
+	 *            es el turno en el comienza
+	 */
+	public SuperHeroe(String nom, char ini, int turno) {
+		super(nom, ini, turno);
+		ContenedorArmas = new Arbol<Arma>();
+	}
+
+	/**
 	 * Get del contenedor de armas del heroe
 	 * 
 	 * @return Arbol de armas
@@ -120,8 +136,9 @@ public class SuperHeroe extends Personaje {
 			System.out.println("Ningún arma en la sala...");
 		}
 
-	}
-
+	}	
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -152,7 +169,7 @@ public class SuperHeroe extends Personaje {
 
 			System.out.println("El héroe pierde su arma: " + mejorArmaHeroe);
 			getContenedorArmas().borrar(mejorArmaHeroe);
-			
+
 		} else {
 			System.out.println("El super héroe no tiene ningun arma...");
 		}

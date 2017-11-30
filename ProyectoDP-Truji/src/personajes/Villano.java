@@ -1,5 +1,6 @@
 package personajes;
 
+import estructuras_datos.Arbol;
 import mapa.Sala;
 
 /**
@@ -30,6 +31,22 @@ public class Villano extends Personaje {
 	}
 
 	/**
+	 * Constructor de super heroe que recibe su nombre y su inicial y su turno de
+	 * comienzo
+	 * 
+	 * @param nom
+	 *            es nombre del heroe
+	 * @param ini
+	 *            es la marca del heroe
+	 * @param turno
+	 *            es el turno en el comienza
+	 */
+	public Villano(String nom, char ini, int turno) {
+		super(nom, ini, turno);
+		ArmaVillano = null;
+	}
+
+	/**
 	 * Get del arma del villano
 	 * 
 	 * @return arma que posee el villano
@@ -55,7 +72,7 @@ public class Villano extends Personaje {
 	 */
 	@Override
 	public void recogerArmaPersonaje(Sala s) {
-		// TODO Auto-generated method stub
+
 		Arma aux = new Arma("x", 0);
 		System.out.println(">>Recojiendo Armas de la sala...");
 		Arma mejorArmaSala = s.getArmas().mayor();

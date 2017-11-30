@@ -1,9 +1,14 @@
 package mapa;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
+import cargador.Cargador;
+import cargador.FicheroCarga;
 import estructuras_datos.Grafo;
 import personajes.Arma;
 import personajes.HombrePuerta;
@@ -23,7 +28,7 @@ enum Dir {
  * 
  * ProyectoDP-Truji
  * 
- * @Fichero: Mapaa.java
+ * @Fichero: Mapa.java
  * @Autor: David Trujillo Torres
  * @Fecha: 6 nov. 2017
  */
@@ -37,6 +42,17 @@ public class Mapa {
 	private int alturaPuerta;
 	private Grafo grafo = new Grafo();
 	private List<Pared> paredes = new LinkedList<Pared>();
+
+	private static Mapa mapaSingle = null;
+
+	static public Mapa getInstancia(int salaDailyPlanet, int fil, int col, int altura) {
+
+		if (mapaSingle == null)
+			mapaSingle = new Mapa(salaDailyPlanet, fil, col, altura);
+
+		return mapaSingle;
+
+	}
 
 	/**
 	 * Constructor de mapa que recibe como parametros las dimensiones de este
@@ -76,7 +92,7 @@ public class Mapa {
 	}
 
 	/**
-	 * Constructor de mapa que recibe como parametros el id del Daily Plnet,
+	 * Constructor privado de mapa que recibe como parametros el id del Daily Plnet,
 	 * dimensiones y la altura del hombre puerta
 	 * 
 	 * @param salaDailyPlanet
@@ -87,8 +103,9 @@ public class Mapa {
 	 *            numero de columnas
 	 * @param altura
 	 *            altura del hombre puerta
+	 * @return
 	 */
-	public Mapa(int salaDailyPlanet, int fil, int col, int altura) {
+	private Mapa(int salaDailyPlanet, int fil, int col, int altura) {
 		int id = 0;
 
 		Sala[][] s = new Sala[fil][col];
@@ -105,6 +122,8 @@ public class Mapa {
 		this.salaDailyPlanet = (fil * col) - 1;
 		alturaPuerta = altura;
 		construirParedes();
+		kruscal();
+		crearAtajos();
 	}
 
 	public HombrePuerta getHp() {
@@ -619,7 +638,6 @@ public class Mapa {
 						t = t + "_";
 					else
 						t = t + " ";
-					// TODO:Cambiar a como estaba antes al acabar pruebas kruscal
 				} else if (sala.getPersonajes().size() == 1) {
 					c = sala.getPersonajes().get(0).getInicial();
 
@@ -645,7 +663,7 @@ public class Mapa {
 	 */
 	public void pruebasToString() {
 
-		Mapa m = new Mapa(35, 6, 6, 4);
+		Mapa m = Mapa.getInstancia(35, 6, 6, 4);
 
 		System.out.println("Dibujo del mapa predeterminado(VACIO)");
 		System.out.println("_____________");
@@ -761,10 +779,8 @@ public class Mapa {
 
 				System.out.println("[  Acciones de " + p + "  ]");
 
-				// TODO cambiado con el polimorfismo
 				p.interaccionHombrePuerta(hp);
 
-				// TODO cambiado con el polimorfismo
 				p.recogerArmaPersonaje(s);
 
 				hp.ActualizarEstadoPortal(this.getAlturaPuerta());
@@ -798,95 +814,25 @@ public class Mapa {
 	 */
 	public static void main(String args[]) {
 
-		int dimX = 6;
-		int dimY = 6;
-		int dailyPlanetSquare = (dimX * dimY) - 1;
-		int initialDepth = 4;
-		int MAXTURNS = 50;
-		// Creating the map
-		// Parameters: dailyPlanet square, columns number, rows number,
-		// Initial depth for the lock
-		// The constructor must create the different squares for the map
-		Mapa map = new Mapa(dailyPlanetSquare, dimY, dimX, initialDepth);
-		map.MostrarCabeceraAscii();
-		// map.construirParedes();
-		// map.pruebasToString();
-		map.kruscal();
-		map.crearAtajos();
-		System.out.println(map);
-		// System.out.println(map.getParedes().toString());
-		// Generate the weapons and distribute them. In this stage, we pass to the map
-		// an array
-		// with the identifiers of the squares where the weapons are going to be
-		// distributed
-		// it was specified in the previous stage
-		int[] idSquaresWithWeapons = { 1, 2, 8, 14, 15, 21, 27, 35, 28, 29, 33, 34 };
-		// map.distribuirArmas(idSquaresWithWeapons);
-		// Creating and configuring the DoorMan character. It is not specified here
-		// since
-		// it was specified in the previous stage
-		HombrePuerta doorMan = new HombrePuerta(initialDepth);
-		map.setHombrePuerta(doorMan);
-		// Creating the characters
-		// Creating a SHPHYSICAL
-		// Parameters: name, mark, turn in which it will start the simulation and
-		// initial square
-		// SHPhysical shPhDare = new SHPhysical("Daredevil", 'D', 1, 0);
-		// Creating the route for the SHPHYSICAL:// (route:D: E E S S E S S E E S)
-		// LinearDS<Dir> directionsDare = { Dir.E, Dir.E, Dir.S, Dir.S, Dir.E, Dir.S,
-		// Dir.S, Dir.E, Dir.E, Dir.S };
-		// shPhDare.asignRoute(directionsDare);
-		// Adding the character into the map
-		// map.addCharacter(shPhDare);
-		// Creating a SHEXTRASENSORIAL
-		// Parameters: name, mark, turn in which it will start the simulation and
-		// initial square
-		// SHExtraSensorial shExProf = new SHExtrasensorial("ProfessorX", 'P', 1, 0);
-		// (route:P: E E S W W E S W E N E S E S W W W S E W N E E S N E S S W W W E E E
-		// E E)
-		// LinearDS<Dir> directionsProf = {Dir.E, Dir.E, Dir.S, Dir.W, Dir.W, Dir.E,
-		// Dir.S, Dir.W, Dir.E,
-		// Dir.N, Dir.E, Dir.S, Dir.E, Dir.S, Dir.W, Dir.W, Dir.W, Dir.S, Dir.E,
-		// Dir.W, Dir.N, Dir.E, Dir.E, Dir.S, Dir.N, Dir.E, Dir.S, Dir.S, Dir.W,
-		// Dir.W, Dir.W, Dir.E, Dir.E, Dir.E, Dir.E, Dir.E};
-		// shExProf.asignRoute(directionsProf);
-		// Adding the character into the map
-		// map.addCharacter(shExProf);
-		// Creating a SHFLIGHT
-		// Parameters: name, mark, turn in which it will start the simulation and
-		// initial square
-		// SHFlight shFli = new SHFlight("Eternity", 'F', 1, map.getSouthWestCorner());
-		// (route:F: E E E N E E S)
-		// LinearDS<Dir> directionsFli = {Dir.E, Dir.E, Dir.E, Dir.N, Dir.E, Dir.E,
-		// Dir.S};
-		// shFli.asignRoute(directionsFli);
-		// Adding the character into the map
-		// map.addCharacter(shFli);
-		// Creating a Villain
-		// Parameters: name, mark, turn in which it will start the simulation and
-		// initial square
-		// Villano villainAb = new Villano("Abomination", 'A', 1,
-		// map.getNorthEastCorner());
-		// (ruta:A: S S N W S S W S E E N S S)
-		// LinearDS<Dir> directionsA = {Dir.S, Dir.S, Dir.N, Dir.W, Dir.S, Dir.S, Dir.W,
-		// Dir.S, Dir.E, Dir.E,
-		// Dir.N, Dir.S, Dir.S};
-		// villainAb.asignRoute(directionsA);
-		// Adding the character into the map
-		// map.addCharacter(villainAb);
-		// map.paint();
-		// Executing the simulation
-		// The process method must be executed turn after turn, traversing the map from
-		// square 0
-		// to the last square and the characters stored in each square must execute
-		// their actions
-		// in a chronologically order (the characters that arrived first are the first
-		// in leaving the square)
-		// for (int i=0; i<MAXTURNS;i++) {
-		// map.process(i);
-		// }
-		// map.paint();
-		// }
+		/**
+		 * instancia asociada al fichero de entrada inicio.txt
+		 */
+		Cargador cargador = new Cargador();
+		try {
+			/**
+			 * Método que procesa línea a línea el fichero de entrada inicio.txt
+			 */
+			FicheroCarga.procesarFichero("ficherosEntrada/init_6x6_2.txt", cargador);
+		} catch (FileNotFoundException valor) {
+			System.err.println("Excepción capturada al procesar fichero: " + valor.getMessage());
+		} catch (IOException valor) {
+			System.err.println("Excepción capturada al procesar fichero: " + valor.getMessage());
+		}
+
+		Mapa m = Mapa.getInstancia(0, 0, 0, 0);
+
+		System.out.println("Probando mapa y ficheros: \n\n");
+		System.out.print(m);
 
 	}
 
