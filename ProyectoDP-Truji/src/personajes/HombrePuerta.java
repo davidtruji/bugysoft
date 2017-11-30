@@ -121,6 +121,23 @@ public class HombrePuerta {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		String s = "";
+
+		if (isPortal())
+			s = "(doorman:open:" + profundidad + ":)";
+		else
+			s = "(doorman:closed:" + profundidad + ":" + ContenedorArmas + ")";
+
+		return s;
+	}
+
 	/**
 	 * Main de la clase Hombre puerta, se usa para pruebas internas de la clase
 	 * 

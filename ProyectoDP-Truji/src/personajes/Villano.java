@@ -44,6 +44,8 @@ public class Villano extends Personaje {
 	public Villano(String nom, char ini, int turno) {
 		super(nom, ini, turno);
 		ArmaVillano = null;
+		Dir[] ruta = { Dir.E, Dir.E };
+		setRuta(ruta);
 	}
 
 	/**
@@ -123,6 +125,23 @@ public class Villano extends Personaje {
 
 		}
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		String s = "";
+
+		if (ArmaVillano != null)
+			s = "(villain:" + getInicial() + ":ID:" + getTurno() + ":" + ArmaVillano + ")";
+		else
+			s = "(villain:" + getInicial() + ":ID:" + getTurno() + ":)";
+
+		return s;
 	}
 
 }

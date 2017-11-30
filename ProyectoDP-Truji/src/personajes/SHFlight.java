@@ -3,13 +3,16 @@
  */
 package personajes;
 
+import mapa.Mapa;
+
 /**
  * ProyectoDP-Truji
+ * 
  * @Fichero: SHFlight.java
  * @Autor: David Trujillo Torres
  * @Fecha: 27 nov. 2017
  */
-public class SHFlight extends SuperHeroe{
+public class SHFlight extends SuperHeroe {
 
 	/**
 	 * @param nom
@@ -17,14 +20,34 @@ public class SHFlight extends SuperHeroe{
 	 */
 	public SHFlight(String nom, char ini, int turno) {
 		super(nom, ini, turno);
-		// TODO Auto-generated constructor stub
+		Dir[] ruta = { Dir.E, Dir.E };
+		setRuta(ruta);
 	}
 
+	
+	
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		String s = "";
+		s = "(shflight:" + getInicial() + ":ID:" + getTurno() + ":" + getContenedorArmas() + ")";
+
+		return s;
+	}
+	
+	
+	
+	
+	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 

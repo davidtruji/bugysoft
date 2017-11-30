@@ -33,25 +33,26 @@ public class Sala {
 	/**
 	 * Costructor de las salas.
 	 * 
-	 * @param idSala Id de la sala
+	 * @param idSala
+	 *            Id de la sala
 	 */
 	public Sala(int idSala) {
-		marca=idSala;
+		marca = idSala;
 		this.idSala = idSala;
 		personajes = new LinkedList<Personaje>();
 		armas = new Arbol<Arma>();
 	}
 
-//	/**
-//	 * @param idSala
-//	 * @param marca
-//	 */
-//	public Sala(int idSala, int marca) {
-//		this.marca = marca;
-//		this.idSala = idSala;
-//		personajes = new LinkedList<Personaje>();
-//		armas = new Arbol<Arma>();
-//	}
+	// /**
+	// * @param idSala
+	// * @param marca
+	// */
+	// public Sala(int idSala, int marca) {
+	// this.marca = marca;
+	// this.idSala = idSala;
+	// personajes = new LinkedList<Personaje>();
+	// armas = new Arbol<Arma>();
+	// }
 
 	public Integer getMarca() {
 		return marca;
@@ -131,9 +132,9 @@ public class Sala {
 	/**
 	 * Borra el primer personaje de la lista de personajes
 	 */
-	public void borrarPersonaje() {
+	public void borrarPersonaje(Personaje p) {
 		if (!personajes.isEmpty())
-			personajes.remove(0);
+			personajes.remove(p);
 	}
 
 	/**
@@ -152,11 +153,19 @@ public class Sala {
 	@Override
 	public String toString() {
 		String s = "";
-		s = "[Sala ID " + idSala + "]" + "\n";
-		s = s + "Personajes:\n";
-		s = s + personajes.toString() + "\n";
-		s = s + "Armas:\n";
-		s = s + armas.toString() + "\n";
+
+		s = "(square:" + idSala + ":" + armas + ")";
+
+		return s;
+	}
+
+	public String personajesToString() {
+		String s = "";
+
+		for (int i = 0; i < personajes.size(); i++) {
+			s = s + personajes.get(i) + "\n";
+		}
+		
 		return s;
 	}
 

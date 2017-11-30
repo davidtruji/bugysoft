@@ -16,15 +16,30 @@ public class SHExtraSensorial extends SuperHeroe {
 	 * @param nom
 	 * @param ini
 	 */
-	public SHExtraSensorial(String nom, char ini,int turno) {
+	public SHExtraSensorial(String nom, char ini, int turno) {
 		super(nom, ini, turno);
+		Dir[] ruta = { Dir.E, Dir.E };
+		setRuta(ruta);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		String s = "";
+		s = "(shextrasensorial:" + getInicial() + ":ID:" + getTurno() + ":" + getContenedorArmas() + ")";
+
+		return s;
 	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 

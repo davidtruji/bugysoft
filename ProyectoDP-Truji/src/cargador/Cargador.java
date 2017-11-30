@@ -145,7 +145,6 @@ public class Cargador {
 
 		SHPhysical sh = new SHPhysical(nom, marca, turno);
 
-		// TODO:cambiar sala comienzo
 		Mapa.getInstancia(0, 0, 0, 0).insertarPersonaje(sh, 0);
 		;
 
@@ -162,15 +161,14 @@ public class Cargador {
 	private void crearSHExtraSensorial(int numCampos, List<String> vCampos) {
 		System.out.println("Creado SHExtraSensorial: " + vCampos.get(1) + "\n");
 		// Registrar SHExtraSensorial en el mapa
-		
+
 		String nom = vCampos.get(1);
 		char marca = vCampos.get(2).charAt(0);
 		int turno = Integer.valueOf(vCampos.get(3));
 
 		SHExtraSensorial sh = new SHExtraSensorial(nom, marca, turno);
 
-		// TODO:cambiar sala comienzo
-		Mapa.getInstancia(0, 0, 0, 0).insertarPersonaje(sh, 22);
+		Mapa.getInstancia(0, 0, 0, 0).insertarPersonaje(sh, 0);
 	}
 
 	/**
@@ -184,15 +182,18 @@ public class Cargador {
 	private void crearSHFlight(int numCampos, List<String> vCampos) {
 		System.out.println("Creado SHFlight: " + vCampos.get(1) + "\n");
 		// Registrar SHFlight en el mapa
-		
+
 		String nom = vCampos.get(1);
 		char marca = vCampos.get(2).charAt(0);
 		int turno = Integer.valueOf(vCampos.get(3));
 
 		SHFlight sh = new SHFlight(nom, marca, turno);
 
-		// TODO:cambiar sala comienzo
-		Mapa.getInstancia(0, 0, 0, 0).insertarPersonaje(sh, 12);
+		Mapa m = Mapa.getInstancia(0, 0, 0, 0);
+		int dimX = m.getDimX();
+		int dimY = m.getDimY();
+
+		Mapa.getInstancia(0, 0, 0, 0).insertarPersonaje(sh, dimX * dimY - dimX);
 	}
 
 	/**
@@ -206,15 +207,16 @@ public class Cargador {
 	private void crearVillain(int numCampos, List<String> vCampos) {
 		System.out.println("Creado Villain: " + vCampos.get(1) + "\n");
 		// Registrar Villain en el mapa
-		
+
 		String nom = vCampos.get(1);
 		char marca = vCampos.get(2).charAt(0);
 		int turno = Integer.valueOf(vCampos.get(3));
 
 		Villano v = new Villano(nom, marca, turno);
 
-		// TODO:cambiar sala comienzo
-		Mapa.getInstancia(0, 0, 0, 0).insertarPersonaje(v, 11);
+		Mapa m = Mapa.getInstancia(0, 0, 0, 0);
+		int dimX = m.getDimX();
+		Mapa.getInstancia(0, 0, 0, 0).insertarPersonaje(v, dimX - 1);
 	}
 
 }

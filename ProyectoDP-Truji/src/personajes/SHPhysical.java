@@ -18,14 +18,29 @@ public class SHPhysical extends SuperHeroe {
 	 */
 	public SHPhysical(String nom, char ini, int turno) {
 		super(nom, ini, turno);
-		// TODO Auto-generated constructor stub
+		Dir[] ruta = { Dir.E, Dir.E };
+		setRuta(ruta);
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		String s = "";
+		s = "(shphysical:" + getInicial() + ":ID:" + getTurno() + ":" + getContenedorArmas() + ")";
+
+		return s;
+	}
+	
+	
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 

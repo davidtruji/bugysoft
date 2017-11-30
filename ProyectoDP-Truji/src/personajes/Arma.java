@@ -4,6 +4,7 @@ package personajes;
 /**
  * 
  * ProyectoDP-Truji
+ * 
  * @Fichero: Arma.java
  * @Autor: David Trujillo Torres
  * @Fecha: 6 nov. 2017
@@ -13,14 +14,13 @@ public class Arma implements Comparable<Arma> {
 	private String nombre;
 	private Integer poder;
 
-	
-	
 	/**
 	 * Constructor del arma
+	 * 
 	 * @param nombre
-	 *        Entra un nombre.
+	 *            Entra un nombre.
 	 * @param poder
-	 *        Entra un poder.
+	 *            Entra un poder.
 	 */
 	public Arma(String nombre, Integer poder) {
 		this.nombre = nombre;
@@ -29,6 +29,7 @@ public class Arma implements Comparable<Arma> {
 
 	/**
 	 * Get del nombre del arma
+	 * 
 	 * @return String con el nombre del arma
 	 */
 	public String getNombre() {
@@ -37,7 +38,9 @@ public class Arma implements Comparable<Arma> {
 
 	/**
 	 * Set del nombre del arma
-	 * @param nombre String que sera el nombre
+	 * 
+	 * @param nombre
+	 *            String que sera el nombre
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
@@ -45,6 +48,7 @@ public class Arma implements Comparable<Arma> {
 
 	/**
 	 * Get del poder del arma
+	 * 
 	 * @return Un entero que representa el poder del arma
 	 */
 	public Integer getPoder() {
@@ -53,7 +57,9 @@ public class Arma implements Comparable<Arma> {
 
 	/**
 	 * Set del poder del arma
-	 * @param poder Entero que sera el poder del arma
+	 * 
+	 * @param poder
+	 *            Entero que sera el poder del arma
 	 */
 	public void setPoder(Integer poder) {
 		this.poder = poder;
@@ -65,7 +71,8 @@ public class Arma implements Comparable<Arma> {
 	@Override
 	public String toString() {
 		String s = "";
-		s = "{" + nombre + ", " + poder + "}";
+		if (this != null)
+			s = "(" + nombre + "," + poder + ")";
 		return s;
 	}
 
@@ -94,6 +101,7 @@ public class Arma implements Comparable<Arma> {
 
 	/**
 	 * Main de arma utilizado para pruebas internas
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {

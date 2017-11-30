@@ -344,7 +344,7 @@ public class Arbol<T extends Comparable<T>> {
 				s = s + aux.toString();
 			}
 
-			s = s + " " + datoRaiz.toString();
+			s = s  + datoRaiz.toString();
 
 			if ((aux = getHijoDer()) != null) {
 				s = s + aux.toString();
