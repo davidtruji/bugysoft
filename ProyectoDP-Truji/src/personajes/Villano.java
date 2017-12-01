@@ -5,11 +5,10 @@ import mapa.Sala;
 
 /**
  * 
- * ProyectoDP
- * 
- * @Fichero: Villano.java
+ * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Fecha: 6 nov. 2017
+ * @Entrega: EC2
+ * @Curso: 2º
  */
 public class Villano extends Personaje {
 	private Arma ArmaVillano;

@@ -2,11 +2,10 @@ package mapa;
 
 /**
  * 
- * ProyectoDP
- * 
- * @Fichero: Pared.java
+ * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Fecha: 27 nov. 2017
+ * @Entrega: EC2
+ * @Curso: 2º
  */
 public class Pared {
 	private int origen;

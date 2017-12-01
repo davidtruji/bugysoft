@@ -3,11 +3,11 @@ package personajes;
 import mapa.Mapa;
 
 /**
- * ProyectoDP
  * 
- * @Fichero: SHPhysical.java
+ * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Fecha: 27 nov. 2017
+ * @Entrega: EC2
+ * @Curso: 2º
  */
 public class SHPhysical extends SuperHeroe {
 
