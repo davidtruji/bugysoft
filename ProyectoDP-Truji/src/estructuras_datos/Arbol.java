@@ -5,9 +5,10 @@ import personajes.Arma;
 
 /**
  * 
- * ProyectoDP-Truji
+ * ProyectoDP
+ * 
  * @Fichero: Arbol.java
- * @Autor: David Trujillo Torres
+ * @Autor: David Trujillo Torres y Alberto Diaz Martin
  * @Fecha: 6 nov. 2017
  * @param <T>
  */
@@ -276,9 +277,9 @@ public class Arbol<T extends Comparable<T>> {
 		}
 	}
 
-	
 	/**
 	 * Metodo que devuelve el mayor Arma del arbol llamando al metodo recursivo
+	 * 
 	 * @return el mayor Arma del arbol
 	 */
 	public Arma mayor() {
@@ -288,7 +289,9 @@ public class Arbol<T extends Comparable<T>> {
 
 	/**
 	 * Metodo recursivo que devulve el mayor elemento del arbol
-	 * @param mayor el mayor arma hasta ahora
+	 * 
+	 * @param mayor
+	 *            el mayor arma hasta ahora
 	 * @return el mayor arma de todo el arbol
 	 */
 	public Arma mayorR(Arma mayor) {
@@ -312,6 +315,7 @@ public class Arbol<T extends Comparable<T>> {
 
 	/**
 	 * Metodo que devulve la altura del arbol
+	 * 
 	 * @return la altura del arbol
 	 */
 	public int alturaArbol() {
@@ -332,7 +336,7 @@ public class Arbol<T extends Comparable<T>> {
 		return altura;
 	}
 
-	/*
+	/**
 	 * To String inOrden
 	 */
 	@Override
@@ -344,7 +348,7 @@ public class Arbol<T extends Comparable<T>> {
 				s = s + aux.toString();
 			}
 
-			s = s  + datoRaiz.toString();
+			s = s + datoRaiz.toString();
 
 			if ((aux = getHijoDer()) != null) {
 				s = s + aux.toString();
@@ -353,84 +357,4 @@ public class Arbol<T extends Comparable<T>> {
 		return s;
 	}
 
-	/**
-	 * Método que main que realiza las pruebas con el árbol.
-	 * 
-	 * @param args
-	 *            Argumentos del main
-	 */
-	public static void main(String[] args) {
-		Arbol<Arma> arbol = new Arbol<Arma>();
-		System.out.println("Ejemplos sesion árbol binario de búsqueda");
-
-		Arma[] datos = { new Arma("Mjolnir", 29), new Arma("Anillo", 1), new Arma("Garra", 27), new Arma("Armadura", 3),
-				new Arma("Red", 25), new Arma("Escudo", 5), new Arma("Lucille", 23), new Arma("Lawgiver", 7),
-				new Arma("GuanteInfinito", 21), new Arma("LazoVerdad", 9), new Arma("CadenaFuego", 19),
-				new Arma("Capa", 11), new Arma("Flecha", 17), new Arma("Tridente", 13), new Arma("Antorcha", 15),
-				new Arma("Baston", 28), new Arma("Latigo", 2), new Arma("MazaOro", 26),
-				new Arma("CampoMagnetico", 4), };
-
-		for (int i = 0; i < datos.length; i++) {
-			arbol.insertar(datos[i]);
-		}
-
-		// Insertando datos repetidos
-		if (arbol.insertar(new Arma("Latigo", 26)) == false)
-			System.out.println("El ABB no admite elementos duplicados");
-		else
-			System.out.println("El ABB añade elementos duplicados");
-
-		// Pertenencia de un dato
-		if (arbol.pertenece(new Arma("Red", 5)))
-			System.out.println("Pertenece");
-		else
-			System.out.println("Pertenece Incorrecto");
-
-		// Recorrido en inOrden
-		System.out.println("InOrden");
-		arbol.inOrden();
-
-		// Probando el borrado de diferentes datos -- Descomentar estas líneas para ver
-		// qué ocurre
-		System.out.println("Intento de borrar RayoEnrgia");
-		arbol.borrar(new Arma("Anillo", 20));
-		System.out.println("Borrado Anillo");
-		arbol.inOrden();
-
-		System.out.println("Intento de borrar Tridente");
-		arbol.borrar(new Arma("Tridente", 13));
-		System.out.println("Borrado el Tridente");
-		arbol.inOrden();
-
-		System.out.print("\n\n\n\n");
-		System.out.println("PROBANDO TO STRING");
-		System.out.print(arbol);
-		System.out.print("\n\n\n\n");
-
-		System.out.println("PROBANDO MAYOR(), DEBE DEVOLVER: {Mjolnir, 29} Y DEVULEVE:");
-		System.out.print(arbol.mayor());
-		System.out.print("\n\n\n\n");
-
-		Arbol<Arma> arbolAlt = new Arbol<Arma>();
-		Arma[] datosAlt = { new Arma("A", 29), new Arma("E", 30), new Arma("X", 20), new Arma("R", 10) };
-		for (int i = 0; i < datosAlt.length; i++) {
-			arbolAlt.insertar(datosAlt[i]);
-		}
-
-		System.out.println("PROBANDO ALTURA(), DEBE DEVOLVER: 4 Y DEVULEVE:");
-		System.out.print("Alura del arbol:" + arbolAlt.alturaArbol());
-		System.out.print("\n\n\n\n");
-
-		System.out.println("PROBANDO CONSULTAR(T DATO), DEBE DEVOLVER: {Escudo, 5} Y DEVUELVE:");
-		System.out.print(arbol.consultar(new Arma("Escudo", 999)));
-		System.out.print("\n");
-		System.out.print("\n\n\n\n");
-
-		// Borrando datos del árbol
-		for (int i = 0; i < datos.length; i++) {
-			arbol.borrar(datos[i]);
-			System.out.println("Borrado " + datos[i]);
-
-		}
-	}
 }

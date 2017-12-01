@@ -3,17 +3,21 @@ package personajes;
 import mapa.Mapa;
 
 /**
- * ProyectoDP-Truji
+ * ProyectoDP
  * 
  * @Fichero: SHExtraSensorial.java
- * @Autor: David Trujillo Torres
+ * @Autor: David Trujillo Torres y Alberto Diaz Martin
  * @Fecha: 27 nov. 2017
  */
 public class SHExtraSensorial extends SuperHeroe {
 
 	/**
+	 * Constructor de la clase SHExtraSensorial
+	 * 
 	 * @param nom
+	 *            del heroe
 	 * @param ini
+	 *            del heroe
 	 */
 	public SHExtraSensorial(String nom, char ini, int turno) {
 		super(nom, ini, turno);
@@ -26,16 +30,14 @@ public class SHExtraSensorial extends SuperHeroe {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
+	/**
+	 * Metodo toString de un SHExtraSensorial
 	 */
 	@Override
 	public String toString() {
 		String s = "";
-		s = "(shextrasensorial:" + getInicial() + ":" + getPosicion() + ":" + getTurnoUltimo() + ":" + getContenedorArmas()
-				+ mostrarSaco()+")";
+		s = "(shextrasensorial:" + getInicial() + ":" + getPosicion() + ":" + getTurnoUltimo() + ":"
+				+ getContenedorArmas() + mostrarSaco() + ")";
 
 		return s;
 	}
@@ -44,22 +46,15 @@ public class SHExtraSensorial extends SuperHeroe {
 	public String mensajeOwneroftheworld() {
 		Mapa m = Mapa.getInstancia();
 		String s = "";
-		// (owneroftheworld:villain:V:1111:38:(Tridente,17))
 		s = "(owneroftheworld:shextrasensorial:" + getInicial() + ":1111:" + m.getTurno() + ":" + getContenedorArmas()
 				+ ")";
 		return s;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see personajes.Personaje#mensajeTeseractomember()
-	 */
 	@Override
 	public String mensajeTeseractomember() {
 		Mapa m = Mapa.getInstancia();
 		String s = "";
-		// (villain:P:1111:38:(Flecha,17)(GuanteInfinito,21)(RayoEnergia,20)(Sable,28)(Tentaculo,24))
 		s = "(shextrasensorial:" + getInicial() + ":1111:" + m.getTurno() + ":" + getContenedorArmas() + ")";
 		return s;
 	}

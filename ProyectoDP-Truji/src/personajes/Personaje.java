@@ -9,10 +9,10 @@ enum Dir {
 
 /**
  * 
- * ProyectoDP-Truji
+ * ProyectoDP
  * 
  * @Fichero: Personaje.java
- * @Autor: David Trujillo Torres
+ * @Autor: David Trujillo Torres y Alberto Diaz Martin
  * @Fecha: 6 nov. 2017
  */
 public abstract class Personaje {
@@ -127,6 +127,11 @@ public abstract class Personaje {
 		this.turnoUltimo = turnoUltimo;
 	}
 
+	/**
+	 * Devuelve true si es el turno del personaje y false en caso contrario
+	 * 
+	 * @return si es su turno
+	 */
 	public boolean esSuTurno() {
 		boolean suTurno = false;
 		Mapa m = Mapa.getInstancia();
@@ -135,6 +140,25 @@ public abstract class Personaje {
 			suTurno = true;
 
 		return suTurno;
+	}
+
+	/**
+	 * Devuelve un String con la ruta del personaje
+	 * 
+	 * @return el string con la ruta
+	 */
+	public String rutaToString() {
+		String s = "";
+
+		s = "(path:" + inicial + ":";
+
+		for (int i = 0; i < ruta.length; i++)
+			s = s + " " + ruta[i];
+
+		s = s + ")";
+
+		return s;
+
 	}
 
 	/**
@@ -148,6 +172,9 @@ public abstract class Personaje {
 	 */
 	public abstract void interaccionHombrePuerta(HombrePuerta hp);
 
+	/**
+	 * Metodo que llama a las acciones de todos los personajes
+	 */
 	public void realizarAcciones() {
 
 		Mapa m = Mapa.getInstancia();
@@ -164,19 +191,31 @@ public abstract class Personaje {
 	}
 
 	/**
-	 * 
+	 * Accion entre villanos y heroes
 	 */
 	public abstract void interaccionEntrePersonajes();
 
+	/**
+	 * Muestra el mensaje del ganador del juego
+	 * 
+	 * @return el mensaje
+	 */
 	public abstract String mensajeOwneroftheworld();
 
+	/**
+	 * Muestra el mensaje del que atraviesa el portal despues de ganar
+	 * 
+	 * @return el mensaje
+	 */
 	public abstract String mensajeTeseractomember();
 
 	/**
+	 * Devuelve si es posible realizar un movimiento en la direccion indicada
 	 * 
+	 * @param dir
+	 *            contiene la direccion del movimiento
+	 * @return si es posible hacer el movimiento sin chocarse o salirse del mapa
 	 */
-	// public abstract void interaccionEntrePersonajes();
-
 	private boolean movimientoPosible(Dir dir) {
 		Mapa m = Mapa.getInstancia();
 		int dimX, dimY;
@@ -232,12 +271,16 @@ public abstract class Personaje {
 		return posible;
 	}
 
+	/**
+	 * Accion de movimiento del personaje en su ruta determinada
+	 * 
+	 * @return true si se ha movido y false en caso contrario
+	 */
 	public Boolean mover() {
 		Mapa m = Mapa.getInstancia();
 		Boolean movido = false;
-		int dimX, dimY;
+		int dimX;
 		dimX = m.getDimX();
-		dimY = m.getDimY();
 		int dest;
 
 		if (ruta.length != 0 && posicion != m.getSalaDailyPlanet()) {
@@ -319,6 +362,9 @@ public abstract class Personaje {
 		return movido;
 	}
 
+	/**
+	 * Equals de la clase personaje
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

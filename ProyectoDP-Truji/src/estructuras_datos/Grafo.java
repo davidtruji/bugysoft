@@ -1,7 +1,5 @@
 package estructuras_datos;
 
-import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -14,7 +12,6 @@ public class Grafo {
 	public static final int MAXVERT = 115;
 	public static final int INFINITO = 9999;
 	public static final int NOVALOR = -1;
-	
 
 	/** Numero de nodos del grafo */
 	private int numNodos;

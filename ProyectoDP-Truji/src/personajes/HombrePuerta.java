@@ -4,10 +4,10 @@ import estructuras_datos.Arbol;
 
 /**
  * 
- * ProyectoDP-Truji
+ * ProyectoDP
  * 
  * @Fichero: HombrePuerta.java
- * @Autor: David Trujillo Torres
+ * @Autor: David Trujillo Torres y Alberto Diaz Martin
  * @Fecha: 6 nov. 2017
  */
 public class HombrePuerta {
@@ -24,6 +24,12 @@ public class HombrePuerta {
 		ContenedorArmas = new Arbol<Arma>();
 	}
 
+	/**
+	 * Constructor que inicializa la altura de la cerradura
+	 * 
+	 * @param profundidad
+	 *            de la cerradura
+	 */
 	public HombrePuerta(int profundidad) {
 		this.profundidad = profundidad;
 		Portal = false;
@@ -127,10 +133,8 @@ public class HombrePuerta {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
+	/**
+	 * Metodo toString de el Hombre puerta
 	 */
 	@Override
 	public String toString() {
@@ -142,24 +146,6 @@ public class HombrePuerta {
 			s = "(doorman:closed:" + profundidad + ":" + ContenedorArmas + ")";
 
 		return s;
-	}
-
-	/**
-	 * Main de la clase Hombre puerta, se usa para pruebas internas de la clase
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		Arma[] armasPuerta = { new Arma("CampoEnergia", 5), new Arma("Armadura", 13), new Arma("Anillo", 11),
-				new Arma("Acido", 1), new Arma("Antorcha", 5), new Arma("Bola", 3), new Arma("Baston", 22),
-				new Arma("CadenaFuego", 11), new Arma("Espada", 11), new Arma("Cetro", 20), new Arma("Capa", 10),
-				new Arma("CampoMagnetico", 5), new Arma("Escudo", 3), new Arma("Garra", 22), new Arma("Flecha", 12),
-				new Arma("Gema", 4) };
-		// Creación del hombre puerta y configuración
-		HombrePuerta doorMan = new HombrePuerta();
-		// Configurar el hombre puerta introduciendo la combinación de armas
-		doorMan.configurar(armasPuerta);
-		doorMan.getContenedorArmas().inOrden();
 	}
 
 }

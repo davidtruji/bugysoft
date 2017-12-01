@@ -1,15 +1,14 @@
 package personajes;
 
-import estructuras_datos.Arbol;
 import mapa.Mapa;
 import mapa.Sala;
 
 /**
  * 
- * ProyectoDP-Truji
+ * ProyectoDP
  * 
  * @Fichero: Villano.java
- * @Autor: David Trujillo Torres
+ * @Autor: David Trujillo Torres y Alberto Diaz Martin
  * @Fecha: 6 nov. 2017
  */
 public class Villano extends Personaje {
@@ -71,89 +70,57 @@ public class Villano extends Personaje {
 		ArmaVillano = armaVillano;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see personajes.Personaje#recogerArmaPersonaje()
-	 */
 	@Override
 	public void recogerArmaPersonaje(Sala s) {
 
 		Arma aux = new Arma("x", 0);
-		// System.out.println(">>Recojiendo Armas de la sala...");
 		Arma mejorArmaSala = s.getArmas().mayor();
 
 		if (mejorArmaSala != null)
-			// System.out.println("Mejor arma de la sala:" + mejorArmaSala);
-			// else
-			// System.out.println("Mejor arma de la sala: ");
 
 			if (!s.getArmas().vacio()) {
-				// System.out.println("Arma de " + this.toString() + " :" + getArmaVillano());
 				aux = getArmaVillano();
 
 				if (aux == null) {
 					setArmaVillano(mejorArmaSala);
 					s.getArmas().borrar(mejorArmaSala);
 				} else if (aux.getPoder() < mejorArmaSala.getPoder()) {
-					// System.out.println("Villano recoje: " + mejorArmaSala);
 
 					setArmaVillano(mejorArmaSala);
-					// System.out.println("Villano deja: " + aux);
 					s.getArmas().borrar(mejorArmaSala);
 					s.getArmas().insertar(aux);
 				}
 
-			} else {
-				// System.out.println("Ningún arma en la sala...");
 			}
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see personajes.Personaje#interaccionHombrePuerta()
-	 */
 	@Override
 	public void interaccionHombrePuerta(HombrePuerta hp) {
 		Mapa m = Mapa.getInstancia();
 
 		if (getPosicion() == m.getSalaDailyPlanet()) {
-			// System.out.println(">>Luchando con hombre puerta...");
 
 			Arma armaVillano = getArmaVillano();
 			Arma mejorArmaHP = hp.getContenedorArmas().mayor();
-			// System.out.println("Hombre puerta usa: " + mejorArmaHP);
-			// System.out.println("Villano usa: " + armaVillano);
 
 			if (armaVillano.getPoder() > mejorArmaHP.getPoder()) {
-				// System.out.println("Villano gana, el hombre puerta pierde: " + mejorArmaHP);
 				hp.getContenedorArmas().borrar(mejorArmaHP);
 				hp.ActualizarEstadoPortal();
 
-			
-
-				}
-	if (hp.isPortal()) {
-					// Si se habre ahora
-					// System.out.println("(teseractomembers)");
-					// System.out.println(mensajeOwneroftheworld());
-
-					m.getSalaTesereacto().add(this);
-					m.getSala(m.getSalaDailyPlanet()).borrarPersonaje(this);
 			}
+			if (hp.isPortal()) {
 
-			// hp.ActualizarEstadoPortal();
+				m.getSalaTesereacto().add(this);
+				m.getSala(m.getSalaDailyPlanet()).borrarPersonaje(this);
+			}
 
 		}
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
+	/**
+	 * Metodo toString de un Villano
 	 */
 	@Override
 	public String toString() {
@@ -167,16 +134,8 @@ public class Villano extends Personaje {
 		return s;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see personajes.Personaje#interaccionEntrePersonajes()
-	 */
 	@Override
 	public void interaccionEntrePersonajes() {
-		// TODO Auto-generated method stub
-
-		// System.out.println("Villano.interaccionEntrePersonajes()");
 
 		Mapa m = Mapa.getInstancia();
 		boolean heroe = false;
@@ -210,32 +169,20 @@ public class Villano extends Personaje {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see personajes.Personaje#mensajeOwneroftheworld()
-	 */
 	@Override
 	public String mensajeOwneroftheworld() {
 		Mapa m = Mapa.getInstancia();
 		String s = "";
-		// (owneroftheworld:villain:V:1111:38:(Tridente,17))
 		s = "(owneroftheworld:villain:" + getInicial() + ":1111:" + m.getTurno() + ":" + ArmaVillano + ")";
 		return s;
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see personajes.Personaje#mensajeTeseractomember()
-	 */
 	@Override
 	public String mensajeTeseractomember() {
 
 		Mapa m = Mapa.getInstancia();
 		String s = "";
-		// (villain:P:1111:38:(Flecha,17)(GuanteInfinito,21)(RayoEnergia,20)(Sable,28)(Tentaculo,24))
 		s = "(villain:" + getInicial() + ":1111:" + m.getTurno() + ":" + ArmaVillano + ")";
 		return s;
 

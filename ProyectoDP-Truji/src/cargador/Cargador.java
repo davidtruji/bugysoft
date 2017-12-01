@@ -124,7 +124,10 @@ public class Cargador {
 		altura = Integer.valueOf(vCampos.get(4));
 
 		// inicializar mapa
-		Mapa.getInstancia(salaDailyPlanet, dimY, dimX, altura);
+		if (dimY > 0 && dimX > 0 && altura > 0)
+			Mapa.getInstancia(salaDailyPlanet, dimY, dimX, altura);
+		else
+			System.err.println("Existen errores en los parametros de creacion del mapa");
 	}
 
 	/**
@@ -137,17 +140,19 @@ public class Cargador {
 	 */
 	private void crearSHPhysical(int numCampos, List<String> vCampos) {
 		System.out.println("Creado SHPhysical: " + vCampos.get(1) + "\n");
-		// Registrar SHPhysical en el mapa
 
+		// Registrar SHPhysical en el mapa
 		String nom = vCampos.get(1);
 		char marca = vCampos.get(2).charAt(0);
 		int turno = Integer.valueOf(vCampos.get(3));
 
-		SHPhysical sh = new SHPhysical(nom, marca, turno);
+		if (turno >= 0) {
+			SHPhysical sh = new SHPhysical(nom, marca, turno);
 
-		Mapa.getInstancia().insertarPersonaje(sh, 0);
-		;
-
+			Mapa.getInstancia().insertarPersonaje(sh, 0);
+		} else {
+			System.err.println("El turno de comienzo del personaje no puede ser negativo");
+		}
 	}
 
 	/**
@@ -166,9 +171,13 @@ public class Cargador {
 		char marca = vCampos.get(2).charAt(0);
 		int turno = Integer.valueOf(vCampos.get(3));
 
-		SHExtraSensorial sh = new SHExtraSensorial(nom, marca, turno);
+		if (turno >= 0) {
+			SHExtraSensorial sh = new SHExtraSensorial(nom, marca, turno);
 
-		Mapa.getInstancia().insertarPersonaje(sh, 0);
+			Mapa.getInstancia().insertarPersonaje(sh, 0);
+		} else {
+			System.err.println("El turno de comienzo del personaje no puede ser negativo");
+		}
 	}
 
 	/**
@@ -187,13 +196,18 @@ public class Cargador {
 		char marca = vCampos.get(2).charAt(0);
 		int turno = Integer.valueOf(vCampos.get(3));
 
-		SHFlight sh = new SHFlight(nom, marca, turno);
-
 		Mapa m = Mapa.getInstancia();
 		int dimX = m.getDimX();
 		int dimY = m.getDimY();
 
-		Mapa.getInstancia().insertarPersonaje(sh, dimX * dimY - dimX);
+		if (turno >= 0) {
+			SHFlight sh = new SHFlight(nom, marca, turno);
+
+			Mapa.getInstancia().insertarPersonaje(sh, dimX * dimY - dimX);
+		} else {
+			System.err.println("El turno de comienzo del personaje no puede ser negativo");
+		}
+
 	}
 
 	/**
@@ -212,11 +226,17 @@ public class Cargador {
 		char marca = vCampos.get(2).charAt(0);
 		int turno = Integer.valueOf(vCampos.get(3));
 
-		Villano v = new Villano(nom, marca, turno);
-
 		Mapa m = Mapa.getInstancia();
 		int dimX = m.getDimX();
-		Mapa.getInstancia().insertarPersonaje(v, dimX - 1);
+
+		if (turno >= 0) {
+			Villano v = new Villano(nom, marca, turno);
+
+			Mapa.getInstancia().insertarPersonaje(v, dimX - 1);
+		} else {
+			System.err.println("El turno de comienzo del personaje no puede ser negativo");
+		}
+
 	}
 
 }

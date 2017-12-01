@@ -3,10 +3,10 @@ package personajes;
 
 /**
  * 
- * ProyectoDP-Truji
+ * ProyectoDP
  * 
  * @Fichero: Arma.java
- * @Autor: David Trujillo Torres
+ * @Autor: David Trujillo Torres y Alberto Diaz Martin
  * @Fecha: 6 nov. 2017
  */
 public class Arma implements Comparable<Arma> {
@@ -97,25 +97,6 @@ public class Arma implements Comparable<Arma> {
 	public int compareTo(Arma a) {
 		int ret = nombre.compareToIgnoreCase(a.nombre);
 		return ret;
-	}
-
-	/**
-	 * Main de arma utilizado para pruebas internas
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		System.out.println("Probando Armas.................");
-		Arma a1 = new Arma("z", 999);
-		Arma a2 = new Arma("a", 999);
-
-		if (a1.compareTo(a2) < 0)
-			System.out.println(a1 + " es menor que " + a2);
-		else if (a1.compareTo(a2) > 0)
-			System.out.println(a1 + " es mayor que " + a2);
-		else
-			System.out.println(a1 + " es igual que " + a2);
-
 	}
 
 }

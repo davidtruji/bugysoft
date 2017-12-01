@@ -9,10 +9,10 @@ import mapa.Sala;
 
 /**
  * 
- * ProyectoDP-Truji
+ * ProyectoDP
  * 
  * @Fichero: SuperHeroe.java
- * @Autor: David Trujillo Torres
+ * @Autor: David Trujillo Torres y Alberto Diaz Martin
  * @Fecha: 6 nov. 2017
  */
 public class SuperHeroe extends Personaje {
@@ -64,6 +64,12 @@ public class SuperHeroe extends Personaje {
 		return sacoDeMalos;
 	}
 
+	/**
+	 * Inseta en el saco de malos a un malo cuando lo captura
+	 * 
+	 * @param malo
+	 *            capturado
+	 */
 	public void insertarMaloEnSaco(Villano malo) {
 
 		sacoDeMalos.add(malo);
@@ -117,6 +123,11 @@ public class SuperHeroe extends Personaje {
 		ContenedorArmas = contenedorArmas;
 	}
 
+	/**
+	 * Retorna un String que contiene el saco de malos
+	 * 
+	 * @return el string
+	 */
 	public String mostrarSaco() {
 		String s = "";
 
@@ -128,57 +139,32 @@ public class SuperHeroe extends Personaje {
 		return s;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see personajes.Personaje#recogerArmaPersonaje()
-	 */
 	@Override
 	public void recogerArmaPersonaje(Sala s) {
 		Arma aux = new Arma("x", 0);
-		// System.out.println(">>Recojiendo Armas de la sala...");
 		Arma mejorArmaSala = s.getArmas().mayor();
-
-		// if (mejorArmaSala != null)
-		// System.out.println("Mejor arma de la sala:" + mejorArmaSala);
-		// else
-		// System.out.println("Mejor arma de la sala: ");
 
 		if (!s.getArmas().vacio()) {
 
 			if (!getContenedorArmas().pertenece(mejorArmaSala)) {
 
-				// System.out.println("Super Héroe recoje: " + mejorArmaSala);
 				insertarArmaHeroe(mejorArmaSala);
-				// System.out.println("Borrando mejor arma de sala: " + mejorArmaSala);
 				s.getArmas().borrar(mejorArmaSala);
 
 			} else {
 
 				aux = getContenedorArmas().consultar(mejorArmaSala);
-				// System.out.println("Super Héroe combina Arma " + mejorArmaSala + "con" +
-				// aux);
 				aux.setPoder(mejorArmaSala.getPoder() + aux.getPoder());
-				// System.out.println("La Arma resultante sería " + aux);
-				// System.out.println("Borrando mejor arma de sala: " + mejorArmaSala);
 				s.getArmas().borrar(mejorArmaSala);
 
 			}
 
-		} else {
-			// System.out.println("Ningún arma en la sala...");
 		}
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see personajes.Personaje#interaccionHombrePuerta()
-	 */
 	@Override
 	public void interaccionHombrePuerta(HombrePuerta hp) {
-		// System.out.println(">>Luchando con hombre puerta...");
 		Mapa m = Mapa.getInstancia();
 
 		if (m.getSalaDailyPlanet() == getPosicion()) {
@@ -186,24 +172,17 @@ public class SuperHeroe extends Personaje {
 			if (!getContenedorArmas().vacio()) {
 				Arma mejorArmaHeroe = mejorArma();
 
-				// System.out.println("Super héroe usa: " + mejorArmaHeroe);
-
-				// Si el hombre puerta encuentra el arma...
 				if (hp.getContenedorArmas().pertenece(mejorArmaHeroe)) {
 					Arma armaHP = hp.getContenedorArmas().consultar(mejorArmaHeroe);
-					// System.out.println("Hombre puerta usa: " + armaHP);
 
 					if (mejorArmaHeroe.getPoder() > armaHP.getPoder()) {
-						// System.out.println("El arma del Heroe gana, hombre puerta pierde su arma: " +
-						// armaHP);
+
 						hp.getContenedorArmas().borrar(armaHP);
 						hp.ActualizarEstadoPortal();
 
 					}
 					if (hp.isPortal()) {
-						// Si se habre ahora
-						// System.out.println("(teseractomembers)");
-						// System.out.println(mensajeOwneroftheworld());
+
 						m.getSalaTesereacto().add(this);
 						m.getSala(m.getSalaDailyPlanet()).borrarPersonaje(this);
 					}
@@ -211,16 +190,13 @@ public class SuperHeroe extends Personaje {
 				} else {
 
 					if (hp.isPortal()) {
-						// Si se habre ahora
-						// System.out.println("(teseractomembers)");
-						// System.out.println(mensajeOwneroftheworld());
+
 						m.getSalaTesereacto().add(this);
 						m.getSala(m.getSalaDailyPlanet()).borrarPersonaje(this);
 					}
-					
+
 				}
 
-				// System.out.println("El héroe pierde su arma: " + mejorArmaHeroe);
 				getContenedorArmas().borrar(mejorArmaHeroe);
 
 			}
@@ -229,14 +205,8 @@ public class SuperHeroe extends Personaje {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see personajes.Personaje#interaccionEntrePersonajes()
-	 */
 	@Override
 	public void interaccionEntrePersonajes() {
-		// TODO Auto-generated method stub
 
 		Mapa m = Mapa.getInstancia();
 		boolean villano = false;
@@ -274,21 +244,11 @@ public class SuperHeroe extends Personaje {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see personajes.Personaje#mensajeOwneroftheworld()
-	 */
 	@Override
 	public String mensajeOwneroftheworld() {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see personajes.Personaje#mensajeTeseractomember()
-	 */
 	@Override
 	public String mensajeTeseractomember() {
 		return null;

@@ -5,18 +5,12 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
 import cargador.Cargador;
 import cargador.FicheroCarga;
 import estructuras_datos.Grafo;
 import personajes.Arma;
 import personajes.HombrePuerta;
 import personajes.Personaje;
-import personajes.SHExtraSensorial;
-import personajes.SHFlight;
-import personajes.SHPhysical;
 import personajes.SuperHeroe;
 import personajes.Villano;
 import util.GenAleatorios;
@@ -27,10 +21,10 @@ enum Dir {
 
 /**
  * 
- * ProyectoDP-Truji
+ * ProyectoDP
  * 
  * @Fichero: Mapa.java
- * @Autor: David Trujillo Torres
+ * @Autor: David Trujillo Torres y Alberto Diaz Martin
  * @Fecha: 6 nov. 2017
  */
 public class Mapa {
@@ -45,23 +39,7 @@ public class Mapa {
 	private Grafo grafo = new Grafo();
 	private List<Pared> paredes = new LinkedList<Pared>();
 	private Queue<Personaje> salaTesereacto = new LinkedList<Personaje>();
-
 	private static Mapa mapaSingle = null;
-
-	static public Mapa getInstancia(int salaDailyPlanet, int fil, int col, int altura) {
-
-		if (mapaSingle == null)
-			mapaSingle = new Mapa(salaDailyPlanet, fil, col, altura);
-
-		return mapaSingle;
-
-	}
-
-	static public Mapa getInstancia() {
-
-		return mapaSingle;
-
-	}
 
 	/**
 	 * Constructor de mapa que recibe como parametros las dimensiones de este
@@ -154,7 +132,37 @@ public class Mapa {
 		distribuirArmas(idSalasConArmas, armasSalas);
 		construirParedes();
 		kruscal();
-		crearAtajos();
+	}
+
+	/**
+	 * Devuelve la instancia del patron sigleton o la crea si no existe
+	 * 
+	 * @param salaDailyPlanet
+	 *            es el ID de la sala salaDailyPlanet
+	 * @param fil
+	 *            es el numero de filas
+	 * @param col
+	 *            es el numero de columnas
+	 * @param altura
+	 *            es la altura de la cerradura del Hombre puerta
+	 * @return la instancia Mapa
+	 */
+	static public Mapa getInstancia(int salaDailyPlanet, int fil, int col, int altura) {
+
+		if (mapaSingle == null)
+			mapaSingle = new Mapa(salaDailyPlanet, fil, col, altura);
+
+		return mapaSingle;
+
+	}
+
+	/**
+	 * Devuelve la instancia del patron sigleton
+	 */
+	static public Mapa getInstancia() {
+
+		return mapaSingle;
+
 	}
 
 	public int getDimX() {
@@ -492,15 +500,19 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Muestra la sala de los ganadores y sus mensajes
+	 */
 	public void mostrarTeseracto() {
 
-		System.out.println("(teseractomembers)");
-		System.out.println(salaTesereacto.poll().mensajeOwneroftheworld());
-		while (!salaTesereacto.isEmpty()) {
-			System.out.println(salaTesereacto.poll().mensajeTeseractomember());
+		if (!salaTesereacto.isEmpty()) {
+			System.out.println("(teseractomembers)");
+			System.out.println(salaTesereacto.poll().mensajeOwneroftheworld());
+			while (!salaTesereacto.isEmpty()) {
+				System.out.println(salaTesereacto.poll().mensajeTeseractomember());
 
+			}
 		}
-
 	}
 
 	/**
@@ -587,6 +599,13 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Devuelve si hay la pared indicada en la sala con el ID del parametro
+	 * 
+	 * @param idSala
+	 *            sala a considerar
+	 * @return si hay pared
+	 */
 	public boolean paredNorte(int idSala) {
 
 		if (idSala > dimX - 1 && !grafo.adyacente(idSala, idSala - dimX))
@@ -596,6 +615,13 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Devuelve si hay la pared indicada en la sala con el ID del parametro
+	 * 
+	 * @param idSala
+	 *            sala a considerar
+	 * @return si hay pared
+	 */
 	public boolean paredEste(int idSala) {
 		if ((idSala + 1) % dimX != 0 && !grafo.adyacente(idSala, idSala + 1))
 			return true;
@@ -604,6 +630,13 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Devuelve si hay la pared indicada en la sala con el ID del parametro
+	 * 
+	 * @param idSala
+	 *            sala a considerar
+	 * @return si hay pared
+	 */
 	public boolean paredOeste(int idSala) {
 
 		if (idSala % dimX != 0 && !grafo.adyacente(idSala, idSala - 1))
@@ -613,6 +646,13 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Devuelve si hay la pared indicada en la sala con el ID del parametro
+	 * 
+	 * @param idSala
+	 *            sala a considerar
+	 * @return si hay pared
+	 */
 	public boolean paredSur(int idSala) {
 		if (idSala < (dimX * dimY) - dimX && !grafo.adyacente(idSala, idSala + dimX))
 			return true;
@@ -621,6 +661,14 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Inserta un personaje en la sala indicada
+	 * 
+	 * @param p
+	 *            el personaje
+	 * @param id
+	 *            de la sala indicada
+	 */
 	public void insertarPersonaje(Personaje p, int id) {
 		int i, j;
 		int col = tablero[0].length;
@@ -631,6 +679,14 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Borra un personaje de la sala indicada
+	 * 
+	 * @param p
+	 *            el personaje
+	 * @param id
+	 *            de la sala indicada
+	 */
 	public void borrarPersonaje(Personaje p, int id) {
 		int i, j;
 		int col = tablero[0].length;
@@ -665,6 +721,75 @@ public class Mapa {
 			}
 
 		}
+
+	}
+
+	/**
+	 * Dibuja el laberinto antes de crear atajos y las rutas de los personajes
+	 * 
+	 * @return el dibujo del laberinto y rutas
+	 */
+	private String mostrarLaberintoRutas() {
+
+		String t = "";
+		Sala sala = null;
+		int idIzq, idDer;
+		Personaje p = null;
+
+		// Dibuja Pared Norte
+		for (int j = 0; j < (tablero[0].length - 1) + 1; j++) {
+
+			t = t + " _";
+
+		}
+		t = t + "\n";
+
+		for (int i = 0; i < tablero.length; i++) {
+
+			// Dibuja Pared Oeste, ID Sala, Pared Este, Pared Sur
+			for (int j = 0; j < tablero[0].length; j++) {
+				sala = tablero[i][j];
+
+				if (j == 0)
+					t = t + "|";
+				else {
+
+					idIzq = sala.getIdSala() - 1;
+					idDer = sala.getIdSala();
+
+					if (!grafo.adyacente(idIzq, idDer))
+						t = t + "|";
+					else
+						t = t + " ";
+
+				}
+
+				if (paredSur(sala.getIdSala()) || i == dimY - 1)
+					t = t + "_";
+				else
+					t = t + " ";
+
+				if (j == dimX - 1)
+					t = t + "|";
+
+			}
+
+			t = t + "\n";
+		}
+
+		for (int fil = 0; fil < tablero.length; fil++) {
+			for (int col = 0; col < tablero[0].length; col++) {
+
+				for (int i = 0; i < tablero[fil][col].getPersonajes().size(); i++) {
+					p = tablero[fil][col].getPersonajes().get(i);
+
+					t = t + p.rutaToString() + "\n";
+				}
+
+			}
+		}
+
+		return t;
 
 	}
 
@@ -707,7 +832,6 @@ public class Mapa {
 				}
 
 				if (sala.getPersonajes().isEmpty()) {
-					// t = t + sala.getMarca();
 					if (paredSur(sala.getIdSala()) || i == dimY - 1)
 						t = t + "_";
 					else
@@ -744,7 +868,6 @@ public class Mapa {
 
 			}
 		}
-		// t = t + "(turn:" + turno + ")\n";
 
 		return t;
 	}
@@ -837,7 +960,7 @@ public class Mapa {
 		System.out.println("                 ██║  ██║██╔═══╝     ██║     ██║   ██║██║╚██╔╝██║██║██║     ╚════██║");
 		System.out.println("                 ██████╔╝██║         ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║╚██████╗███████║");
 		System.out.println("                 ╚═════╝ ╚═╝          ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝ ╚═════╝╚══════╝");
-		System.out.println("                                   POR: David Trujillo Torres & Alberto GAY");
+		System.out.println("                                   POR: David Trujillo Torres & Alberto Diaz Martin");
 		System.out.print("\n\n");
 
 	}
@@ -845,7 +968,7 @@ public class Mapa {
 	/**
 	 * Metodo que simula la ejecucion del juego en la sala DP durante 5 turnos
 	 */
-	public void simulacion() {
+	public void simulacionEC1() {
 		int i, j;
 		int id = salaDailyPlanet;
 		int col = tablero[0].length;
@@ -898,10 +1021,19 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Simulacion del juego de la EC2
+	 * 
+	 * @param turnosMax
+	 *            son los turnos maximos que se permiten
+	 */
 	private void simulacionEC2(int turnosMax) {
 		int nper, j = 0;
 		boolean finJuego = false;
 		boolean leToca = false;
+
+		System.out.print(mostrarLaberintoRutas());
+		crearAtajos();
 
 		// Turnos
 		while (turno < turnosMax && !finJuego) {
@@ -956,7 +1088,6 @@ public class Mapa {
 			System.out.println("(map:" + salaDailyPlanet + ")");
 			System.out.println(hp);
 			System.out.print(this);
-			System.out.println("\n\n");
 			turno++;
 		}
 		turno--;

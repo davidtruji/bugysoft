@@ -1,18 +1,33 @@
 package mapa;
 
-import java.util.List;
-
-import personajes.Arma;
-
+/**
+ * 
+ * ProyectoDP
+ * 
+ * @Fichero: Pared.java
+ * @Autor: David Trujillo Torres y Alberto Diaz Martin
+ * @Fecha: 27 nov. 2017
+ */
 public class Pared {
 	private int origen;
 	private int destino;
 
+	/**
+	 * Constructor por defecto de la clase
+	 */
 	public Pared() {
 		origen = 0;
 		destino = 0;
 	}
 
+	/**
+	 * Contruye una pared del mapa
+	 * 
+	 * @param origen
+	 *            ID de una de las dos salas que separa
+	 * @param destino
+	 *            ID de una de las dos salas que separa
+	 */
 	public Pared(int origen, int destino) {
 		this.origen = origen;
 		this.destino = destino;
@@ -34,10 +49,8 @@ public class Pared {
 		this.destino = destino;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
+	/**
+	 * Metodo toString de una pared
 	 */
 	@Override
 	public String toString() {
@@ -46,21 +59,5 @@ public class Pared {
 		return s;
 
 	}
-
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see java.lang.Object#equals(java.lang.Object)
-//	 */
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (!(obj instanceof Pared))
-//			return false;
-//		Pared objAux = (Pared) obj;
-//		if ((objAux.getOrigen() == origen && objAux.getDestino() == destino))
-//			return true;
-//		else
-//			return false;
-//	}
 
 }

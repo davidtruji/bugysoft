@@ -3,17 +3,21 @@ package personajes;
 import mapa.Mapa;
 
 /**
- * ProyectoDP-Truji
+ * ProyectoDP
  * 
  * @Fichero: SHFlight.java
- * @Autor: David Trujillo Torres
+ * @Autor: David Trujillo Torres y Alberto Diaz Martin
  * @Fecha: 27 nov. 2017
  */
 public class SHFlight extends SuperHeroe {
 
 	/**
+	 * Constructor de la clase SHFlight
+	 * 
 	 * @param nom
+	 *            del heroe
 	 * @param ini
+	 *            del heroe
 	 */
 	public SHFlight(String nom, char ini, int turno) {
 		super(nom, ini, turno);
@@ -24,42 +28,32 @@ public class SHFlight extends SuperHeroe {
 		setPosicion(m.getDimX() * m.getDimY() - m.getDimX());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
+	/**
+	 * Metodo toString de SHFlight
 	 */
 	@Override
 	public String toString() {
 		String s = "";
-		s = "(shflight:" + getInicial() + ":" + getPosicion() + ":" + getTurnoUltimo()  + ":" + getContenedorArmas() +mostrarSaco()+ ")";
+		s = "(shflight:" + getInicial() + ":" + getPosicion() + ":" + getTurnoUltimo() + ":" + getContenedorArmas()
+				+ mostrarSaco() + ")";
 
 		return s;
 	}
-	
+
 	@Override
 	public String mensajeOwneroftheworld() {
 		Mapa m = Mapa.getInstancia();
 		String s = "";
-		// (owneroftheworld:villain:V:1111:38:(Tridente,17))
 		s = "(owneroftheworld:shflight:" + getInicial() + ":1111:" + m.getTurno() + ":" + getContenedorArmas() + ")";
 		return s;
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see personajes.Personaje#mensajeTeseractomember()
-	 */
+
 	@Override
 	public String mensajeTeseractomember() {
 		Mapa m = Mapa.getInstancia();
 		String s = "";
-		// (villain:P:1111:38:(Flecha,17)(GuanteInfinito,21)(RayoEnergia,20)(Sable,28)(Tentaculo,24))
 		s = "(shflight:" + getInicial() + ":1111:" + m.getTurno() + ":" + getContenedorArmas() + ")";
 		return s;
 	}
-	
-
 
 }
