@@ -132,16 +132,16 @@ public class Villano extends Personaje {
 				hp.getContenedorArmas().borrar(mejorArmaHP);
 				hp.ActualizarEstadoPortal();
 
-				if (hp.isPortal()) {
+			
+
+				}
+	if (hp.isPortal()) {
 					// Si se habre ahora
 					// System.out.println("(teseractomembers)");
 					// System.out.println(mensajeOwneroftheworld());
 
 					m.getSalaTesereacto().add(this);
 					m.getSala(m.getSalaDailyPlanet()).borrarPersonaje(this);
-
-				}
-
 			}
 
 			// hp.ActualizarEstadoPortal();

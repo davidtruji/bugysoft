@@ -199,17 +199,25 @@ public class SuperHeroe extends Personaje {
 						hp.getContenedorArmas().borrar(armaHP);
 						hp.ActualizarEstadoPortal();
 
-						if (hp.isPortal()) {
-							// Si se habre ahora
-							// System.out.println("(teseractomembers)");
-							// System.out.println(mensajeOwneroftheworld());
-							m.getSalaTesereacto().add(this);
-							m.getSala(m.getSalaDailyPlanet()).borrarPersonaje(this);
-
-						}
-
+					}
+					if (hp.isPortal()) {
+						// Si se habre ahora
+						// System.out.println("(teseractomembers)");
+						// System.out.println(mensajeOwneroftheworld());
+						m.getSalaTesereacto().add(this);
+						m.getSala(m.getSalaDailyPlanet()).borrarPersonaje(this);
 					}
 
+				} else {
+
+					if (hp.isPortal()) {
+						// Si se habre ahora
+						// System.out.println("(teseractomembers)");
+						// System.out.println(mensajeOwneroftheworld());
+						m.getSalaTesereacto().add(this);
+						m.getSala(m.getSalaDailyPlanet()).borrarPersonaje(this);
+					}
+					
 				}
 
 				// System.out.println("El héroe pierde su arma: " + mejorArmaHeroe);
