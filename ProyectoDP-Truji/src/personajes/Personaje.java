@@ -149,7 +149,6 @@ public abstract class Personaje {
 	public abstract void interaccionHombrePuerta(HombrePuerta hp);
 
 	public void realizarAcciones() {
-		// TODO: ACABAR ACCIONES
 
 		Mapa m = Mapa.getInstancia();
 
@@ -162,13 +161,16 @@ public abstract class Personaje {
 		// 4. Interaccion con otros personajes
 		interaccionEntrePersonajes();
 
-		// turnoUltimo++;
 	}
 
 	/**
 	 * 
 	 */
 	public abstract void interaccionEntrePersonajes();
+
+	public abstract String mensajeOwneroftheworld();
+
+	public abstract String mensajeTeseractomember();
 
 	/**
 	 * 
@@ -311,7 +313,6 @@ public abstract class Personaje {
 				break;
 			}
 
-			// TODO:CHAPUSA ENOLME
 			for (int n = 0; n < ruta.length - 1; n++)
 				ruta[n] = ruta[n + 1];
 		}

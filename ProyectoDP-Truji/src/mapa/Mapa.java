@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
@@ -43,6 +44,7 @@ public class Mapa {
 	private int turno;
 	private Grafo grafo = new Grafo();
 	private List<Pared> paredes = new LinkedList<Pared>();
+	private Queue<Personaje> salaTesereacto = new LinkedList<Personaje>();
 
 	private static Mapa mapaSingle = null;
 
@@ -391,6 +393,14 @@ public class Mapa {
 		this.alturaPuerta = alturaPuerta;
 	}
 
+	public Queue<Personaje> getSalaTesereacto() {
+		return salaTesereacto;
+	}
+
+	public void setSalaTesereacto(Queue<Personaje> salaTesereacto) {
+		this.salaTesereacto = salaTesereacto;
+	}
+
 	/**
 	 * Metodo que devulve si la sala pasada por parametros es la sala DP
 	 * 
@@ -477,6 +487,17 @@ public class Mapa {
 				atajosCreados++;
 
 			}
+
+		}
+
+	}
+
+	public void mostrarTeseracto() {
+
+		System.out.println("(teseractomembers)");
+		System.out.println(salaTesereacto.poll().mensajeOwneroftheworld());
+		while (!salaTesereacto.isEmpty()) {
+			System.out.println(salaTesereacto.poll().mensajeTeseractomember());
 
 		}
 
@@ -877,17 +898,13 @@ public class Mapa {
 
 	}
 
-	// TODO: ACABAR SIMULAR
 	private void simulacionEC2(int turnosMax) {
-		int nper, perNoMovido = 0;
-		// boolean siguiente = false;
+		int nper, j = 0;
+		boolean finJuego = false;
+		boolean leToca = false;
 
 		// Turnos
-		for (turno = 0; turno < turnosMax; turno++) {
-
-			System.out.println("(turn:" + turno + ")");
-			System.out.println("(map:" + salaDailyPlanet + ")");
-			System.out.println(hp);
+		while (turno < turnosMax && !finJuego) {
 
 			// Recorrido del tablero completo
 			for (int fil = 0; fil < tablero.length; fil++) {
@@ -899,34 +916,51 @@ public class Mapa {
 					if (!s.getPersonajes().isEmpty()) {
 
 						nper = s.getPersonajes().size();
-						perNoMovido = 0;
 
 						for (int i = 0; i < nper; i++) {
-							Personaje p = s.getPersonajes().get(perNoMovido);
+
+							Personaje p = null;
+							while (j < s.getPersonajes().size() && !leToca) {
+								p = s.getPersonajes().get(j);
+
+								if (p.esSuTurno())
+									leToca = true;
+
+								j++;
+							}
+							j = 0;
+							leToca = false;
 
 							if (p.getTurno() <= turno && p.esSuTurno()) {
-								
-								if (p.getPosicion() == salaDailyPlanet)
-									perNoMovido++;
 
 								p.realizarAcciones();
 								p.setTurnoUltimo(turno);
 
-							} else {
-								perNoMovido++;
-							}
-						}
+								if (hp.isPortal()) {
+									finJuego = true;
+								}
 
-						perNoMovido = 0;
+							} else {
+								p.setTurnoUltimo(turno);
+
+							}
+
+						}
 
 					}
 
 				}
 
 			}
+			System.out.println("(turn:" + turno + ")");
+			System.out.println("(map:" + salaDailyPlanet + ")");
+			System.out.println(hp);
 			System.out.print(this);
+			System.out.println("\n\n");
+			turno++;
 		}
-
+		turno--;
+		mostrarTeseracto();
 	}
 
 	/**
@@ -936,7 +970,6 @@ public class Mapa {
 	 */
 	public static void main(String args[]) {
 		Mapa.MostrarCabeceraAscii();
-
 		/**
 		 * instancia asociada al fichero de entrada inicio.txt
 		 */
@@ -945,7 +978,7 @@ public class Mapa {
 			/**
 			 * Método que procesa línea a línea el fichero de entrada inicio.txt
 			 */
-			FicheroCarga.procesarFichero("ficherosEntrada/init_6x6_2.txt", cargador);
+			FicheroCarga.procesarFichero("ficherosEntrada/init_6x6_5.txt", cargador);
 		} catch (FileNotFoundException valor) {
 			System.err.println("Excepción capturada al procesar fichero: " + valor.getMessage());
 		} catch (IOException valor) {
@@ -953,72 +986,7 @@ public class Mapa {
 		}
 
 		Mapa m = Mapa.getInstancia();
-
-		// Creación de las armas para el hombre puerta
-		// int numArmasPuerta = 15;
-		// Arma[] armasPuerta = { new Arma("CampoEnergia", 5), new Arma("Armadura", 13),
-		// new Arma("Anillo", 11),
-		// new Arma("Acido", 1), new Arma("Antorcha", 5), new Arma("Bola", 3), new
-		// Arma("Baston", 22),
-		// new Arma("CadenaFuego", 11), new Arma("Espada", 11), new Arma("Cetro", 20),
-		// new Arma("Capa", 10),
-		// new Arma("CampoMagnetico", 5), new Arma("Escudo", 3), new Arma("Garra", 22),
-		// new Arma("Flecha", 12),
-		// new Arma("Gema", 4) };
-
-		// Creación del hombre puerta y configuración
-		// HombrePuerta doorMan = new HombrePuerta();
-
-		// Configurar el hombre puerta introduciendo la combinación de armas
-		// doorMan.configurar(armasPuerta);
-
-		// Cerrar el portal, por si inicialmente está abierto
-		// doorMan.cerrar();
-
-		// Añadir el hombre puerta al mapa
-		// m.setHombrePuerta(doorMan);
-
-		// Creación de las armas para repartir en salas
-		// int numArmasSalas = 60;
-		// Arma[] armasSalas = { new Arma("Mjolnir", 29), new Arma("Anillo", 1), new
-		// Arma("Garra", 27),
-		// new Arma("Armadura", 3), new Arma("Red", 25), new Arma("Escudo", 5), new
-		// Arma("Lucille", 23),
-		// new Arma("Lawgiver", 7), new Arma("GuanteInfinito", 21), new
-		// Arma("LazoVerdad", 9),
-		// new Arma("CadenaFuego", 19), new Arma("Capa", 11), new Arma("Flecha", 17),
-		// new Arma("Tridente", 13),
-		// new Arma("Antorcha", 15), new Arma("Baston", 28), new Arma("Latigo", 2), new
-		// Arma("MazaOro", 26),
-		// new Arma("CampoMagnetico", 4), new Arma("Tentaculo", 24), new
-		// Arma("CampoEnergia", 6),
-		// new Arma("Cetro", 22), new Arma("RayoEnergia", 8), new Arma("Laser", 20), new
-		// Arma("Bola", 10),
-		// new Arma("Espada", 18), new Arma("Sable", 12), new Arma("Acido", 16), new
-		// Arma("Gema", 14),
-		// new Arma("Nullifier", 23), new Arma("Mjolnir", 1), new Arma("Anillo", 29),
-		// new Arma("Garra", 3),
-		// new Arma("Armadura", 27), new Arma("Red", 5), new Arma("Escudo", 25), new
-		// Arma("Lucille", 7),
-		// new Arma("Lawgiver", 23), new Arma("GuanteInfinito", 9), new
-		// Arma("LazoVerdad", 21),
-		// new Arma("CadenaFuego", 11), new Arma("Capa", 19), new Arma("Flecha", 13),
-		// new Arma("Tridente", 17),
-		// new Arma("Antorcha", 28), new Arma("Baston", 15), new Arma("Latigo", 26), new
-		// Arma("MazaOro", 2),
-		// new Arma("CampoMagnetico", 24), new Arma("Tentaculo", 4), new
-		// Arma("CampoEnergia", 22),
-		// new Arma("Cetro", 6), new Arma("RayoEnergia", 20), new Arma("Laser", 8), new
-		// Arma("Bola", 18),
-		// new Arma("Espada", 10), new Arma("Sable", 16), new Arma("Acido", 12), new
-		// Arma("Gema", 1),
-		// new Arma("Nullifier", 3) };
-		//
-		// int[] idSalasConArmas = { 1, 2, 8, 14, 15, 21, 27, 35, 28, 29, 33, 34 };
-		// m.distribuirArmas(idSalasConArmas, armasSalas);
-
-		// System.out.print(m);
-		m.simulacionEC2(40);
+		m.simulacionEC2(50);
 
 	}
 

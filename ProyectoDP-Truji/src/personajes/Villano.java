@@ -130,13 +130,23 @@ public class Villano extends Personaje {
 			if (armaVillano.getPoder() > mejorArmaHP.getPoder()) {
 				// System.out.println("Villano gana, el hombre puerta pierde: " + mejorArmaHP);
 				hp.getContenedorArmas().borrar(mejorArmaHP);
-			} else {
-				// System.out.println("Hombre puerta gana, no se hará nada");
+				hp.ActualizarEstadoPortal();
+
+				if (hp.isPortal()) {
+					// Si se habre ahora
+					// System.out.println("(teseractomembers)");
+					// System.out.println(mensajeOwneroftheworld());
+
+					m.getSalaTesereacto().add(this);
+					m.getSala(m.getSalaDailyPlanet()).borrarPersonaje(this);
+
+				}
 
 			}
-		}
 
-		hp.ActualizarEstadoPortal();
+			// hp.ActualizarEstadoPortal();
+
+		}
 
 	}
 
@@ -150,20 +160,85 @@ public class Villano extends Personaje {
 		String s = "";
 
 		if (ArmaVillano != null)
-			s = "(villain:" + getInicial() + ":" + getPosicion() + ":" + getTurno() + ":" + ArmaVillano + ")";
+			s = "(villain:" + getInicial() + ":" + getPosicion() + ":" + getTurnoUltimo() + ":" + ArmaVillano + ")";
 		else
-			s = "(villain:" + getInicial() + ":" + getPosicion() + ":" + getTurno() + ":)";
+			s = "(villain:" + getInicial() + ":" + getPosicion() + ":" + getTurnoUltimo() + ":)";
 
 		return s;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see personajes.Personaje#interaccionEntrePersonajes()
 	 */
 	@Override
 	public void interaccionEntrePersonajes() {
 		// TODO Auto-generated method stub
-		
+
+		// System.out.println("Villano.interaccionEntrePersonajes()");
+
+		Mapa m = Mapa.getInstancia();
+		boolean heroe = false;
+		Sala s = m.getSala(getPosicion());
+		int nPersonajes = s.getPersonajes().size();
+		int i = 0;
+		Personaje aux = null;
+
+		while (i < nPersonajes && !heroe) {
+			aux = s.getPersonajes().get(i);
+
+			if (aux instanceof SuperHeroe && !((SuperHeroe) aux).getContenedorArmas().vacio()) {
+				heroe = true;
+
+			}
+
+			i++;
+		}
+
+		if (heroe) {
+
+			if (((SuperHeroe) aux).getContenedorArmas().pertenece(ArmaVillano)) {
+				Arma ArmaHeroe = ((SuperHeroe) aux).getContenedorArmas().consultar(ArmaVillano);
+
+				if (ArmaHeroe.getPoder() < ArmaVillano.getPoder())
+					((SuperHeroe) aux).getContenedorArmas().borrar(ArmaHeroe);
+
+			}
+
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see personajes.Personaje#mensajeOwneroftheworld()
+	 */
+	@Override
+	public String mensajeOwneroftheworld() {
+		Mapa m = Mapa.getInstancia();
+		String s = "";
+		// (owneroftheworld:villain:V:1111:38:(Tridente,17))
+		s = "(owneroftheworld:villain:" + getInicial() + ":1111:" + m.getTurno() + ":" + ArmaVillano + ")";
+		return s;
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see personajes.Personaje#mensajeTeseractomember()
+	 */
+	@Override
+	public String mensajeTeseractomember() {
+
+		Mapa m = Mapa.getInstancia();
+		String s = "";
+		// (villain:P:1111:38:(Flecha,17)(GuanteInfinito,21)(RayoEnergia,20)(Sable,28)(Tentaculo,24))
+		s = "(villain:" + getInicial() + ":1111:" + m.getTurno() + ":" + ArmaVillano + ")";
+		return s;
+
 	}
 
 }

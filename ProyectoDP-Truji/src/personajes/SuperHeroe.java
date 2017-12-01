@@ -1,5 +1,8 @@
 package personajes;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import estructuras_datos.Arbol;
 import mapa.Mapa;
 import mapa.Sala;
@@ -14,6 +17,7 @@ import mapa.Sala;
  */
 public class SuperHeroe extends Personaje {
 
+	private List<Villano> sacoDeMalos;
 	private Arbol<Arma> ContenedorArmas;
 
 	/**
@@ -43,6 +47,8 @@ public class SuperHeroe extends Personaje {
 	public SuperHeroe(String nom, char ini, int turno) {
 		super(nom, ini, turno);
 		ContenedorArmas = new Arbol<Arma>();
+		sacoDeMalos = new LinkedList<Villano>();
+
 	}
 
 	/**
@@ -52,6 +58,20 @@ public class SuperHeroe extends Personaje {
 	 */
 	public Arbol<Arma> getContenedorArmas() {
 		return ContenedorArmas;
+	}
+
+	public List<Villano> getSacoDeMalos() {
+		return sacoDeMalos;
+	}
+
+	public void insertarMaloEnSaco(Villano malo) {
+
+		sacoDeMalos.add(malo);
+
+	}
+
+	public void setSacoDeMalos(List<Villano> sacoDeMalos) {
+		this.sacoDeMalos = sacoDeMalos;
 	}
 
 	/**
@@ -95,6 +115,17 @@ public class SuperHeroe extends Personaje {
 	 */
 	public void setContenedorArmas(Arbol<Arma> contenedorArmas) {
 		ContenedorArmas = contenedorArmas;
+	}
+
+	public String mostrarSaco() {
+		String s = "";
+
+		for (int i = 0; i < sacoDeMalos.size(); i++) {
+			Villano v = sacoDeMalos.get(i);
+			s = s + v.getInicial() + " ";
+		}
+
+		return s;
 	}
 
 	/*
@@ -151,6 +182,7 @@ public class SuperHeroe extends Personaje {
 		Mapa m = Mapa.getInstancia();
 
 		if (m.getSalaDailyPlanet() == getPosicion()) {
+
 			if (!getContenedorArmas().vacio()) {
 				Arma mejorArmaHeroe = mejorArma();
 
@@ -165,32 +197,93 @@ public class SuperHeroe extends Personaje {
 						// System.out.println("El arma del Heroe gana, hombre puerta pierde su arma: " +
 						// armaHP);
 						hp.getContenedorArmas().borrar(armaHP);
+						hp.ActualizarEstadoPortal();
+
+						if (hp.isPortal()) {
+							// Si se habre ahora
+							// System.out.println("(teseractomembers)");
+							// System.out.println(mensajeOwneroftheworld());
+							m.getSalaTesereacto().add(this);
+							m.getSala(m.getSalaDailyPlanet()).borrarPersonaje(this);
+
+						}
+
 					}
 
-				} else {
-					// System.out.println("El hombre puerta no posee el arma, no habrá lucha");
 				}
 
 				// System.out.println("El héroe pierde su arma: " + mejorArmaHeroe);
 				getContenedorArmas().borrar(mejorArmaHeroe);
 
-			} else {
-				// System.out.println("El super héroe no tiene ningun arma...");
 			}
 
 		}
 
-		hp.ActualizarEstadoPortal();
-
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see personajes.Personaje#interaccionEntrePersonajes()
 	 */
 	@Override
 	public void interaccionEntrePersonajes() {
 		// TODO Auto-generated method stub
-		
+
+		Mapa m = Mapa.getInstancia();
+		boolean villano = false;
+		Sala s = m.getSala(getPosicion());
+		int nPersonajes = s.getPersonajes().size();
+		int i = 0;
+		Personaje aux = null;
+
+		while (i < nPersonajes && !villano) {
+			aux = s.getPersonajes().get(i);
+
+			if (aux instanceof Villano && ((Villano) aux).getArmaVillano() != null) {
+				villano = true;
+			}
+
+			i++;
+		}
+
+		if (villano) {
+
+			Arma armaVillano = ((Villano) aux).getArmaVillano();
+
+			if (getContenedorArmas().pertenece(armaVillano)) {
+
+				Arma armaHeroe = getContenedorArmas().consultar(armaVillano);
+
+				if (armaHeroe.getPoder() > armaVillano.getPoder()) {
+					this.insertarMaloEnSaco((Villano) aux);
+					s.borrarPersonaje(aux);
+				}
+
+			}
+
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see personajes.Personaje#mensajeOwneroftheworld()
+	 */
+	@Override
+	public String mensajeOwneroftheworld() {
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see personajes.Personaje#mensajeTeseractomember()
+	 */
+	@Override
+	public String mensajeTeseractomember() {
+		return null;
 	}
 
 }

@@ -1,5 +1,7 @@
 package personajes;
 
+import mapa.Mapa;
+
 /**
  * ProyectoDP-Truji
  * 
@@ -30,8 +32,32 @@ public class SHPhysical extends SuperHeroe {
 	@Override
 	public String toString() {
 		String s = "";
-		s = "(shphysical:" + getInicial() + ":" + getPosicion() + ":" + getTurno() + ":" + getContenedorArmas() + ")";
+		s = "(shphysical:" + getInicial() + ":" + getPosicion() + ":" + getTurnoUltimo() + ":" + getContenedorArmas()
+				+ mostrarSaco() + ")";
 
+		return s;
+	}
+
+	@Override
+	public String mensajeOwneroftheworld() {
+		Mapa m = Mapa.getInstancia();
+		String s = "";
+		// (owneroftheworld:villain:V:1111:38:(Tridente,17))
+		s = "(owneroftheworld:shphysical:" + getInicial() + ":1111:" + m.getTurno() + ":" + getContenedorArmas() + ")";
+		return s;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see personajes.Personaje#mensajeTeseractomember()
+	 */
+	@Override
+	public String mensajeTeseractomember() {
+		Mapa m = Mapa.getInstancia();
+		String s = "";
+		// (villain:P:1111:38:(Flecha,17)(GuanteInfinito,21)(RayoEnergia,20)(Sable,28)(Tentaculo,24))
+		s = "(shphysical:" + getInicial() + ":1111:" + m.getTurno() + ":" + getContenedorArmas() + ")";
 		return s;
 	}
 

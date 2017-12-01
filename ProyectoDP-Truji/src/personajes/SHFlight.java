@@ -32,16 +32,34 @@ public class SHFlight extends SuperHeroe {
 	@Override
 	public String toString() {
 		String s = "";
-		s = "(shflight:" + getInicial() + ":" + getPosicion() + ":" + getTurno() + ":" + getContenedorArmas() + ")";
+		s = "(shflight:" + getInicial() + ":" + getPosicion() + ":" + getTurnoUltimo()  + ":" + getContenedorArmas() +mostrarSaco()+ ")";
 
 		return s;
 	}
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-
+	
+	@Override
+	public String mensajeOwneroftheworld() {
+		Mapa m = Mapa.getInstancia();
+		String s = "";
+		// (owneroftheworld:villain:V:1111:38:(Tridente,17))
+		s = "(owneroftheworld:shflight:" + getInicial() + ":1111:" + m.getTurno() + ":" + getContenedorArmas() + ")";
+		return s;
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see personajes.Personaje#mensajeTeseractomember()
+	 */
+	@Override
+	public String mensajeTeseractomember() {
+		Mapa m = Mapa.getInstancia();
+		String s = "";
+		// (villain:P:1111:38:(Flecha,17)(GuanteInfinito,21)(RayoEnergia,20)(Sable,28)(Tentaculo,24))
+		s = "(shflight:" + getInicial() + ":1111:" + m.getTurno() + ":" + getContenedorArmas() + ")";
+		return s;
+	}
+	
+
 
 }
