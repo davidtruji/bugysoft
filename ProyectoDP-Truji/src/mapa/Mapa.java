@@ -2,9 +2,13 @@ package mapa;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
+
 import cargador.Cargador;
 import cargador.FicheroCarga;
 import estructuras_datos.Grafo;
@@ -35,9 +39,10 @@ public class Mapa {
 	private HombrePuerta hp;
 	private int alturaPuerta;
 	private int turno;
-	private Grafo grafo = new Grafo();
+	private Grafo grafo;
 	private List<Pared> paredes = new LinkedList<Pared>();
 	private Queue<Personaje> salaTesereacto = new LinkedList<Personaje>();
+	private Integer[] frecuenciaPaso;
 	private static Mapa mapaSingle = null;
 
 	/**
@@ -111,7 +116,7 @@ public class Mapa {
 				new Arma("Espada", 10), new Arma("Sable", 16), new Arma("Acido", 12), new Arma("Gema", 1),
 				new Arma("Nullifier", 3) };
 
-		int[] idSalasConArmas = { 1, 2, 8, 14, 15, 21, 27, 35, 28, 29, 33, 34 };
+		grafo = new Grafo();
 
 		Sala[][] s = new Sala[fil][col];
 		for (int i = 0; i < s.length; i++) {
@@ -128,9 +133,16 @@ public class Mapa {
 		this.salaDailyPlanet = salaDailyPlanet;
 		alturaPuerta = altura;
 		hp = new HombrePuerta(altura);
-		distribuirArmas(idSalasConArmas, armasSalas);
+		frecuenciaPaso = new Integer[dimX * dimY];
+		for (int i = 0; i < frecuenciaPaso.length; i++)
+			frecuenciaPaso[i] = 0;
+
 		construirParedes();
 		kruscal();
+		crearAtajos();
+		List<Integer> l = new ArrayList<>();
+		distribuirArmasBacktracking(l, 0);
+		distribuirArmasFrecuencia(armasSalas);
 	}
 
 	/**
@@ -162,6 +174,14 @@ public class Mapa {
 
 		return mapaSingle;
 
+	}
+
+	public Integer[] getFrecuenciaPaso() {
+		return frecuenciaPaso;
+	}
+
+	public void setFrecuenciaPaso(Integer[] frecuenciaPaso) {
+		this.frecuenciaPaso = frecuenciaPaso;
 	}
 
 	public int getDimX() {
@@ -723,6 +743,30 @@ public class Mapa {
 
 	}
 
+	public void distribuirArmasFrecuencia(Arma[] armasSalas) {
+		int x = 0;// Indices de los vectores de los parametros
+
+		int i, j, pos = 0;
+		int col = tablero[0].length;
+		int mayorFrecuencia;
+
+		for (int k = 0; k < armasSalas.length; k = k + 5) {
+			mayorFrecuencia = 0;
+			for (int id = 0; id < frecuenciaPaso.length; id++) {
+				if (frecuenciaPaso[mayorFrecuencia] < frecuenciaPaso[id])
+					mayorFrecuencia = id;
+			}
+			frecuenciaPaso[mayorFrecuencia] = -1;
+			i = mayorFrecuencia / col;
+			j = mayorFrecuencia % col;
+
+			for (x = 0; x < 5; x++) {
+				tablero[i][j].insertarArma(armasSalas[pos]);
+				pos++;
+			}
+		}
+	}
+
 	/**
 	 * Dibuja el laberinto antes de crear atajos y las rutas de los personajes
 	 * 
@@ -1093,6 +1137,38 @@ public class Mapa {
 		mostrarTeseracto();
 	}
 
+	public void distribuirArmasBacktracking(List<Integer> camino, int posicion) {
+
+		// Mapa m = Mapa.getInstancia();
+		Set<Integer> salasAdyacentes = new LinkedHashSet<Integer>();
+
+		camino.add(posicion);
+		if (posicion == getSalaDailyPlanet()) {
+			incrementarFrecuenciaPaso(camino);
+			System.out.println("CAMINO DEVUELTO: \n" + camino);
+		} else {
+			getGrafo().adyacentes(posicion, salasAdyacentes);
+			for (Integer i : salasAdyacentes) {
+
+				if (!camino.contains(i)) {
+					distribuirArmasBacktracking(camino, i);
+					camino.remove(camino.size() - 1);
+				}
+
+			}
+
+		}
+
+	}
+
+	public void incrementarFrecuenciaPaso(List<Integer> camino) {
+
+		for (int i = 0; i < camino.size(); i++) {
+			frecuenciaPaso[camino.get(i)]++;
+		}
+
+	}
+
 	/**
 	 * Main de la clase mapa, desde donde se ejecuta el juego
 	 * 
@@ -1108,7 +1184,7 @@ public class Mapa {
 			/**
 			 * Método que procesa línea a línea el fichero de entrada inicio.txt
 			 */
-			FicheroCarga.procesarFichero("ficherosEntrada/init_6x6_2.txt", cargador);
+			FicheroCarga.procesarFichero("ficherosEntrada/init_10x10_2.txt", cargador);
 		} catch (FileNotFoundException valor) {
 			System.err.println("Excepción capturada al procesar fichero: " + valor.getMessage());
 		} catch (IOException valor) {
@@ -1116,8 +1192,10 @@ public class Mapa {
 		}
 
 		Mapa m = Mapa.getInstancia();
-		m.simulacionEC2(50);
-
+		// m.simulacionEC2(50);
+		// m.crearAtajos();
+		System.out.println(m.mostrarLaberintoRutas());
+		System.out.println(m);
 	}
 
 }

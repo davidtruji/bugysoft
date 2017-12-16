@@ -1,5 +1,7 @@
 package personajes;
 
+import java.util.List;
+
 import mapa.Mapa;
 import mapa.Sala;
 
@@ -359,6 +361,46 @@ public abstract class Personaje {
 				ruta[n] = ruta[n + 1];
 		}
 		return movido;
+	}
+
+	public Dir[] caminoARuta(List<Integer> camino) {
+
+		int ori = 0;
+		Dir aux;
+		Dir[] Ruta = new Dir[camino.size() - 1];
+		for (int dest = 1; dest < camino.size(); dest++) {
+
+			aux = direccion(camino.get(ori), camino.get(dest));
+			Ruta[ori] = aux;
+			ori = dest;
+		}
+
+		return Ruta;
+	}
+
+	public Dir direccion(int id_ori, int id_dest) {
+		Dir ret = null;
+		Mapa m = Mapa.getInstancia();
+		int dimX = m.getDimX();
+
+		// Si la direccion es norte
+		if (id_dest == id_ori - dimX)
+			ret = Dir.N;
+
+		// Si la direccion es este
+		if (id_dest == id_ori + 1)
+			ret = Dir.E;
+
+		// Si la direccion es sur
+		if (id_dest == id_ori + dimX)
+			ret = Dir.S;
+
+		// Si la direccion es oeste
+		if (id_dest == id_ori - 1)
+			ret = Dir.W;
+
+		return ret;
+
 	}
 
 	/**

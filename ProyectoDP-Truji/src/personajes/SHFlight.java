@@ -1,5 +1,10 @@
 package personajes;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
 import mapa.Mapa;
 
 /**
@@ -22,10 +27,57 @@ public class SHFlight extends SuperHeroe {
 	public SHFlight(String nom, char ini, int turno) {
 		super(nom, ini, turno);
 		Mapa m = Mapa.getInstancia();
-		// E E E N E E S
-		Dir[] ruta = { Dir.E, Dir.E, Dir.E, Dir.N, Dir.E, Dir.E, Dir.S };
-		setRuta(ruta);
 		setPosicion(m.getDimX() * m.getDimY() - m.getDimX());
+		Dir[] ruta = crearRuta();
+		setRuta(ruta);
+
+	}
+
+	public void rutaFlightBacktracking(List<Integer> caminoCorto, List<Integer> camino, int posicion) {
+
+		Mapa m = Mapa.getInstancia();
+		Set<Integer> salasAdyacentes = new LinkedHashSet<Integer>();
+
+		camino.add(posicion);
+		if (posicion == m.getSalaDailyPlanet()) {
+
+			if (caminoCorto.size() == 0) {
+
+				for (int i = 0; i < camino.size(); i++)
+					caminoCorto.add(camino.get(i));
+
+			}
+
+			if (camino.size() < caminoCorto.size()) {
+				caminoCorto.clear();
+				for (int i = 0; i < camino.size(); i++)
+					caminoCorto.add(camino.get(i));
+
+			}
+
+		} else {
+
+			m.getGrafo().adyacentes(posicion, salasAdyacentes);
+			for (Integer i : salasAdyacentes) {
+
+				if (!camino.contains(i)) {
+					rutaFlightBacktracking(caminoCorto, camino, i);
+					camino.remove(camino.size() - 1);
+				}
+
+			}
+
+		}
+
+	}
+
+	public Dir[] crearRuta() {
+		List<Integer> caminoCorto = new ArrayList<Integer>();
+		List<Integer> camino = new ArrayList<Integer>();
+		rutaFlightBacktracking(caminoCorto, camino, getPosicion());
+		Dir[] Ruta = caminoARuta(caminoCorto);
+		System.out.println(Ruta);
+		return Ruta;
 	}
 
 	/**

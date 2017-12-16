@@ -1,5 +1,10 @@
 package personajes;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
 import mapa.Mapa;
 
 /**
@@ -21,11 +26,45 @@ public class SHPhysical extends SuperHeroe {
 	 */
 	public SHPhysical(String nom, char ini, int turno) {
 		super(nom, ini, turno);
-		// E E S S E S S E E S
-		Dir[] ruta = { Dir.E, Dir.E, Dir.S, Dir.S, Dir.E, Dir.S, Dir.S, Dir.E, Dir.E, Dir.S };
-		setRuta(ruta);
 		setPosicion(0);
+		Dir[] ruta = crearRuta();
+		setRuta(ruta);
 
+	}
+
+	public boolean rutaPhysicalBacktracking(List<Integer> camino, int posicion) {
+
+		Mapa m = Mapa.getInstancia();
+		Set<Integer> salasAdyacentes = new LinkedHashSet<Integer>();
+		boolean caminoEncontrado = false;
+
+		camino.add(posicion);
+		if (posicion == m.getSalaDailyPlanet()) {
+			caminoEncontrado = true;
+		} else {
+
+			m.getGrafo().adyacentes(posicion, salasAdyacentes);
+			for (Integer i : salasAdyacentes) {
+
+				if (!camino.contains(i) && !caminoEncontrado) {
+					caminoEncontrado = rutaPhysicalBacktracking(camino, i);
+					if (!caminoEncontrado)
+						camino.remove(camino.size() - 1);
+				}
+
+			}
+
+		}
+
+		return caminoEncontrado;
+
+	}
+
+	public Dir[] crearRuta() {
+		List<Integer> l = new ArrayList<Integer>();
+		rutaPhysicalBacktracking(l, 0);
+		Dir[] Ruta = caminoARuta(l);
+		return Ruta;
 	}
 
 	/**
