@@ -1,13 +1,10 @@
 package personajes;
 
 import java.util.List;
-
 import mapa.Mapa;
 import mapa.Sala;
+import util.Dir;
 
-enum Dir {
-	S, E, N, W
-};
 
 /**
  * 

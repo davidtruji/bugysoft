@@ -1,6 +1,9 @@
 package personajes;
 
+import java.util.ArrayList;
+import java.util.List;
 import mapa.Mapa;
+import util.Dir;
 
 /**
  * 
@@ -21,13 +24,98 @@ public class SHExtraSensorial extends SuperHeroe {
 	 */
 	public SHExtraSensorial(String nom, char ini, int turno) {
 		super(nom, ini, turno);
-		// E E S W W E S W E N E S E S W W W S E W N E E S N E S S W W W E E E E E
-		Dir[] ruta = { Dir.E, Dir.E, Dir.S, Dir.W, Dir.W, Dir.E, Dir.S, Dir.W, Dir.E, Dir.N, Dir.E, Dir.S, Dir.E, Dir.S,
-				Dir.W, Dir.W, Dir.W, Dir.S, Dir.E, Dir.W, Dir.N, Dir.E, Dir.E, Dir.S, Dir.N, Dir.E, Dir.S, Dir.S, Dir.W,
-				Dir.W, Dir.W, Dir.E, Dir.E, Dir.E, Dir.E, Dir.E };
-		setRuta(ruta);
 		setPosicion(0);
+		Dir[] ruta = crearRuta();
+		setRuta(ruta);
 
+	}
+
+	public List<Integer> rutaManoDerecha() {
+		Mapa m = Mapa.getInstancia();
+		Dir dir = Dir.N;
+		int pos = getPosicion();
+		List<Integer> camino = new ArrayList<Integer>();
+		boolean fin = false;
+
+		while (!fin) {
+
+			switch (dir) {
+			case N:
+
+				if (!m.paredEste(pos) && !m.bordeEste(pos)) {
+					dir = Dir.E;
+				} else if (!m.paredNorte(pos) && !m.bordeNorte(pos)) {
+					dir = Dir.N;
+				} else if (!m.paredOeste(pos) && !m.bordeOeste(pos)) {
+					dir = Dir.W;
+				} else {
+					dir = Dir.S;
+				}
+
+				break;
+			case E:
+
+				if (!m.paredSur(pos) && !m.bordeSur(pos)) {
+					dir = Dir.S;
+				} else if (!m.paredEste(pos) && !m.bordeEste(pos)) {
+					dir = Dir.E;
+				} else if (!m.paredNorte(pos) && !m.bordeNorte(pos)) {
+					dir = Dir.N;
+				} else {
+					dir = Dir.W;
+				}
+
+				break;
+			case S:
+
+				if (!m.paredOeste(pos) && !m.bordeOeste(pos)) {
+					dir = Dir.W;
+				} else if (!m.paredSur(pos) && !m.bordeSur(pos)) {
+					dir = Dir.S;
+				} else if (!m.paredEste(pos) && !m.bordeEste(pos)) {
+					dir = Dir.E;
+				} else {
+					dir = Dir.N;
+				}
+
+				break;
+
+			case W:
+
+				if (!m.paredNorte(pos) && !m.bordeNorte(pos)) {
+					dir = Dir.N;
+				} else if (!m.paredOeste(pos) && !m.bordeOeste(pos)) {
+					dir = Dir.W;
+				} else if (!m.paredSur(pos) && !m.bordeSur(pos)) {
+					dir = Dir.S;
+				} else {
+					dir = Dir.E;
+				}
+
+				break;
+
+			default:
+				System.out.println("Error en la direccion introducida");
+				break;
+			}
+
+			camino.add(pos);
+
+			if (pos == m.getSalaDailyPlanet())
+				fin = true;
+
+			pos = m.getSalaDireccion(pos, dir);
+
+		}
+
+		return camino;
+
+	}
+
+	public Dir[] crearRuta() {
+		List<Integer> l = rutaManoDerecha();
+		Dir[] Ruta = caminoARuta(l);
+		return Ruta;
 	}
 
 	/**

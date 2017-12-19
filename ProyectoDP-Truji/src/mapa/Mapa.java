@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
-
 import cargador.Cargador;
 import cargador.FicheroCarga;
 import estructuras_datos.Grafo;
@@ -17,11 +16,9 @@ import personajes.HombrePuerta;
 import personajes.Personaje;
 import personajes.SuperHeroe;
 import personajes.Villano;
+import util.Dir;
 import util.GenAleatorios;
 
-enum Dir {
-	S, E, N, W
-};
 
 /**
  * 
@@ -634,6 +631,15 @@ public class Mapa {
 
 	}
 
+	public boolean bordeNorte(int idSala) {
+
+		if (idSala < dimX)
+			return true;
+		else
+			return false;
+
+	}
+
 	/**
 	 * Devuelve si hay la pared indicada en la sala con el ID del parametro
 	 * 
@@ -643,6 +649,14 @@ public class Mapa {
 	 */
 	public boolean paredEste(int idSala) {
 		if ((idSala + 1) % dimX != 0 && !grafo.adyacente(idSala, idSala + 1))
+			return true;
+		else
+			return false;
+
+	}
+
+	public boolean bordeEste(int idSala) {
+		if ((idSala + 1) % dimX == 0)
 			return true;
 		else
 			return false;
@@ -665,6 +679,15 @@ public class Mapa {
 
 	}
 
+	public boolean bordeOeste(int idSala) {
+
+		if (idSala % dimX == 0)
+			return true;
+		else
+			return false;
+
+	}
+
 	/**
 	 * Devuelve si hay la pared indicada en la sala con el ID del parametro
 	 * 
@@ -674,6 +697,14 @@ public class Mapa {
 	 */
 	public boolean paredSur(int idSala) {
 		if (idSala < (dimX * dimY) - dimX && !grafo.adyacente(idSala, idSala + dimX))
+			return true;
+		else
+			return false;
+
+	}
+
+	public boolean bordeSur(int idSala) {
+		if (idSala >= (dimX * dimY) - dimX)
 			return true;
 		else
 			return false;
@@ -765,6 +796,52 @@ public class Mapa {
 				pos++;
 			}
 		}
+	}
+
+	public int getSalaDireccion(int id, Dir dir) {
+		int id_vecina = 0;
+
+		switch (dir) {
+		case N:
+			id_vecina = getSalaNorte(id);
+
+			break;
+		case E:
+			id_vecina = getSalaEste(id);
+
+			break;
+		case S:
+			id_vecina = getSalaSur(id);
+
+			break;
+		case W:
+			id_vecina = getSalaOeste(id);
+
+			break;
+
+		default:
+			System.out.println("Error en la direccion introducida");
+			break;
+		}
+
+		return id_vecina;
+
+	}
+
+	public int getSalaNorte(int id) {
+		return id - dimX;
+	}
+
+	public int getSalaEste(int id) {
+		return id + 1;
+	}
+
+	public int getSalaSur(int id) {
+		return id + dimX;
+	}
+
+	public int getSalaOeste(int id) {
+		return id - 1;
 	}
 
 	/**
@@ -1184,7 +1261,7 @@ public class Mapa {
 			/**
 			 * Método que procesa línea a línea el fichero de entrada inicio.txt
 			 */
-			FicheroCarga.procesarFichero("ficherosEntrada/init_10x10_2.txt", cargador);
+			FicheroCarga.procesarFichero("ficherosEntrada/init_6x6_2.txt", cargador);
 		} catch (FileNotFoundException valor) {
 			System.err.println("Excepción capturada al procesar fichero: " + valor.getMessage());
 		} catch (IOException valor) {

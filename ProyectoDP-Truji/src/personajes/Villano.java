@@ -1,7 +1,11 @@
 package personajes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mapa.Mapa;
 import mapa.Sala;
+import util.Dir;
 
 /**
  * 
@@ -44,10 +48,97 @@ public class Villano extends Personaje {
 		super(nom, ini, turno);
 		Mapa m = Mapa.getInstancia();
 		ArmaVillano = null;
-		// S S N W S S W S E E N S S
-		Dir[] ruta = { Dir.S, Dir.S, Dir.N, Dir.W, Dir.S, Dir.S, Dir.W, Dir.S, Dir.E, Dir.E, Dir.N, Dir.S, Dir.S };
-		setRuta(ruta);
 		setPosicion(m.getDimX() - 1);
+		Dir[] ruta = crearRuta();
+		setRuta(ruta);
+	}
+
+	public List<Integer> rutaManoIzquierda() {
+		Mapa m = Mapa.getInstancia();
+		Dir dir = Dir.N;
+		int pos = getPosicion();
+		List<Integer> camino = new ArrayList<Integer>();
+		boolean fin = false;
+
+		while (!fin) {
+
+			switch (dir) {
+			case N:
+
+				if (!m.paredEste(pos) && !m.bordeEste(pos)) {
+					dir = Dir.E;
+				} else if (!m.paredNorte(pos) && !m.bordeNorte(pos)) {
+					dir = Dir.N;
+				} else if (!m.paredOeste(pos) && !m.bordeOeste(pos)) {
+					dir = Dir.W;
+				} else {
+					dir = Dir.S;
+				}
+
+				break;
+			case E:
+
+				if (!m.paredSur(pos) && !m.bordeSur(pos)) {
+					dir = Dir.S;
+				} else if (!m.paredEste(pos) && !m.bordeEste(pos)) {
+					dir = Dir.E;
+				} else if (!m.paredNorte(pos) && !m.bordeNorte(pos)) {
+					dir = Dir.N;
+				} else {
+					dir = Dir.W;
+				}
+
+				break;
+			case S:
+
+				if (!m.paredOeste(pos) && !m.bordeOeste(pos)) {
+					dir = Dir.W;
+				} else if (!m.paredSur(pos) && !m.bordeSur(pos)) {
+					dir = Dir.S;
+				} else if (!m.paredEste(pos) && !m.bordeEste(pos)) {
+					dir = Dir.E;
+				} else {
+					dir = Dir.N;
+				}
+
+				break;
+
+			case W:
+
+				if (!m.paredNorte(pos) && !m.bordeNorte(pos)) {
+					dir = Dir.N;
+				} else if (!m.paredOeste(pos) && !m.bordeOeste(pos)) {
+					dir = Dir.W;
+				} else if (!m.paredSur(pos) && !m.bordeSur(pos)) {
+					dir = Dir.S;
+				} else {
+					dir = Dir.E;
+				}
+
+				break;
+
+			default:
+				System.out.println("Error en la direccion introducida");
+				break;
+			}
+
+			camino.add(pos);
+
+			if (pos == m.getSalaDailyPlanet())
+				fin = true;
+
+			pos = m.getSalaDireccion(pos, dir);
+
+		}
+
+		return camino;
+
+	}
+
+	public Dir[] crearRuta() {
+		List<Integer> l = rutaManoIzquierda();
+		Dir[] Ruta = caminoARuta(l);
+		return Ruta;
 	}
 
 	/**

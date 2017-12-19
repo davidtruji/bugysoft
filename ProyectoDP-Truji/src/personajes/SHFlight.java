@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import mapa.Mapa;
+import util.Dir;
 
 /**
  * 
