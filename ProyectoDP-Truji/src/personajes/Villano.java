@@ -55,7 +55,7 @@ public class Villano extends Personaje {
 
 	public List<Integer> rutaManoIzquierda() {
 		Mapa m = Mapa.getInstancia();
-		Dir dir = Dir.N;
+		Dir dir = Dir.S;
 		int pos = getPosicion();
 		List<Integer> camino = new ArrayList<Integer>();
 		boolean fin = false;
@@ -65,12 +65,12 @@ public class Villano extends Personaje {
 			switch (dir) {
 			case N:
 
-				if (!m.paredEste(pos) && !m.bordeEste(pos)) {
-					dir = Dir.E;
+				if (!m.paredOeste(pos) && !m.bordeOeste(pos)) {
+					dir = Dir.W;
 				} else if (!m.paredNorte(pos) && !m.bordeNorte(pos)) {
 					dir = Dir.N;
-				} else if (!m.paredOeste(pos) && !m.bordeOeste(pos)) {
-					dir = Dir.W;
+				} else if (!m.paredEste(pos) && !m.bordeEste(pos)) {
+					dir = Dir.E;
 				} else {
 					dir = Dir.S;
 				}
@@ -78,12 +78,12 @@ public class Villano extends Personaje {
 				break;
 			case E:
 
-				if (!m.paredSur(pos) && !m.bordeSur(pos)) {
-					dir = Dir.S;
+				if (!m.paredNorte(pos) && !m.bordeNorte(pos)) {
+					dir = Dir.N;
 				} else if (!m.paredEste(pos) && !m.bordeEste(pos)) {
 					dir = Dir.E;
-				} else if (!m.paredNorte(pos) && !m.bordeNorte(pos)) {
-					dir = Dir.N;
+				} else if (!m.paredSur(pos) && !m.bordeSur(pos)) {
+					dir = Dir.S;
 				} else {
 					dir = Dir.W;
 				}
@@ -91,12 +91,12 @@ public class Villano extends Personaje {
 				break;
 			case S:
 
-				if (!m.paredOeste(pos) && !m.bordeOeste(pos)) {
-					dir = Dir.W;
+				if (!m.paredEste(pos) && !m.bordeEste(pos)) {
+					dir = Dir.E;
 				} else if (!m.paredSur(pos) && !m.bordeSur(pos)) {
 					dir = Dir.S;
-				} else if (!m.paredEste(pos) && !m.bordeEste(pos)) {
-					dir = Dir.E;
+				} else if (!m.paredOeste(pos) && !m.bordeOeste(pos)) {
+					dir = Dir.W;
 				} else {
 					dir = Dir.N;
 				}
@@ -105,12 +105,12 @@ public class Villano extends Personaje {
 
 			case W:
 
-				if (!m.paredNorte(pos) && !m.bordeNorte(pos)) {
-					dir = Dir.N;
+				if (!m.paredSur(pos) && !m.bordeSur(pos)) {
+					dir = Dir.S;
 				} else if (!m.paredOeste(pos) && !m.bordeOeste(pos)) {
 					dir = Dir.W;
-				} else if (!m.paredSur(pos) && !m.bordeSur(pos)) {
-					dir = Dir.S;
+				} else if (!m.paredNorte(pos) && !m.bordeNorte(pos)) {
+					dir = Dir.N;
 				} else {
 					dir = Dir.E;
 				}

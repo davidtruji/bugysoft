@@ -114,7 +114,7 @@ public class Cargador {
 	 *            array que contiene los valores de cada atributo
 	 */
 	private void crearMap(int numCampos, List<String> vCampos) {
-		System.out.println("Creado Map: " + vCampos.get(1) + "\n");
+		//System.out.println("Creado Map: " + vCampos.get(1) + "\n");
 
 		int dimX, dimY, salaDailyPlanet, altura;
 
@@ -139,7 +139,7 @@ public class Cargador {
 	 *            array que contiene los valores de cada atributo
 	 */
 	private void crearSHPhysical(int numCampos, List<String> vCampos) {
-		System.out.println("Creado SHPhysical: " + vCampos.get(1) + "\n");
+		//System.out.println("Creado SHPhysical: " + vCampos.get(1) + "\n");
 
 		// Registrar SHPhysical en el mapa
 		String nom = vCampos.get(1);
@@ -164,7 +164,7 @@ public class Cargador {
 	 *            array que contiene los valores de cada atributo
 	 */
 	private void crearSHExtraSensorial(int numCampos, List<String> vCampos) {
-		System.out.println("Creado SHExtraSensorial: " + vCampos.get(1) + "\n");
+		//System.out.println("Creado SHExtraSensorial: " + vCampos.get(1) + "\n");
 		// Registrar SHExtraSensorial en el mapa
 
 		String nom = vCampos.get(1);
@@ -189,7 +189,7 @@ public class Cargador {
 	 *            array que contiene los valores de cada atributo
 	 */
 	private void crearSHFlight(int numCampos, List<String> vCampos) {
-		System.out.println("Creado SHFlight: " + vCampos.get(1) + "\n");
+		//System.out.println("Creado SHFlight: " + vCampos.get(1) + "\n");
 		// Registrar SHFlight en el mapa
 
 		String nom = vCampos.get(1);
@@ -219,7 +219,7 @@ public class Cargador {
 	 *            array que contiene los valores de cada atributo
 	 */
 	private void crearVillain(int numCampos, List<String> vCampos) {
-		System.out.println("Creado Villain: " + vCampos.get(1) + "\n");
+		//System.out.println("Creado Villain: " + vCampos.get(1) + "\n");
 		// Registrar Villain en el mapa
 
 		String nom = vCampos.get(1);

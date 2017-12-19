@@ -19,7 +19,6 @@ import personajes.Villano;
 import util.Dir;
 import util.GenAleatorios;
 
-
 /**
  * 
  * @Grupo: Bugysoft
@@ -95,23 +94,6 @@ public class Mapa {
 	 */
 	private Mapa(int salaDailyPlanet, int fil, int col, int altura) {
 		int id = 0;
-		Arma[] armasSalas = { new Arma("Mjolnir", 29), new Arma("Anillo", 1), new Arma("Garra", 27),
-				new Arma("Armadura", 3), new Arma("Red", 25), new Arma("Escudo", 5), new Arma("Lucille", 23),
-				new Arma("Lawgiver", 7), new Arma("GuanteInfinito", 21), new Arma("LazoVerdad", 9),
-				new Arma("CadenaFuego", 19), new Arma("Capa", 11), new Arma("Flecha", 17), new Arma("Tridente", 13),
-				new Arma("Antorcha", 15), new Arma("Baston", 28), new Arma("Latigo", 2), new Arma("MazaOro", 26),
-				new Arma("CampoMagnetico", 4), new Arma("Tentaculo", 24), new Arma("CampoEnergia", 6),
-				new Arma("Cetro", 22), new Arma("RayoEnergia", 8), new Arma("Laser", 20), new Arma("Bola", 10),
-				new Arma("Espada", 18), new Arma("Sable", 12), new Arma("Acido", 16), new Arma("Gema", 14),
-				new Arma("Nullifier", 23), new Arma("Mjolnir", 1), new Arma("Anillo", 29), new Arma("Garra", 3),
-				new Arma("Armadura", 27), new Arma("Red", 5), new Arma("Escudo", 25), new Arma("Lucille", 7),
-				new Arma("Lawgiver", 23), new Arma("GuanteInfinito", 9), new Arma("LazoVerdad", 21),
-				new Arma("CadenaFuego", 11), new Arma("Capa", 19), new Arma("Flecha", 13), new Arma("Tridente", 17),
-				new Arma("Antorcha", 28), new Arma("Baston", 15), new Arma("Latigo", 26), new Arma("MazaOro", 2),
-				new Arma("CampoMagnetico", 24), new Arma("Tentaculo", 4), new Arma("CampoEnergia", 22),
-				new Arma("Cetro", 6), new Arma("RayoEnergia", 20), new Arma("Laser", 8), new Arma("Bola", 18),
-				new Arma("Espada", 10), new Arma("Sable", 16), new Arma("Acido", 12), new Arma("Gema", 1),
-				new Arma("Nullifier", 3) };
 
 		grafo = new Grafo();
 
@@ -136,10 +118,11 @@ public class Mapa {
 
 		construirParedes();
 		kruscal();
+		System.out.print(stringLaberinto());
 		crearAtajos();
 		List<Integer> l = new ArrayList<>();
 		distribuirArmasBacktracking(l, 0);
-		distribuirArmasFrecuencia(armasSalas);
+		distribuirArmasFrecuencia();
 	}
 
 	/**
@@ -774,7 +757,26 @@ public class Mapa {
 
 	}
 
-	public void distribuirArmasFrecuencia(Arma[] armasSalas) {
+	public void distribuirArmasFrecuencia() {
+
+		Arma[] armasSalas = { new Arma("Mjolnir", 29), new Arma("Anillo", 1), new Arma("Garra", 27),
+				new Arma("Armadura", 3), new Arma("Red", 25), new Arma("Escudo", 5), new Arma("Lucille", 23),
+				new Arma("Lawgiver", 7), new Arma("GuanteInfinito", 21), new Arma("LazoVerdad", 9),
+				new Arma("CadenaFuego", 19), new Arma("Capa", 11), new Arma("Flecha", 17), new Arma("Tridente", 13),
+				new Arma("Antorcha", 15), new Arma("Baston", 28), new Arma("Latigo", 2), new Arma("MazaOro", 26),
+				new Arma("CampoMagnetico", 4), new Arma("Tentaculo", 24), new Arma("CampoEnergia", 6),
+				new Arma("Cetro", 22), new Arma("RayoEnergia", 8), new Arma("Laser", 20), new Arma("Bola", 10),
+				new Arma("Espada", 18), new Arma("Sable", 12), new Arma("Acido", 16), new Arma("Gema", 14),
+				new Arma("Nullifier", 23), new Arma("Mjolnir", 1), new Arma("Anillo", 29), new Arma("Garra", 3),
+				new Arma("Armadura", 27), new Arma("Red", 5), new Arma("Escudo", 25), new Arma("Lucille", 7),
+				new Arma("Lawgiver", 23), new Arma("GuanteInfinito", 9), new Arma("LazoVerdad", 21),
+				new Arma("CadenaFuego", 11), new Arma("Capa", 19), new Arma("Flecha", 13), new Arma("Tridente", 17),
+				new Arma("Antorcha", 28), new Arma("Baston", 15), new Arma("Latigo", 26), new Arma("MazaOro", 2),
+				new Arma("CampoMagnetico", 24), new Arma("Tentaculo", 4), new Arma("CampoEnergia", 22),
+				new Arma("Cetro", 6), new Arma("RayoEnergia", 20), new Arma("Laser", 8), new Arma("Bola", 18),
+				new Arma("Espada", 10), new Arma("Sable", 16), new Arma("Acido", 12), new Arma("Gema", 1),
+				new Arma("Nullifier", 3) };
+
 		int x = 0;// Indices de los vectores de los parametros
 
 		int i, j, pos = 0;
@@ -849,7 +851,7 @@ public class Mapa {
 	 * 
 	 * @return el dibujo del laberinto y rutas
 	 */
-	private String mostrarLaberintoRutas() {
+	private String stringLaberinto() {
 
 		String t = "";
 		Sala sala = null;
@@ -897,6 +899,14 @@ public class Mapa {
 			t = t + "\n";
 		}
 
+		return t;
+
+	}
+
+	public String stringRutas() {
+		String t = "";
+		Personaje p = null;
+
 		for (int fil = 0; fil < tablero.length; fil++) {
 			for (int col = 0; col < tablero[0].length; col++) {
 
@@ -910,7 +920,6 @@ public class Mapa {
 		}
 
 		return t;
-
 	}
 
 	/**
@@ -1152,8 +1161,9 @@ public class Mapa {
 		boolean finJuego = false;
 		boolean leToca = false;
 
-		System.out.print(mostrarLaberintoRutas());
-		crearAtajos();
+		System.out.print(stringRutas());
+		
+	
 
 		// Turnos
 		while (turno < turnosMax && !finJuego) {
@@ -1222,7 +1232,7 @@ public class Mapa {
 		camino.add(posicion);
 		if (posicion == getSalaDailyPlanet()) {
 			incrementarFrecuenciaPaso(camino);
-			System.out.println("CAMINO DEVUELTO: \n" + camino);
+			// System.out.println("CAMINO DEVUELTO: \n" + camino);
 		} else {
 			getGrafo().adyacentes(posicion, salasAdyacentes);
 			for (Integer i : salasAdyacentes) {
@@ -1269,10 +1279,7 @@ public class Mapa {
 		}
 
 		Mapa m = Mapa.getInstancia();
-		// m.simulacionEC2(50);
-		// m.crearAtajos();
-		System.out.println(m.mostrarLaberintoRutas());
-		System.out.println(m);
+		m.simulacionEC2(50);
 	}
 
 }

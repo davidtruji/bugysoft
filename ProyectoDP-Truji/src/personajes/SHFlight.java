@@ -77,7 +77,6 @@ public class SHFlight extends SuperHeroe {
 		List<Integer> camino = new ArrayList<Integer>();
 		rutaFlightBacktracking(caminoCorto, camino, getPosicion());
 		Dir[] Ruta = caminoARuta(caminoCorto);
-		System.out.println(Ruta);
 		return Ruta;
 	}
 
