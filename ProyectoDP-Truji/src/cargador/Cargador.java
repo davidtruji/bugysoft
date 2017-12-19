@@ -1,5 +1,6 @@
 package cargador;
 
+import java.io.IOException;
 import java.util.List;
 
 import mapa.Mapa;
@@ -74,8 +75,9 @@ public class Cargador {
 	 *            número de atributos que tendrá la instancia
 	 * @param vCampos
 	 *            array que contiene los valores de cada atributo de la instancia
+	 * @throws IOException 
 	 */
-	public void crear(String elto, int numCampos, List<String> vCampos) {
+	public void crear(String elto, int numCampos, List<String> vCampos) throws IOException {
 		// Si existe elemento y el número de campos es correcto, procesarlo... si no,
 		// error
 		int numElto = queElemento(elto);
@@ -112,8 +114,9 @@ public class Cargador {
 	 *            número de atributos que tendrá la instancia
 	 * @param vCampos
 	 *            array que contiene los valores de cada atributo
+	 * @throws IOException 
 	 */
-	private void crearMap(int numCampos, List<String> vCampos) {
+	private void crearMap(int numCampos, List<String> vCampos) throws IOException {
 		//System.out.println("Creado Map: " + vCampos.get(1) + "\n");
 
 		int dimX, dimY, salaDailyPlanet, altura;

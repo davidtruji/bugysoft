@@ -164,6 +164,7 @@ public class SuperHeroe extends Personaje {
 
 	@Override
 	public void interaccionHombrePuerta(HombrePuerta hp) {
+
 		Mapa m = Mapa.getInstancia();
 
 		if (m.getSalaDailyPlanet() == getPosicion()) {
@@ -200,8 +201,7 @@ public class SuperHeroe extends Personaje {
 
 			}
 
-		}
-
+}
 	}
 
 	@Override

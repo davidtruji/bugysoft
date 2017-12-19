@@ -206,7 +206,6 @@ public class Villano extends Personaje {
 			}
 
 		}
-
 	}
 
 	/**

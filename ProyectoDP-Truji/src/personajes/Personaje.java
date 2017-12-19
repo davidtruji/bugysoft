@@ -93,7 +93,7 @@ public abstract class Personaje {
 
 	}
 
-	public int getTurno() {
+	public int getTurnoComienzo() {
 		return turnoComienzo;
 	}
 

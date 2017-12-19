@@ -18,6 +18,7 @@ import personajes.SuperHeroe;
 import personajes.Villano;
 import util.Dir;
 import util.GenAleatorios;
+import util.Log;
 
 /**
  * 
@@ -91,8 +92,9 @@ public class Mapa {
 	 * @param altura
 	 *            altura del hombre puerta
 	 * @return
+	 * @throws IOException
 	 */
-	private Mapa(int salaDailyPlanet, int fil, int col, int altura) {
+	private Mapa(int salaDailyPlanet, int fil, int col, int altura) throws IOException {
 		int id = 0;
 
 		grafo = new Grafo();
@@ -119,6 +121,7 @@ public class Mapa {
 		construirParedes();
 		kruscal();
 		System.out.print(stringLaberinto());
+		Log.writeInLog(stringLaberinto());
 		crearAtajos();
 		List<Integer> l = new ArrayList<>();
 		distribuirArmasBacktracking(l, 0);
@@ -137,8 +140,9 @@ public class Mapa {
 	 * @param altura
 	 *            es la altura de la cerradura del Hombre puerta
 	 * @return la instancia Mapa
+	 * @throws IOException
 	 */
-	static public Mapa getInstancia(int salaDailyPlanet, int fil, int col, int altura) {
+	static public Mapa getInstancia(int salaDailyPlanet, int fil, int col, int altura) throws IOException {
 
 		if (mapaSingle == null)
 			mapaSingle = new Mapa(salaDailyPlanet, fil, col, altura);
@@ -501,14 +505,25 @@ public class Mapa {
 
 	/**
 	 * Muestra la sala de los ganadores y sus mensajes
+	 * 
+	 * @throws IOException
 	 */
-	public void mostrarTeseracto() {
+	public void mostrarTeseracto() throws IOException {
 
 		if (!salaTesereacto.isEmpty()) {
 			System.out.println("(teseractomembers)");
-			System.out.println(salaTesereacto.poll().mensajeOwneroftheworld());
+			Log.writeInLog("(teseractomembers)" + "\n");
+
+			String msgOwner = salaTesereacto.poll().mensajeOwneroftheworld();
+
+			System.out.println(msgOwner);
+			Log.writeInLog(msgOwner + "\n");
+
 			while (!salaTesereacto.isEmpty()) {
-				System.out.println(salaTesereacto.poll().mensajeTeseractomember());
+				String msgTeseracto = salaTesereacto.poll().mensajeTeseractomember();
+
+				System.out.println(msgTeseracto);
+				Log.writeInLog(msgTeseracto + "\n");
 
 			}
 		}
@@ -856,7 +871,6 @@ public class Mapa {
 		String t = "";
 		Sala sala = null;
 		int idIzq, idDer;
-		Personaje p = null;
 
 		// Dibuja Pared Norte
 		for (int j = 0; j < (tablero[0].length - 1) + 1; j++) {
@@ -1003,8 +1017,10 @@ public class Mapa {
 
 	/**
 	 * Metodo de pruebas del toString de la clase mapa
+	 * 
+	 * @throws IOException
 	 */
-	public void pruebasToString() {
+	public void pruebasToString() throws IOException {
 
 		Mapa m = Mapa.getInstancia(35, 6, 6, 4);
 
@@ -1155,15 +1171,15 @@ public class Mapa {
 	 * 
 	 * @param turnosMax
 	 *            son los turnos maximos que se permiten
+	 * @throws IOException
 	 */
-	private void simulacionEC2(int turnosMax) {
+	private void simulacionEC2(int turnosMax) throws IOException {
 		int nper, j = 0;
 		boolean finJuego = false;
 		boolean leToca = false;
 
 		System.out.print(stringRutas());
-		
-	
+		Log.writeInLog(stringRutas());
 
 		// Turnos
 		while (turno < turnosMax && !finJuego) {
@@ -1193,7 +1209,7 @@ public class Mapa {
 							j = 0;
 							leToca = false;
 
-							if (p.getTurno() <= turno && p.esSuTurno()) {
+							if (p.getTurnoComienzo() <= turno && p.esSuTurno()) {
 
 								p.realizarAcciones();
 								p.setTurnoUltimo(turno);
@@ -1203,6 +1219,7 @@ public class Mapa {
 								}
 
 							} else {
+
 								p.setTurnoUltimo(turno);
 
 							}
@@ -1215,9 +1232,17 @@ public class Mapa {
 
 			}
 			System.out.println("(turn:" + turno + ")");
+			Log.writeInLog("(turn:" + turno + ")" + "\n");
+
 			System.out.println("(map:" + salaDailyPlanet + ")");
+			Log.writeInLog("(map:" + salaDailyPlanet + ")" + "\n");
+
 			System.out.println(hp);
+			Log.writeInLog(hp.toString() + "\n");
+
 			System.out.print(this);
+			Log.writeInLog(this.toString());
+
 			turno++;
 		}
 		turno--;
@@ -1260,8 +1285,9 @@ public class Mapa {
 	 * Main de la clase mapa, desde donde se ejecuta el juego
 	 * 
 	 * @param args
+	 * @throws IOException
 	 */
-	public static void main(String args[]) {
+	public static void main(String args[]) throws IOException {
 		Mapa.MostrarCabeceraAscii();
 		/**
 		 * instancia asociada al fichero de entrada inicio.txt
@@ -1271,7 +1297,7 @@ public class Mapa {
 			/**
 			 * Método que procesa línea a línea el fichero de entrada inicio.txt
 			 */
-			FicheroCarga.procesarFichero("ficherosEntrada/init_6x6_2.txt", cargador);
+			FicheroCarga.procesarFichero("ficherosEntrada/init_10x6_2.txt", cargador);
 		} catch (FileNotFoundException valor) {
 			System.err.println("Excepción capturada al procesar fichero: " + valor.getMessage());
 		} catch (IOException valor) {
@@ -1280,6 +1306,7 @@ public class Mapa {
 
 		Mapa m = Mapa.getInstancia();
 		m.simulacionEC2(50);
+		Log.close();
 	}
 
 }

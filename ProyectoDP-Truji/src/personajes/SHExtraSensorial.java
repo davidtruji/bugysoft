@@ -32,7 +32,7 @@ public class SHExtraSensorial extends SuperHeroe {
 
 	public List<Integer> rutaManoDerecha() {
 		Mapa m = Mapa.getInstancia();
-		Dir dir = Dir.N;
+		Dir dir = Dir.W;
 		int pos = getPosicion();
 		List<Integer> camino = new ArrayList<Integer>();
 		boolean fin = false;

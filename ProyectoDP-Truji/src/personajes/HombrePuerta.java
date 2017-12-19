@@ -140,7 +140,7 @@ public class HombrePuerta {
 		String s = "";
 
 		if (isPortal())
-			s = "(doorman:open:" + profundidad + ":)";
+			s = "(doorman:open:" + profundidad + ":" + ContenedorArmas + ")";
 		else
 			s = "(doorman:closed:" + profundidad + ":" + ContenedorArmas + ")";
 
