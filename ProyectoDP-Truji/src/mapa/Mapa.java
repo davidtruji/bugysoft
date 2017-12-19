@@ -14,8 +14,6 @@ import estructuras_datos.Grafo;
 import personajes.Arma;
 import personajes.HombrePuerta;
 import personajes.Personaje;
-import personajes.SuperHeroe;
-import personajes.Villano;
 import util.Dir;
 import util.GenAleatorios;
 import util.Log;
@@ -24,7 +22,7 @@ import util.Log;
  * 
  * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Entrega: EC2
+ * @Entrega: EC3
  * @Curso: 2º
  */
 public class Mapa {
@@ -120,6 +118,8 @@ public class Mapa {
 
 		construirParedes();
 		kruscal();
+		grafo.warshall();
+		grafo.floyd();
 		System.out.print(stringLaberinto());
 		Log.writeInLog(stringLaberinto());
 		crearAtajos();
@@ -160,52 +160,315 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Devuelve el array que contiene la frecuentcia de paso por las salas
+	 * 
+	 * @return el array que contiene la frecuentcia de paso
+	 */
 	public Integer[] getFrecuenciaPaso() {
 		return frecuenciaPaso;
 	}
 
+	/**
+	 * Set del array que contiene la frecuentcia de paso por las salas
+	 * 
+	 * @param frecuenciaPaso
+	 *            array que contiene la frecuentcia de paso por las salas
+	 */
 	public void setFrecuenciaPaso(Integer[] frecuenciaPaso) {
 		this.frecuenciaPaso = frecuenciaPaso;
 	}
 
+	/**
+	 * Devuelve la dimension X del tablero
+	 * 
+	 * @return dimension X del tablero
+	 */
 	public int getDimX() {
 		return dimX;
 	}
 
+	/**
+	 * Establece la dimension X del tablero
+	 * 
+	 * @param dimX
+	 *            la dimension X a poner
+	 */
 	public void setDimX(int dimX) {
 		this.dimX = dimX;
 	}
 
+	/**
+	 * Devuelve la dimension Y del tablero
+	 * 
+	 * @return dimension Y del tablero
+	 */
 	public int getDimY() {
 		return dimY;
 	}
 
+	/**
+	 * Establece la dimension Y del tablero
+	 * 
+	 * @param dimY
+	 *            la dimension Y a poner
+	 */
 	public void setDimY(int dimY) {
 		this.dimY = dimY;
 	}
 
+	/**
+	 * Devuelve el turno por el que va la partida
+	 * 
+	 * @return turno actual
+	 */
 	public int getTurno() {
 		return turno;
 	}
 
+	/**
+	 * Ajusta el turno actual
+	 * 
+	 * @param turno
+	 *            que se desde poner
+	 */
 	public void setTurno(int turno) {
 		this.turno = turno;
 	}
 
+	/**
+	 * Devuelve el Hombre Puerta
+	 * 
+	 * @return el hombre puerta
+	 */
 	public HombrePuerta getHp() {
 		return hp;
 	}
 
+	/**
+	 * Establece el hombre puerta
+	 * 
+	 * @param hp
+	 *            el hombre puerta que se desea establecer
+	 */
 	public void setHp(HombrePuerta hp) {
 		this.hp = hp;
 	}
 
+	/**
+	 * Devuelve el grafo del laberinto
+	 * 
+	 * @return el grafo laberinto
+	 */
 	public Grafo getGrafo() {
 		return grafo;
 	}
 
+	/**
+	 * Estblece el grafo del laberinto
+	 * 
+	 * @param grafo
+	 *            que se establecera
+	 */
 	public void setGrafo(Grafo grafo) {
 		this.grafo = grafo;
+	}
+
+	/**
+	 * Devuelve la lista que contiene las paredes del laberinto
+	 * 
+	 * @return lista que contiene las paredes del laberinto
+	 */
+	public List<Pared> getParedes() {
+		return paredes;
+	}
+
+	/**
+	 * Establece la lista que contiene las paredes del laberinto
+	 * 
+	 * @param lista
+	 *            paredes del laberinto
+	 */
+	public void setParedes(List<Pared> paredes) {
+		this.paredes = paredes;
+	}
+
+	/**
+	 * Metodo que devuleve el tablero
+	 * 
+	 * @return Matriz de salas
+	 */
+	public Sala[][] getTablero() {
+		return tablero;
+	}
+
+	/**
+	 * Set del tablero del mapa
+	 * 
+	 * @param tablero
+	 *            Matriz de salas
+	 */
+	public void setTablero(Sala[][] tablero) {
+		this.tablero = tablero;
+	}
+
+	/**
+	 * Metodo que devuelve el id de la sala DP
+	 * 
+	 * @return Entero con el id de DP
+	 */
+	public int getSalaDailyPlanet() {
+		return salaDailyPlanet;
+	}
+
+	/**
+	 * Metodo Set de la sala DP
+	 * 
+	 * @param salaDailyPlanet
+	 *            Entero que sera el id de la sala DP
+	 */
+	public void setSalaDailyPlanet(int salaDailyPlanet) {
+		this.salaDailyPlanet = salaDailyPlanet;
+	}
+
+	/**
+	 * Devuelve la altura del hombre puerta
+	 * 
+	 * @return Entero con la altura del hombre puerta
+	 */
+	public int getAlturaPuerta() {
+		return alturaPuerta;
+	}
+
+	/**
+	 * Set de la altura del hombre puerta
+	 * 
+	 * @param alturaPuerta
+	 */
+	public void setAlturaPuerta(int alturaPuerta) {
+		this.alturaPuerta = alturaPuerta;
+	}
+
+	/**
+	 * Devuelve la cola que contiene a los personajes que acceden al Teseracto
+	 * 
+	 * @return Cola de personajes de Teseracto
+	 */
+	public Queue<Personaje> getSalaTesereacto() {
+		return salaTesereacto;
+	}
+
+	/**
+	 * Establece la cola que contiene a los personajes que acceden al Teseracto
+	 * 
+	 * @param salaTesereacto
+	 *            Cola de personajes de Teseracto a establecer
+	 */
+	public void setSalaTesereacto(Queue<Personaje> salaTesereacto) {
+		this.salaTesereacto = salaTesereacto;
+	}
+
+	/**
+	 * Devuelve el ID de la sala que esta en la direccion indicada de la sala pasada
+	 * por parametro
+	 * 
+	 * @param id
+	 *            De la sala actual
+	 * @param dir
+	 *            Direccion en formato DIR de la sala que queremos conocer el ID,
+	 *            respecto a la sala actual
+	 * @return ID de la sala deseada
+	 */
+	public int getSalaDireccion(int id, Dir dir) {
+		int id_vecina = 0;
+
+		switch (dir) {
+		case N:
+			id_vecina = getSalaNorte(id);
+
+			break;
+		case E:
+			id_vecina = getSalaEste(id);
+
+			break;
+		case S:
+			id_vecina = getSalaSur(id);
+
+			break;
+		case W:
+			id_vecina = getSalaOeste(id);
+
+			break;
+
+		default:
+			System.out.println("Error en la direccion introducida");
+			break;
+		}
+
+		return id_vecina;
+
+	}
+
+	/**
+	 * Devuelve el ID de la sala al Norte de la indicada por parametro
+	 * 
+	 * @param ID
+	 *            de la sala actual
+	 * @return ID de la sala al norte de la actual
+	 */
+	public int getSalaNorte(int id) {
+		return id - dimX;
+	}
+
+	/**
+	 * Devuelve el ID de la sala al este de la indicada por parametro
+	 * 
+	 * @param ID
+	 *            de la sala actual
+	 * @return ID de la sala al este de la actual
+	 */
+	public int getSalaEste(int id) {
+		return id + 1;
+	}
+
+	/**
+	 * Devuelve el ID de la sala al sur de la indicada por parametro
+	 * 
+	 * @param ID
+	 *            de la sala actual
+	 * @return ID de la sala al sur de la actual
+	 */
+	public int getSalaSur(int id) {
+		return id + dimX;
+	}
+
+	/**
+	 * Devuelve el ID de la sala al oeste de la indicada por parametro
+	 * 
+	 * @param ID
+	 *            de la sala actual
+	 * @return ID de la sala al oeste de la actual
+	 */
+	public int getSalaOeste(int id) {
+		return id - 1;
+	}
+
+	/**
+	 * Retorna la sala con el ID indicado
+	 * 
+	 * @param idSala
+	 *            es el ID de la sala a devolver
+	 * @return la sala con el ID indicado
+	 */
+	public Sala getSala(int idSala) {
+		Sala s = new Sala(0);
+		int i, j;
+		int col = tablero[0].length;
+		i = idSala / col;
+		j = idSala % col;
+
+		s = tablero[i][j];
+		return s;
 	}
 
 	/**
@@ -332,86 +595,6 @@ public class Mapa {
 		return espacioVacio;
 	}
 
-	public List<Pared> getParedes() {
-		return paredes;
-	}
-
-	public void setParedes(List<Pared> paredes) {
-		this.paredes = paredes;
-	}
-
-	public HombrePuerta getHombrePuerta() {
-		return hp;
-	}
-
-	public void setHombrePuerta(HombrePuerta hp) {
-		this.hp = hp;
-	}
-
-	/**
-	 * Metodo que devuleve el tablero
-	 * 
-	 * @return Matriz de salas
-	 */
-	public Sala[][] getTablero() {
-		return tablero;
-	}
-
-	/**
-	 * Set del tablero del mapa
-	 * 
-	 * @param tablero
-	 *            Matriz de salas
-	 */
-	public void setTablero(Sala[][] tablero) {
-		this.tablero = tablero;
-	}
-
-	/**
-	 * Metodo que devuelve el id de la sala DP
-	 * 
-	 * @return Entero con el id de DP
-	 */
-	public int getSalaDailyPlanet() {
-		return salaDailyPlanet;
-	}
-
-	/**
-	 * Metodo Set de la sala DP
-	 * 
-	 * @param salaDailyPlanet
-	 *            Entero que sera el id de la sala DP
-	 */
-	public void setSalaDailyPlanet(int salaDailyPlanet) {
-		this.salaDailyPlanet = salaDailyPlanet;
-	}
-
-	/**
-	 * Devuelve la altura del hombre puerta
-	 * 
-	 * @return Entero con la altura del hombre puerta
-	 */
-	public int getAlturaPuerta() {
-		return alturaPuerta;
-	}
-
-	/**
-	 * Set de la altura del hombre puerta
-	 * 
-	 * @param alturaPuerta
-	 */
-	public void setAlturaPuerta(int alturaPuerta) {
-		this.alturaPuerta = alturaPuerta;
-	}
-
-	public Queue<Personaje> getSalaTesereacto() {
-		return salaTesereacto;
-	}
-
-	public void setSalaTesereacto(Queue<Personaje> salaTesereacto) {
-		this.salaTesereacto = salaTesereacto;
-	}
-
 	/**
 	 * Metodo que devulve si la sala pasada por parametros es la sala DP
 	 * 
@@ -475,7 +658,6 @@ public class Mapa {
 		while (atajosCreados != atajos) {
 
 			randomN = GenAleatorios.generarNumero(dimX * dimY);
-			// System.out.println("Numero random: " + randomN + " atajos: " + atajos);
 
 			if (paredNorte(randomN) && !espacioVacio(randomN, Dir.N)) {
 
@@ -550,24 +732,6 @@ public class Mapa {
 	}
 
 	/**
-	 * Retorna la sala con el ID indicado
-	 * 
-	 * @param idSala
-	 *            es el ID de la sala a devolver
-	 * @return la sala con el ID indicado
-	 */
-	public Sala getSala(int idSala) {
-		Sala s = new Sala(0);
-		int i, j;
-		int col = tablero[0].length;
-		i = idSala / col;
-		j = idSala % col;
-
-		s = tablero[i][j];
-		return s;
-	}
-
-	/**
 	 * Mete todas las paredes del mapa en la lista de paredes
 	 */
 	public void construirParedes() {
@@ -629,6 +793,13 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Devuelve si la sala ID pasado por parametro tiene borde al norte
+	 * 
+	 * @param idSala
+	 *            que se desea conocer si tiene borde
+	 * @return Verdadero si hay borde falso en caso contrario
+	 */
 	public boolean bordeNorte(int idSala) {
 
 		if (idSala < dimX)
@@ -653,6 +824,13 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Devuelve si la sala ID pasado por parametro tiene borde al este
+	 * 
+	 * @param idSala
+	 *            que se desea conocer si tiene borde
+	 * @return Verdadero si hay borde falso en caso contrario
+	 */
 	public boolean bordeEste(int idSala) {
 		if ((idSala + 1) % dimX == 0)
 			return true;
@@ -677,6 +855,13 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Devuelve si la sala ID pasado por parametro tiene borde al oeste
+	 * 
+	 * @param idSala
+	 *            que se desea conocer si tiene borde
+	 * @return Verdadero si hay borde falso en caso contrario
+	 */
 	public boolean bordeOeste(int idSala) {
 
 		if (idSala % dimX == 0)
@@ -701,6 +886,13 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Devuelve si la sala ID pasado por parametro tiene borde al sur
+	 * 
+	 * @param idSala
+	 *            que se desea conocer si tiene borde
+	 * @return Verdadero si hay borde falso en caso contrario
+	 */
 	public boolean bordeSur(int idSala) {
 		if (idSala >= (dimX * dimY) - dimX)
 			return true;
@@ -772,6 +964,10 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Distribuye las armas segun la frecuencia del array de frecuencia de paso,
+	 * inicializado con el backtracking de armas
+	 */
 	public void distribuirArmasFrecuencia() {
 
 		Arma[] armasSalas = { new Arma("Mjolnir", 29), new Arma("Anillo", 1), new Arma("Garra", 27),
@@ -813,52 +1009,6 @@ public class Mapa {
 				pos++;
 			}
 		}
-	}
-
-	public int getSalaDireccion(int id, Dir dir) {
-		int id_vecina = 0;
-
-		switch (dir) {
-		case N:
-			id_vecina = getSalaNorte(id);
-
-			break;
-		case E:
-			id_vecina = getSalaEste(id);
-
-			break;
-		case S:
-			id_vecina = getSalaSur(id);
-
-			break;
-		case W:
-			id_vecina = getSalaOeste(id);
-
-			break;
-
-		default:
-			System.out.println("Error en la direccion introducida");
-			break;
-		}
-
-		return id_vecina;
-
-	}
-
-	public int getSalaNorte(int id) {
-		return id - dimX;
-	}
-
-	public int getSalaEste(int id) {
-		return id + 1;
-	}
-
-	public int getSalaSur(int id) {
-		return id + dimX;
-	}
-
-	public int getSalaOeste(int id) {
-		return id - 1;
 	}
 
 	/**
@@ -917,6 +1067,11 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Devuelve el String con las rutas de los personajes creados
+	 * 
+	 * @return el String con las rutas de los personajes creados
+	 */
 	public String stringRutas() {
 		String t = "";
 		Personaje p = null;
@@ -1016,73 +1171,6 @@ public class Mapa {
 	}
 
 	/**
-	 * Metodo de pruebas del toString de la clase mapa
-	 * 
-	 * @throws IOException
-	 */
-	public void pruebasToString() throws IOException {
-
-		Mapa m = Mapa.getInstancia(35, 6, 6, 4);
-
-		System.out.println("Dibujo del mapa predeterminado(VACIO)");
-		System.out.println("_____________");
-		System.out.println("|_|_|_|_|_|_|");
-		System.out.println("|_|_|_|_|_|_|");
-		System.out.println("|_|_|_|_|_|_|");
-		System.out.println("|_|_|_|_|_|_|");
-		System.out.println("|_|_|_|_|_|_|");
-		System.out.println("|_|_|_|_|_|_|");
-		System.out.println(m);
-		System.out.print("\n\n");
-
-		System.out.println("Dibujo del mapa:");
-		System.out.println("_____________");
-		System.out.println("|A _|_|_|_|_|");
-		System.out.println("|_|_|_|_|_|_|");
-		System.out.println("|_|_|_|_|_|_|");
-		System.out.println("|_|_|_|_|_|_|");
-		System.out.println("|_|_|_|_|_|_|");
-		System.out.println("|_|_|_|_|_|_|");
-		m.insertarPersonaje(new SuperHeroe("Acuaman", 'A'), 0);
-		m.getGrafo().nuevoArco(0, 1, -1);
-		m.getGrafo().nuevoArco(0, 6, -1);
-		System.out.println(m);
-		System.out.print("\n\n");
-
-		System.out.println("Dibujo del mapa:");
-		System.out.println("_____________");
-		System.out.println("|A _ _ _ _ _|");
-		System.out.println("| |_|_|_|_|_|");
-		System.out.println("| |_|_|_|_|_|");
-		System.out.println("| |_|_|_|_|_|");
-		System.out.println("| |_|_|_|_|_|");
-		System.out.println("|_|_|_|_|_|_|");
-		m.getGrafo().nuevoArco(1, 2, -1);
-		m.getGrafo().nuevoArco(2, 3, -1);
-		m.getGrafo().nuevoArco(3, 4, -1);
-		m.getGrafo().nuevoArco(4, 5, -1);
-		m.getGrafo().nuevoArco(6, 12, -1);
-		m.getGrafo().nuevoArco(12, 18, -1);
-		m.getGrafo().nuevoArco(18, 24, -1);
-		m.getGrafo().nuevoArco(24, 30, -1);
-		System.out.println(m);
-		System.out.print("\n\n");
-
-		System.out.println("Dibujo del mapa:");
-		System.out.println("_____________");
-		System.out.println("|2 _ _ _ _ _|");
-		System.out.println("| |_|_|_|_|_|");
-		System.out.println("| |_|_|_|_|_|");
-		System.out.println("| |_|_|_|_|_|");
-		System.out.println("| |_|_|_|_|_|");
-		System.out.println("|_|_|_|_|_|_|");
-		m.insertarPersonaje(new Villano("Señor X", 'X', new Arma("Espada", 10)), 0);
-		System.out.println(m);
-		System.out.print("\n\n");
-
-	}
-
-	/**
 	 * Muestra el titulo del programa con caracteres ascii
 	 */
 	static private void MostrarCabeceraAscii() {
@@ -1113,16 +1201,15 @@ public class Mapa {
 	/**
 	 * Metodo que simula la ejecucion del juego en la sala DP durante 5 turnos
 	 */
-	public void simulacionEC1() {
+	@SuppressWarnings("unused")
+	private void simulacionEC1() {
 		int i, j;
 		int id = salaDailyPlanet;
 		int col = tablero[0].length;
 		i = id / col;
 		j = id % col;
-		// HombrePuerta hp = null;
 		Personaje p;
 		Sala s = tablero[i][j];
-		// hp = s.getHombrePuerta();
 		int t = 0;
 		System.out.println("Hombre puerta: " + hp.getContenedorArmas().toString());
 
@@ -1167,13 +1254,13 @@ public class Mapa {
 	}
 
 	/**
-	 * Simulacion del juego de la EC2
+	 * Simulacion del juego Final
 	 * 
 	 * @param turnosMax
 	 *            son los turnos maximos que se permiten
 	 * @throws IOException
 	 */
-	private void simulacionEC2(int turnosMax) throws IOException {
+	private void simulacionFinal(int turnosMax) throws IOException {
 		int nper, j = 0;
 		boolean finJuego = false;
 		boolean leToca = false;
@@ -1198,6 +1285,8 @@ public class Mapa {
 						for (int i = 0; i < nper; i++) {
 
 							Personaje p = null;
+
+							// Se selecciona al personaje correspondiente de la sala
 							while (j < s.getPersonajes().size() && !leToca) {
 								p = s.getPersonajes().get(j);
 
@@ -1209,6 +1298,7 @@ public class Mapa {
 							j = 0;
 							leToca = false;
 
+							// Si es el turno del personaje elegido, se realizan sus acciones
 							if (p.getTurnoComienzo() <= turno && p.esSuTurno()) {
 
 								p.realizarAcciones();
@@ -1231,6 +1321,8 @@ public class Mapa {
 				}
 
 			}
+			// Escritura en Consola y Log
+
 			System.out.println("(turn:" + turno + ")");
 			Log.writeInLog("(turn:" + turno + ")" + "\n");
 
@@ -1249,15 +1341,24 @@ public class Mapa {
 		mostrarTeseracto();
 	}
 
+	/**
+	 * Backtraking que incrementa la frecuencia de paso, para saber en que salas
+	 * debemos repartir las armas
+	 * 
+	 * @param camino
+	 *            Cada uno de los caminos posibles que se van generando de la sala 0
+	 *            a la Daily Planet
+	 * @param posicion
+	 *            Posicion inicial y actual en cada solucion desde la que se
+	 *            calculan los caminos
+	 */
 	public void distribuirArmasBacktracking(List<Integer> camino, int posicion) {
 
-		// Mapa m = Mapa.getInstancia();
 		Set<Integer> salasAdyacentes = new LinkedHashSet<Integer>();
 
 		camino.add(posicion);
 		if (posicion == getSalaDailyPlanet()) {
 			incrementarFrecuenciaPaso(camino);
-			// System.out.println("CAMINO DEVUELTO: \n" + camino);
 		} else {
 			getGrafo().adyacentes(posicion, salasAdyacentes);
 			for (Integer i : salasAdyacentes) {
@@ -1273,6 +1374,12 @@ public class Mapa {
 
 	}
 
+	/**
+	 * Metodo que incrementa la frecuencia de paso de salas del camino introducido
+	 * 
+	 * @param camino
+	 *            lista que contiene el camino introducido
+	 */
 	public void incrementarFrecuenciaPaso(List<Integer> camino) {
 
 		for (int i = 0; i < camino.size(); i++) {
@@ -1297,7 +1404,7 @@ public class Mapa {
 			/**
 			 * Método que procesa línea a línea el fichero de entrada inicio.txt
 			 */
-			FicheroCarga.procesarFichero("ficherosEntrada/init_10x6_2.txt", cargador);
+			FicheroCarga.procesarFichero("ficherosEntrada/init_6x6_2.txt", cargador);
 		} catch (FileNotFoundException valor) {
 			System.err.println("Excepción capturada al procesar fichero: " + valor.getMessage());
 		} catch (IOException valor) {
@@ -1305,7 +1412,7 @@ public class Mapa {
 		}
 
 		Mapa m = Mapa.getInstancia();
-		m.simulacionEC2(50);
+		m.simulacionFinal(50);
 		Log.close();
 	}
 

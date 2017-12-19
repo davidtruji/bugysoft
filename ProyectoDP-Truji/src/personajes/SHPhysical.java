@@ -12,7 +12,7 @@ import util.Dir;
  * 
  * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Entrega: EC2
+ * @Entrega: EC3
  * @Curso: 2º
  */
 public class SHPhysical extends SuperHeroe {
@@ -33,6 +33,15 @@ public class SHPhysical extends SuperHeroe {
 
 	}
 
+	/**
+	 * Metodo que busca un solo camino desde la sala posicion hasta la sala DP
+	 * 
+	 * @param camino
+	 *            el camino que va generando el algoritmo
+	 * @param posicion
+	 *            inicial y de cada sala que se va pasando
+	 * @return Verdadero al encontrar un camino
+	 */
 	public boolean rutaPhysicalBacktracking(List<Integer> camino, int posicion) {
 
 		Mapa m = Mapa.getInstancia();
@@ -61,6 +70,11 @@ public class SHPhysical extends SuperHeroe {
 
 	}
 
+	/**
+	 * Metodo que teniendo el camino devuelve la ruta
+	 * 
+	 * @return ruta del personaje
+	 */
 	public Dir[] crearRuta() {
 		List<Integer> l = new ArrayList<Integer>();
 		rutaPhysicalBacktracking(l, 0);

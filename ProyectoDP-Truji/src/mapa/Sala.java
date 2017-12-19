@@ -14,7 +14,7 @@ import personajes.Villano;
  * 
  * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Entrega: EC2
+ * @Entrega: EC3
  * @Curso: 2º
  */
 @SuppressWarnings("unused")
@@ -38,10 +38,21 @@ public class Sala {
 		armas = new Arbol<Arma>();
 	}
 
+	/**
+	 * Devuelve la marca de la sala
+	 * 
+	 * @return la marca de la sala
+	 */
 	public Integer getMarca() {
 		return marca;
 	}
 
+	/**
+	 * Establece la marca de la sala
+	 * 
+	 * @param marca
+	 *            la marca de la sala a establecer
+	 */
 	public void setMarca(Integer marca) {
 		this.marca = marca;
 	}

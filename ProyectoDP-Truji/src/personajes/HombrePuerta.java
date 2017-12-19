@@ -6,7 +6,7 @@ import estructuras_datos.Arbol;
  * 
  * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Entrega: EC2
+ * @Entrega: EC3
  * @Curso: 2º
  */
 public class HombrePuerta {

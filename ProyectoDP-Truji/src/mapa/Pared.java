@@ -4,7 +4,7 @@ package mapa;
  * 
  * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Entrega: EC2
+ * @Entrega: EC3
  * @Curso: 2º
  */
 public class Pared {
@@ -32,18 +32,40 @@ public class Pared {
 		this.destino = destino;
 	}
 
+	/**
+	 * Devuelve el ID de la sala origen de una pared
+	 * 
+	 * @return el ID de la sala origen de una pared
+	 */
 	public int getOrigen() {
 		return origen;
 	}
 
+	/**
+	 * Establece el ID de la sala origen de una pared
+	 * 
+	 * @param origen
+	 *            el ID de la sala origen de una pared
+	 */
 	public void setOrigen(int origen) {
 		this.origen = origen;
 	}
 
+	/**
+	 * Devuelve el ID de la sala destino de una pared
+	 * 
+	 * @return el ID de la sala destino de una pared
+	 */
 	public int getDestino() {
 		return destino;
 	}
 
+	/**
+	 * Establece el ID de la sala destino de una pared
+	 * 
+	 * @param origen
+	 *            el ID de la sala destino de una pared
+	 */
 	public void setDestino(int destino) {
 		this.destino = destino;
 	}

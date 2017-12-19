@@ -9,7 +9,7 @@ import util.Dir;
  * 
  * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Entrega: EC2
+ * @Entrega: EC3
  * @Curso: 2º
  */
 public class SHExtraSensorial extends SuperHeroe {
@@ -30,6 +30,11 @@ public class SHExtraSensorial extends SuperHeroe {
 
 	}
 
+	/**
+	 * Metodo que genera un camino siguiendo el algoritmo de la mano derecha
+	 * 
+	 * @return el camino
+	 */
 	public List<Integer> rutaManoDerecha() {
 		Mapa m = Mapa.getInstancia();
 		Dir dir = Dir.W;
@@ -112,6 +117,11 @@ public class SHExtraSensorial extends SuperHeroe {
 
 	}
 
+	/**
+	 * Metodo que teniendo el camino devuelve la ruta
+	 * 
+	 * @return ruta del personaje
+	 */
 	public Dir[] crearRuta() {
 		List<Integer> l = rutaManoDerecha();
 		Dir[] Ruta = caminoARuta(l);

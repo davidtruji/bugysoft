@@ -5,12 +5,11 @@ import mapa.Mapa;
 import mapa.Sala;
 import util.Dir;
 
-
 /**
  * 
  * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Entrega: EC2
+ * @Entrega: EC3
  * @Curso: 2º
  */
 public abstract class Personaje {
@@ -93,34 +92,78 @@ public abstract class Personaje {
 
 	}
 
+	/**
+	 * Devuelve el turno en el que el personaje empieza la partida
+	 * 
+	 * @return el turno en el que el personaje empieza la partida
+	 */
 	public int getTurnoComienzo() {
 		return turnoComienzo;
 	}
 
+	/**
+	 * Establece el turno en el que el personaje empieza la partida
+	 * 
+	 * @param turno
+	 *            en el que el personaje empieza la partida
+	 */
 	public void setTurno(int turno) {
 		this.turnoComienzo = turno;
 	}
 
+	/**
+	 * Devuelve la ruta de movimientos del personaje
+	 * 
+	 * @return ruta de movimientos del personaje
+	 */
 	public Dir[] getRuta() {
 		return ruta;
 	}
 
+	/**
+	 * Establece la ruta de movimientos del personaje
+	 * 
+	 * @param ruta
+	 *            de movimientos del personaje a establecer
+	 */
 	public void setRuta(Dir[] ruta) {
 		this.ruta = ruta;
 	}
 
+	/**
+	 * Devuelve la posicion actual del personaje
+	 * 
+	 * @return posicion actual del personaje
+	 */
 	public int getPosicion() {
 		return posicion;
 	}
 
+	/**
+	 * Establece la posicion actual del personaje
+	 * 
+	 * @param posicion
+	 *            nueva del personaje
+	 */
 	public void setPosicion(int posicion) {
 		this.posicion = posicion;
 	}
 
+	/**
+	 * Devuelve el ultimo turno en que participo el personaje
+	 * 
+	 * @return el ultimo turno en que participo el personaje
+	 */
 	public int getTurnoUltimo() {
 		return turnoUltimo;
 	}
 
+	/**
+	 * Establece el ultimo turno en que participo el personaje
+	 * 
+	 * @param turnoUltimo
+	 *            nuevo turno en que participo el personaje
+	 */
 	public void setTurnoUltimo(int turnoUltimo) {
 		this.turnoUltimo = turnoUltimo;
 	}
@@ -360,6 +403,13 @@ public abstract class Personaje {
 		return movido;
 	}
 
+	/**
+	 * Metodo que pasa de una lista de IDs de salas a una ruta en formato (N,S,E,W)
+	 * 
+	 * @param camino
+	 *            lista de IDs de salas
+	 * @return ruta en formato (N,S,E,W)
+	 */
 	public Dir[] caminoARuta(List<Integer> camino) {
 
 		int ori = 0;
@@ -375,6 +425,15 @@ public abstract class Personaje {
 		return Ruta;
 	}
 
+	/**
+	 * Devuelve la direccion de un movimiento de una sala a otra
+	 * 
+	 * @param id_ori
+	 *            ID de la sala origen
+	 * @param id_dest
+	 *            ID de la sala destino
+	 * @return Direccion en formato (N,S,E,W)
+	 */
 	public Dir direccion(int id_ori, int id_dest) {
 		Dir ret = null;
 		Mapa m = Mapa.getInstancia();

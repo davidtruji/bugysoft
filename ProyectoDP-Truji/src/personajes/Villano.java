@@ -11,7 +11,7 @@ import util.Dir;
  * 
  * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Entrega: EC2
+ * @Entrega: EC3
  * @Curso: 2º
  */
 public class Villano extends Personaje {
@@ -53,6 +53,11 @@ public class Villano extends Personaje {
 		setRuta(ruta);
 	}
 
+	/**
+	 * Metodo que genera un camino siguiendo el algoritmo de la mano izquierda
+	 * 
+	 * @return el camino
+	 */
 	public List<Integer> rutaManoIzquierda() {
 		Mapa m = Mapa.getInstancia();
 		Dir dir = Dir.S;
@@ -135,6 +140,11 @@ public class Villano extends Personaje {
 
 	}
 
+	/**
+	 * Metodo que teniendo el camino devuelve la ruta
+	 * 
+	 * @return ruta del personaje
+	 */
 	public Dir[] crearRuta() {
 		List<Integer> l = rutaManoIzquierda();
 		Dir[] Ruta = caminoARuta(l);

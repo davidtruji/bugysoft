@@ -12,7 +12,7 @@ import util.Dir;
  * 
  * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Entrega: EC2
+ * @Entrega: EC3
  * @Curso: 2º
  */
 public class SHFlight extends SuperHeroe {
@@ -34,6 +34,16 @@ public class SHFlight extends SuperHeroe {
 
 	}
 
+	/**
+	 * Metodo que encuentra el camino mas corto desde posicion hasta la sala DP
+	 * 
+	 * @param caminoCorto
+	 *            el mejor camino hasta ahora, el mejor al final de la ejecucion
+	 * @param camino
+	 *            los caminos que va generando el algoritmo
+	 * @param posicion
+	 *            inicial y de cada sala que se va pasando
+	 */
 	public void rutaFlightBacktracking(List<Integer> caminoCorto, List<Integer> camino, int posicion) {
 
 		Mapa m = Mapa.getInstancia();
@@ -72,6 +82,11 @@ public class SHFlight extends SuperHeroe {
 
 	}
 
+	/**
+	 * Metodo que teniendo el camino devuelve la ruta
+	 * 
+	 * @return ruta del personaje
+	 */
 	public Dir[] crearRuta() {
 		List<Integer> caminoCorto = new ArrayList<Integer>();
 		List<Integer> camino = new ArrayList<Integer>();

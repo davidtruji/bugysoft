@@ -7,7 +7,7 @@ import personajes.Arma;
  * 
  * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Entrega: EC2
+ * @Entrega: EC3
  * @Curso: 2º
  */
 public class Arbol<T extends Comparable<T>> {
@@ -142,10 +142,12 @@ public class Arbol<T extends Comparable<T>> {
 		return encontrado;
 	}
 
-	/*
+	/**
+	 * Devuleve un dato contenido en el arbol
 	 * 
-	 * Devuelve el dato del parametro si esta contenido en el abol
-	 * 
+	 * @param dato
+	 *            el dato que se desea retornar
+	 * @return el dato retornado
 	 */
 	public T consultar(T dato) {
 		Arbol<T> aux = null;
