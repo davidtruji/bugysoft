@@ -285,6 +285,7 @@ public class Arbol<T extends Comparable<T>> {
 	public Arma mayor() {
 
 		return mayorR((Arma) datoRaiz);
+
 	}
 
 	/**
@@ -301,6 +302,10 @@ public class Arbol<T extends Comparable<T>> {
 		if (!vacio()) {
 			if (raiz.getPoder() > ret.getPoder()) {
 				ret = raiz;
+			} else if (raiz.getPoder() == ret.getPoder() &&
+					raiz.getNombre().compareToIgnoreCase(ret.getNombre()) < 0) {
+				ret = raiz;
+
 			}
 
 			if ((aux = getHijoIzq()) != null)

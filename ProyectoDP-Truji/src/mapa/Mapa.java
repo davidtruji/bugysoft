@@ -1527,7 +1527,7 @@ public class Mapa {
 			/**
 			 * Método que procesa línea a línea el fichero de entrada inicio.txt
 			 */
-			FicheroCarga.procesarFichero("ficherosEntrada/init_6x6_2.txt", cargador);
+			FicheroCarga.procesarFichero("ficherosEntrada/init_10x10_4.txt", cargador);
 		} catch (FileNotFoundException valor) {
 			System.err.println("Excepción capturada al procesar fichero: " + valor.getMessage());
 		} catch (IOException valor) {
