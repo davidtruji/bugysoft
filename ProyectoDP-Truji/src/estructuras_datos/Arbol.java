@@ -357,4 +357,53 @@ public class Arbol<T extends Comparable<T>> {
 		return s;
 	}
 
+	/**
+	 * Metodo que ejecuta las pruebas de la clase
+	 */
+	private static void pruebasArbol() {
+		System.out.println("Ejecutando pruebas de la clase Arbol...\n");
+
+		Arbol<Integer> arbol = new Arbol<Integer>();
+
+		Integer[] datos = { new Integer(20), new Integer(7), new Integer(18), new Integer(6), new Integer(5),
+				new Integer(1), new Integer(22) };
+
+		for (int i = 0; i < datos.length; i++) {
+			arbol.insertar(datos[i]);
+		}
+
+		// Insertando datos repetidos
+		if (arbol.insertar(new Integer(22)) == false)
+			System.out.println("El ABB no admite elementos duplicados");
+
+		// Pertenencia de un dato
+		if (arbol.pertenece(new Integer(22)))
+			System.out.println("Pertenece");
+		else
+			System.out.println("NO Pertenece");
+
+		// Recorrido en inOrden
+		System.out.println("InOrden");
+		arbol.inOrden();
+
+		// Probando el borrado de diferentes datos -- Descomentar estas líneas para ver
+		// qué ocurre
+		arbol.borrar(new Integer(20));
+		System.out.println("Borrado " + 20);
+		arbol.borrar(new Integer(15));
+		System.out.println("Borrado " + 15);
+
+		// Borrando datos del árbol
+		for (int i = 0; i < datos.length; i++) {
+			arbol.borrar(datos[i]);
+			System.out.println("Borrado " + datos[i]);
+			arbol.inOrden();
+		}
+
+	}
+
+	public static void main(String args[]) {
+		Arbol.pruebasArbol();
+	}
+
 }

@@ -147,4 +147,26 @@ public class HombrePuerta {
 		return s;
 	}
 
+	/**
+	 * Metodo que ejecuta las pruebas de la clase
+	 */
+	private static void pruebasHP() {
+		System.out.println("Ejecutando pruebas de la clase Hombre Puerta...\n");
+
+		System.out.println("Creando hombre puerta con sus armas predeterminadas, deberia estar cerrado...");
+		HombrePuerta hp = new HombrePuerta(1);
+		hp.ActualizarEstadoPortal();
+		System.out.println(hp);
+
+		System.out.println("Cambiando altura, deberia estar abierto...");
+		hp = new HombrePuerta(15);
+		hp.ActualizarEstadoPortal();
+		System.out.println(hp);
+
+	}
+
+	public static void main(String args[]) {
+		HombrePuerta.pruebasHP();
+	}
+
 }

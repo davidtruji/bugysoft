@@ -1,5 +1,7 @@
 package personajes;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import mapa.Mapa;
 import mapa.Sala;
@@ -257,7 +259,7 @@ public abstract class Personaje {
 	 *            contiene la direccion del movimiento
 	 * @return si es posible hacer el movimiento sin chocarse o salirse del mapa
 	 */
-	private boolean movimientoPosible(Dir dir) {
+	public boolean movimientoPosible(Dir dir) {
 		Mapa m = Mapa.getInstancia();
 		int dimX, dimY;
 		dimX = m.getDimX();
@@ -477,6 +479,82 @@ public abstract class Personaje {
 		} else if (!nombre.equals(other.nombre))
 			return false;
 		return true;
+	}
+
+	/**
+	 * Metodo que ejecuta las pruebas de la clase
+	 * 
+	 * @throws IOException
+	 */
+	private static void pruebasPersonaje() throws IOException {
+		System.out.println("Ejecutando pruebas de la clase Personaje...\n");
+
+		Mapa m = Mapa.getInstancia(35, 6, 6, 1);
+		System.out.println("Creando personaje I...");
+
+		Villano v = new Villano("Ivan el Terrible", 'I', 0);
+
+		m.insertarPersonaje(v, 5);
+
+		System.out.println(m);
+
+		System.out.println("Probando esSuTurno de I debe mostrar True...");
+		if (v.esSuTurno())
+			System.out.println("True");
+		System.out.println("Probando esSuTurno de I debe mostrar False...");
+		v.setTurnoUltimo(m.getTurno());
+		if (!v.esSuTurno())
+			System.out.println("False");
+
+		System.out.println();
+
+		System.out.println("Probando movimientoPosible de I debe mostrar True...");
+		if (v.movimientoPosible(Dir.S))
+			System.out.println("True");
+		System.out.println("Probando movimientoPosible de I debe mostrar False...");
+		if (!v.movimientoPosible(Dir.E))
+			System.out.println("False");
+
+		System.out.println();
+
+		System.out.println("Probando a mover I segun su ruta (Mano Izq)...");
+		System.out.println(m);
+
+		v.mover();
+		v.mover();
+		v.mover();
+		v.mover();
+		v.mover();
+		v.mover();
+		System.out.println(m);
+
+		System.out.println("Probando caminoARuta Camino 0,1,2,8 debe mostrar EES ...");
+		List<Integer> l = new ArrayList<Integer>();
+		l.add(0);
+		l.add(1);
+		l.add(2);
+		l.add(8);
+		Dir[] dirs = v.caminoARuta(l);
+
+		for (Dir d : dirs)
+			System.out.print(d);
+
+		System.out.println();
+		System.out.println();
+
+		System.out.println("Probando direccion debe mostrar N...");
+		System.out.println(v.direccion(6, 0));
+		System.out.println("Probando direccion debe mostrar S...");
+		System.out.println(v.direccion(0, 6));
+		System.out.println("Probando direccion debe mostrar E...");
+		System.out.println(v.direccion(0, 1));
+		System.out.println("Probando direccion debe mostrar W...");
+		System.out.println(v.direccion(1, 0));
+
+	}
+
+	public static void main(String args[]) throws IOException {
+		Personaje.pruebasPersonaje();
 	}
 
 }

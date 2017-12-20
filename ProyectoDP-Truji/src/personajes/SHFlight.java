@@ -1,5 +1,6 @@
 package personajes;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -121,6 +122,39 @@ public class SHFlight extends SuperHeroe {
 		String s = "";
 		s = "(shflight:" + getInicial() + ":1111:" + m.getTurno() + ":" + getContenedorArmas() + ")";
 		return s;
+	}
+
+	/**
+	 * Metodo que ejecuta las prueas de la clase.
+	 * 
+	 * @throws IOException
+	 */
+	private static void pruebasSHFlight() throws IOException {
+		System.out.println("Ejecutando pruebas de la clase SHFlight...\n");
+
+		Mapa m = Mapa.getInstancia(35, 6, 6, 2);
+
+		SHFlight sh = new SHFlight("Super", 'S', 0);
+		m.insertarPersonaje(sh, sh.getPosicion());
+		List<Integer> caminoCorto = new ArrayList<Integer>();
+		List<Integer> camino = new ArrayList<Integer>();
+
+		sh.rutaFlightBacktracking(caminoCorto, camino, sh.getPosicion());
+		System.out.println("Salida esperada rutaFlightBacktracking: \n[30, 31, 32, 33, 34, 35]\n");
+
+		System.out.println("Salida del metodo rutaFlightBacktracking: \n" + caminoCorto);
+
+	}
+
+	/**
+	 * Main de la clase SHFlight
+	 * 
+	 * @param args
+	 * @throws IOException
+	 */
+	public static void main(String args[]) throws IOException {
+		pruebasSHFlight();
+
 	}
 
 }

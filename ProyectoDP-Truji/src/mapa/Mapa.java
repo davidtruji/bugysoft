@@ -14,6 +14,7 @@ import estructuras_datos.Grafo;
 import personajes.Arma;
 import personajes.HombrePuerta;
 import personajes.Personaje;
+import personajes.Villano;
 import util.Dir;
 import util.GenAleatorios;
 import util.Log;
@@ -1389,6 +1390,128 @@ public class Mapa {
 	}
 
 	/**
+	 * Metodo que ejecuta las pruebas de la clase
+	 * 
+	 * @throws IOException
+	 */
+	@SuppressWarnings("unused")
+	private static void pruebasMapa() throws IOException {
+		System.out.println("Ejecutando pruebas de la clase Mapa...\n");
+
+		System.out.println();
+
+		System.out.println("Construyendo mapa de 6x6 con kruskal sin atajo...");
+
+		Mapa m = Mapa.getInstancia(35, 6, 6, 1);
+
+		System.out.println();
+
+		System.out.println("Construyendo atajo y mostrar armas insertadas segun Backtracking...\n");
+
+		System.out.println("Salida Esperada:");
+		System.out.println("(square:0:(Anillo,1)(Armadura,3)(Garra,27)(Mjolnir,29)(Red,25))");
+		System.out.println("(square:1:(Escudo,5)(GuanteInfinito,21)(Lawgiver,7)(LazoVerdad,9)(Lucille,23))");
+		System.out.println("(square:2:(Antorcha,15)(CadenaFuego,19)(Capa,11)(Flecha,17)(Tridente,13))");
+		System.out.println("(square:8:(Baston,28)(CampoMagnetico,4)(Latigo,2)(MazaOro,26)(Tentaculo,24))");
+		System.out.println("(square:14:(Bola,10)(CampoEnergia,6)(Cetro,22)(Laser,20)(RayoEnergia,8))");
+		System.out.println("(square:15:(Acido,16)(Espada,18)(Gema,14)(Nullifier,23)(Sable,12))");
+		System.out.println("(square:21:(Anillo,29)(Armadura,27)(Garra,3)(Mjolnir,1)(Red,5))");
+		System.out.println("(square:27:(Escudo,25)(GuanteInfinito,9)(Lawgiver,23)(LazoVerdad,21)(Lucille,7))");
+		System.out.println("(square:28:(Baston,15)(CampoMagnetico,24)(Latigo,26)(MazaOro,2)(Tentaculo,4))");
+		System.out.println("(square:29:(Bola,18)(CampoEnergia,22)(Cetro,6)(Laser,8)(RayoEnergia,20))");
+		System.out.println("(square:33:(Acido,12)(Espada,10)(Gema,1)(Nullifier,3)(Sable,16))");
+		System.out.println("(square:35:(Antorcha,28)(CadenaFuego,11)(Capa,19)(Flecha,13)(Tridente,17))");
+
+		m.crearAtajos();
+
+		System.out.println(m);
+
+		System.out.println("Probando esSalaDailyPlanet, debe devolver true:");
+		if (m.esSalaDailyPlanet(5, 5))
+			System.out.println("True");
+		System.out.println("Probando esSalaDailyPlanet, debe devolver false:");
+		if (!m.esSalaDailyPlanet(5, 4))
+			System.out.println("False");
+
+		System.out.println();
+
+		System.out.println("Probando paredNorte, debe devolver true:");
+		if (m.paredNorte(6))
+			System.out.println("True");
+		System.out.println("Probando paredNorte, debe devolver false:");
+		if (!m.paredNorte(35))
+			System.out.println("False");
+
+		System.out.println("Probando paredSur, debe devolver true:");
+		if (m.paredSur(6))
+			System.out.println("True");
+		System.out.println("Probando paredSur, debe devolver false:");
+		if (!m.paredSur(35))
+			System.out.println("False");
+
+		System.out.println("Probando paredEste, debe devolver true:");
+		if (m.paredEste(2))
+			System.out.println("True");
+		System.out.println("Probando paredEste, debe devolver false:");
+		if (!m.paredEste(35))
+			System.out.println("False");
+
+		System.out.println("Probando paredOeste, debe devolver true:");
+		if (m.paredOeste(3))
+			System.out.println("True");
+		System.out.println("Probando paredOeste, debe devolver false:");
+		if (!m.paredOeste(35))
+			System.out.println("False");
+
+		System.out.println();
+
+		System.out.println("Probando bordeNorte, debe devolver true:");
+		if (m.bordeNorte(3))
+			System.out.println("True");
+		System.out.println("Probando bordeNorte, debe devolver false:");
+		if (!m.bordeNorte(35))
+			System.out.println("False");
+
+		System.out.println("Probando bordeSur, debe devolver true:");
+		if (m.bordeSur(33))
+			System.out.println("True");
+		System.out.println("Probando bordeSur, debe devolver false:");
+		if (!m.bordeSur(20))
+			System.out.println("False");
+
+		System.out.println("Probando bordeEste, debe devolver true:");
+		if (m.bordeEste(5))
+			System.out.println("True");
+		System.out.println("Probando bordeEste, debe devolver false:");
+		if (!m.bordeEste(21))
+			System.out.println("False");
+
+		System.out.println("Probando bordeOeste, debe devolver true:");
+		if (m.bordeOeste(6))
+			System.out.println("True");
+		System.out.println("Probando bordeOeste, debe devolver false:");
+		if (!m.bordeOeste(35))
+			System.out.println("False");
+
+		System.out.println();
+
+		System.out.println("Probando insertarPersonaje, debe estar V en la casilla 0:");
+
+		Villano v = new Villano("Villano", 'V', new Arma("Mata-Patos", 0));
+
+		m.insertarPersonaje(v, 0);
+
+		System.out.println(m);
+
+		System.out.println("Probando borrarPersonaje, V ya no deberia aparecer en la casilla 0:");
+
+		m.borrarPersonaje(v, 0);
+
+		System.out.println(m);
+
+	}
+
+	/**
 	 * Main de la clase mapa, desde donde se ejecuta el juego
 	 * 
 	 * @param args
@@ -1414,6 +1537,9 @@ public class Mapa {
 		Mapa m = Mapa.getInstancia();
 		m.simulacionFinal(50);
 		Log.close();
+
+		// Descomentar metodo y comentar resto del main para probar la clase
+		// Mapa.pruebasMapa();
 	}
 
 }

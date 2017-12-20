@@ -1,8 +1,9 @@
 package personajes;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import estructuras_datos.Arbol;
 import mapa.Mapa;
 import mapa.Sala;
 import util.Dir;
@@ -284,6 +285,83 @@ public class Villano extends Personaje {
 		String s = "";
 		s = "(villain:" + getInicial() + ":1111:" + m.getTurno() + ":" + ArmaVillano + ")";
 		return s;
+
+	}
+
+	/**
+	 * Metodo que ejecuta las prueas de la clase.
+	 * 
+	 * @throws IOException
+	 */
+	private static void pruebasVillano() throws IOException {
+		System.out.println("Ejecutando pruebas de la clase Villano...\n");
+
+		Mapa m = Mapa.getInstancia(35, 6, 6, 2);
+		Villano v = new Villano("Malo", 'M', 0);
+		m.insertarPersonaje(v, m.getSalaDailyPlanet());
+
+		System.out.println("Salida esperada: \n" + "[5, 11, 17, 11, 10, 16, 22, 21, 27, 28, 29, 23, 29, 35] \n");
+		System.out.println("Salida del metodo: \n" + v.rutaManoIzquierda());
+		System.out.println("");
+
+		SuperHeroe Alberto = new SuperHeroe("Alberto", 'A', 0);
+		SuperHeroe David = new SuperHeroe("Truji", 'T', 0);
+		m.insertarPersonaje(Alberto, m.getSalaDailyPlanet());
+		m.insertarPersonaje(David, m.getSalaDailyPlanet());
+
+		Arma Mjolnir = new Arma("Mjolnir", 32);
+		Arma Mjolnir2 = new Arma("Mjolnir", 29);
+		Arma Baston = new Arma("Baston", 31);
+		Arma Baston2 = new Arma("Baston", 16);
+
+		HombrePuerta hp = new HombrePuerta();
+		Arbol<Arma> armas = new Arbol<Arma>();
+		armas.insertar(Mjolnir2);
+		armas.insertar(Baston);
+		hp.setContenedorArmas(armas);
+
+		Sala s = m.getSala(m.getSalaDailyPlanet());
+		s.insertarArma(Mjolnir);
+		m.insertarPersonaje(v, m.getSalaDailyPlanet());
+
+		System.out.println("RECOGIDA DE ARMAS: ");
+		System.out.println("El villano debe recoger: " + s.getArmas().mayor());
+		v.recogerArmaPersonaje(s);
+		System.out.println("Armas recogida por el villano: " + v.ArmaVillano);
+		System.out.println("");
+
+		System.out.println("PELEA HOMBRE PUERTA: ");
+		System.out.println("Armas del hombre puerta: " + hp.getContenedorArmas());
+		System.out.println("El hombre puerta debe perder el arma: " + hp.getContenedorArmas().mayor());
+		v.setPosicion(m.getSalaDailyPlanet());
+		v.interaccionHombrePuerta(hp);
+		System.out.println("Armas actuales del villano: " + v.ArmaVillano);
+		System.out.println("Armas actuales del hombre puerta: " + hp.getContenedorArmas());
+		System.out.println("");
+
+		Alberto.insertarArmaHeroe(Baston2);
+		David.insertarArmaHeroe(Baston2);
+		v.setArmaVillano(Baston);
+
+		System.out.println("PELEA CONTRA LOS HEROES: ");
+		System.out.println("Armas del villano: " + v.getArmaVillano());
+		System.out.println("El villano pelea con el heroe Alberto y debe ganar quitandole el arma");
+		System.out.println("El villano no debe pelear con el heroe David");
+		v.interaccionEntrePersonajes();
+
+		System.out.println("Armas actuales del heroe  Alberto: " + Alberto.getContenedorArmas());
+		System.out.println("Armas actuales del heroe  David: " + David.getContenedorArmas());
+		System.out.println("Armas actuales del villano: " + v.getArmaVillano());
+	}
+
+	/**
+	 * Main de la clase SHExtraSensorial
+	 * 
+	 * @param args
+	 * @throws IOException
+	 */
+	public static void main(String args[]) throws IOException {
+		pruebasVillano();
 
 	}
 

@@ -1,5 +1,6 @@
 package estructuras_datos;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -381,96 +382,111 @@ public class Grafo {
 	}
 
 	/**
-	 * @param args
+	 * Metodo que ejecuta las pruebas de la clase
 	 */
-	public static void main(String[] args) {
-		// //Datos ejemplo para creación grafo
-		// Grafo g = new Grafo();
-		// int [] nodos = new int[10];
-		// int [][] arcos =
-		// {{0,97,Grafo.INFINITO,Grafo.INFINITO,119,Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO},
-		// {97,0,10,Grafo.INFINITO,Grafo.INFINITO,57,Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO},
-		// {Grafo.INFINITO,10,0,17,Grafo.INFINITO,Grafo.INFINITO,67,Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO},
-		// {Grafo.INFINITO,Grafo.INFINITO,17,0,Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO,122},
-		// {119,Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO,0,Grafo.INFINITO,Grafo.INFINITO,37,Grafo.INFINITO,Grafo.INFINITO},
-		// {Grafo.INFINITO,57,Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO,0,63,Grafo.INFINITO,50,Grafo.INFINITO},
-		// {Grafo.INFINITO,Grafo.INFINITO,67,Grafo.INFINITO,Grafo.INFINITO,63,0,Grafo.INFINITO,61,Grafo.INFINITO},
-		// {Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO,37,Grafo.INFINITO,Grafo.INFINITO,0,72,Grafo.INFINITO},
-		// {Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO,50,61,72,0,153},
-		// {Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO,122,Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO,Grafo.INFINITO,153,0}};
-		//
-		// for(int i=0;i<10;i++){
-		// nodos[i]=i;
-		// if (!g.nuevoNodo(nodos[i]))
-		// System.out.println("Error en la insercion del nodo " + i);
-		// }
-		//
-		// for(int i=0;i<10;i++)
-		// for(int j=0;j<10;j++)
-		// if (!g.nuevoArco(nodos[i],nodos[j],arcos[i][j]))
-		// System.out.println("Error en la insercion del arco("+i+","+j+")");
-		//
-		// g.mostrarNodos();
-		// g.mostrarArcos();
-		//
-		// System.out.println("-------------------------------------");
-		//
-		// g.warshall();
-		// g.mostrarPW();
-		//
-		// g.floyd();
-		// g.mostrarFloydC();
-		//
-		// System.out.println("-------------------------------------");
-		//
-		// //
-		// ------------------------------------------------------------------------------
-		// // Probando la función adyacentes:
-		// int nodo = nodos[8];
-		// Set<Integer> ady = new LinkedHashSet<Integer>();
-		// System.out.print("Nodos adyacentes al nodo : " + nodo + ":");
-		// g.adyacentes(nodo,ady);
-		// for (Integer n : ady){
-		// System.out.print (" " + n);
-		// }
-		// System.out.println();
-		// ------------------------------------------------------------------------------
+	private static void pruebasGrafo() {
+		System.out.println("Ejecutando pruebas de la clase Grafo...\n");
 
+		// Datos ejemplo para creación grafo
 		Grafo g = new Grafo();
+		int[] nodos = new int[10];
+		int[][] arcos = {
+				{ 0, 97, Grafo.INFINITO, Grafo.INFINITO, 119, Grafo.INFINITO, Grafo.INFINITO, Grafo.INFINITO,
+						Grafo.INFINITO, Grafo.INFINITO },
+				{ 97, 0, 10, Grafo.INFINITO, Grafo.INFINITO, 57, Grafo.INFINITO, Grafo.INFINITO, Grafo.INFINITO,
+						Grafo.INFINITO },
+				{ Grafo.INFINITO, 10, 0, 17, Grafo.INFINITO, Grafo.INFINITO, 67, Grafo.INFINITO, Grafo.INFINITO,
+						Grafo.INFINITO },
+				{ Grafo.INFINITO, Grafo.INFINITO, 17, 0, Grafo.INFINITO, Grafo.INFINITO, Grafo.INFINITO, Grafo.INFINITO,
+						Grafo.INFINITO, 122 },
+				{ 119, Grafo.INFINITO, Grafo.INFINITO, Grafo.INFINITO, 0, Grafo.INFINITO, Grafo.INFINITO, 37,
+						Grafo.INFINITO, Grafo.INFINITO },
+				{ Grafo.INFINITO, 57, Grafo.INFINITO, Grafo.INFINITO, Grafo.INFINITO, 0, 63, Grafo.INFINITO, 50,
+						Grafo.INFINITO },
+				{ Grafo.INFINITO, Grafo.INFINITO, 67, Grafo.INFINITO, Grafo.INFINITO, 63, 0, Grafo.INFINITO, 61,
+						Grafo.INFINITO },
+				{ Grafo.INFINITO, Grafo.INFINITO, Grafo.INFINITO, Grafo.INFINITO, 37, Grafo.INFINITO, Grafo.INFINITO, 0,
+						72, Grafo.INFINITO },
+				{ Grafo.INFINITO, Grafo.INFINITO, Grafo.INFINITO, Grafo.INFINITO, Grafo.INFINITO, 50, 61, 72, 0, 153 },
+				{ Grafo.INFINITO, Grafo.INFINITO, Grafo.INFINITO, 122, Grafo.INFINITO, Grafo.INFINITO, Grafo.INFINITO,
+						Grafo.INFINITO, 153, 0 } };
 
-		for (int i = 0; i < 9; i++) {
-			g.nuevoNodo(i);
+		for (int i = 0; i < 10; i++) {
+			nodos[i] = i;
+			if (!g.nuevoNodo(nodos[i]))
+				System.out.println("Error en la insercion del nodo " + i);
 		}
-		g.nuevoArco(0, 1, 1);
-		g.nuevoArco(1, 0, 1);
 
-		g.nuevoArco(1, 4, 1);
-		g.nuevoArco(4, 1, 1);
-
-		g.nuevoArco(4, 3, 1);
-		g.nuevoArco(3, 4, 1);
-
-		g.nuevoArco(3, 6, 1);
-		g.nuevoArco(6, 3, 1);
-
-		g.nuevoArco(6, 7, 1);
-		g.nuevoArco(7, 6, 1);
-
-		g.nuevoArco(7, 8, 1);
-		g.nuevoArco(8, 7, 1);
-
-		g.nuevoArco(4, 5, 1);
-		g.nuevoArco(5, 4, 1);
-
-		g.nuevoArco(2, 5, 1);
-		g.nuevoArco(5, 2, 1);
-
-		g.warshall();
-		g.floyd();
+		for (int i = 0; i < 10; i++)
+			for (int j = 0; j < 10; j++)
+				if (!g.nuevoArco(nodos[i], nodos[j], arcos[i][j]))
+					System.out.println("Error en la insercion del arco(" + i + "," + j + ")");
 
 		g.mostrarNodos();
 		g.mostrarArcos();
-		g.Camino(g, 0, 8);
 
+		System.out.println("-------------------------------------");
+
+		g.warshall();
+		g.mostrarPW();
+
+		g.floyd();
+		g.mostrarFloydC();
+
+		System.out.println("-------------------------------------");
+
+		// Probando la función adyacentes:
+		int nodo = nodos[8];
+		Set<Integer> ady = new LinkedHashSet<Integer>();
+		System.out.print("Nodos adyacentes al nodo : " + nodo + ":");
+		g.adyacentes(nodo, ady);
+		for (Integer n : ady) {
+			System.out.print(" " + n);
+		}
+		System.out.println();
+
+		Grafo g1 = new Grafo();
+
+		for (int i = 0; i < 9; i++) {
+			g1.nuevoNodo(i);
+		}
+		g1.nuevoArco(0, 1, 1);
+		g1.nuevoArco(1, 0, 1);
+
+		g1.nuevoArco(1, 4, 1);
+		g1.nuevoArco(4, 1, 1);
+
+		g1.nuevoArco(4, 3, 1);
+		g1.nuevoArco(3, 4, 1);
+
+		g1.nuevoArco(3, 6, 1);
+		g1.nuevoArco(6, 3, 1);
+
+		g1.nuevoArco(6, 7, 1);
+		g1.nuevoArco(7, 6, 1);
+
+		g1.nuevoArco(7, 8, 1);
+		g1.nuevoArco(8, 7, 1);
+
+		g1.nuevoArco(4, 5, 1);
+		g1.nuevoArco(5, 4, 1);
+
+		g1.nuevoArco(2, 5, 1);
+		g1.nuevoArco(5, 2, 1);
+
+		g1.warshall();
+		g1.floyd();
+
+		g1.mostrarNodos();
+		g1.mostrarArcos();
+		g1.Camino(g1, 0, 8);
+
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Grafo.pruebasGrafo();
 	}
 }

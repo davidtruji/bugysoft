@@ -98,4 +98,51 @@ public class Arma implements Comparable<Arma> {
 		return ret;
 	}
 
+	/**
+	 * Metodo que ejecuta las prueas de la clase.
+	 */
+	private static void pruebasArma() {
+		System.out.println("Ejecutando pruebas de la clase Arma...\n");
+
+		Arma Mjolnir = new Arma("Mjolnir", 29);
+		Arma Mjolnir2 = new Arma("Mjolnir", 1);
+		Arma Antorcha = new Arma("Antorcha", 28);
+		Arma Baston = new Arma("Baston", 15);
+		System.out.println("Pruebas del compareTo: ");
+		System.out.println("comparando : " + Mjolnir + " con " + Mjolnir2);
+		if (Mjolnir.compareTo(Mjolnir2) == 0)
+			System.out.println("Exito");
+		else
+			System.out.println("Fracaso");
+		System.out.println("comparando : " + Baston + " con " + Antorcha);
+		if (Baston.compareTo(Antorcha) == 0)
+			System.out.println("Exito");
+		else
+			System.out.println("Fracaso");
+
+		System.out.println("");
+
+		System.out.println("Prueba del equals:");
+		System.out.println("comparando : " + Mjolnir + " con " + Mjolnir2);
+		if (Mjolnir.equals(Mjolnir2))
+			System.out.println("Exito");
+		else
+			System.out.println("Fracaso");
+		System.out.println("comparando : " + Antorcha + " con " + Baston);
+		if (Baston.equals(Antorcha))
+			System.out.println("Exito");
+		else
+			System.out.println("Fracaso");
+	}
+
+	/**
+	 * Main de la clase arma
+	 * 
+	 * @param args
+	 */
+	public static void main(String args[]) {
+		pruebasArma();
+
+	}
+
 }

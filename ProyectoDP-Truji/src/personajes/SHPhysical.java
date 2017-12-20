@@ -1,10 +1,10 @@
 package personajes;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
 import mapa.Mapa;
 import util.Dir;
 
@@ -108,6 +108,38 @@ public class SHPhysical extends SuperHeroe {
 		String s = "";
 		s = "(shphysical:" + getInicial() + ":1111:" + m.getTurno() + ":" + getContenedorArmas() + ")";
 		return s;
+	}
+
+	/**
+	 * Metodo que ejecuta las prueas de la clase.
+	 * 
+	 * @throws IOException
+	 */
+	private static void pruebasSHPhysical() throws IOException {
+		System.out.println("Ejecutando pruebas de la clase SHPhysical...\n");
+
+		Mapa m = Mapa.getInstancia(35, 6, 6, 2);
+
+		SHPhysical sh = new SHPhysical("Super", 'S', 0);
+		m.insertarPersonaje(sh, sh.getPosicion());
+		List<Integer> camino = new ArrayList<Integer>();
+
+		sh.rutaPhysicalBacktracking(camino, sh.getPosicion());
+		System.out.println("Salida esperada rutaPhysicalBacktracking:\n[0, 1, 2, 8, 14, 15, 21, 27, 28, 29, 35]\n");
+
+		System.out.println("Salida del metodo rutaPhysicalBacktracking: \n" + camino);
+
+	}
+
+	/**
+	 * Main de la clase SHPhysical
+	 * 
+	 * @param args
+	 * @throws IOException
+	 */
+	public static void main(String args[]) throws IOException {
+		pruebasSHPhysical();
+
 	}
 
 }
