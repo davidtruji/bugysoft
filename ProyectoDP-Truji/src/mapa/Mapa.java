@@ -170,7 +170,7 @@ public class Mapa {
 	}
 
 	/**
-	 * Set del array que contiene la frecuentcia de paso por las salas
+	 * Set del array que contiene la frecuencia de paso por las salas
 	 * 
 	 * @param frecuenciaPaso
 	 *            array que contiene la frecuentcia de paso por las salas
