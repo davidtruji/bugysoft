@@ -12,7 +12,7 @@ import mapa.Sala;
  * 
  * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Entrega: EC3
+ * @Entrega: ENERO
  * @Curso: 2º
  */
 public class SuperHeroe extends Personaje {
@@ -98,6 +98,17 @@ public class SuperHeroe extends Personaje {
 	public Arma mejorArma() {
 
 		return ContenedorArmas.mayor();
+
+	}
+
+	/**
+	 * Devuelve el arma menos poderosa del contenedor
+	 * 
+	 * @return el arma con menor poder
+	 */
+	public Arma peorArma() {
+
+		return ContenedorArmas.menor();
 
 	}
 

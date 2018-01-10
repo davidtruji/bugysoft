@@ -23,7 +23,7 @@ import util.Log;
  * 
  * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Entrega: EC3
+ * @Entrega: ENERO
  * @Curso: 2º
  */
 public class Mapa {
@@ -1390,6 +1390,56 @@ public class Mapa {
 	}
 
 	/**
+	 * Metodo que encuentra el camino mas corto desde posicion hasta posicion2
+	 * 
+	 * @param caminoCorto
+	 *            el mejor camino hasta ahora, el mejor al final de la ejecucion
+	 * @param camino
+	 *            los caminos que va generando el algoritmo
+	 * @param posicion
+	 *            inicial y de cada sala que se va pasando
+	 * @param posicion2
+	 *            posicion final
+	 */
+	public void caminoMasCorto(List<Integer> caminoCorto, List<Integer> camino, int posicion, int posicion2) {
+
+		Mapa m = Mapa.getInstancia();
+		Set<Integer> salasAdyacentes = new LinkedHashSet<Integer>();
+
+		camino.add(posicion);
+		if (posicion == posicion2) {
+
+			if (caminoCorto.size() == 0) {
+
+				for (int i = 0; i < camino.size(); i++)
+					caminoCorto.add(camino.get(i));
+
+			}
+
+			if (camino.size() < caminoCorto.size()) {
+				caminoCorto.clear();
+				for (int i = 0; i < camino.size(); i++)
+					caminoCorto.add(camino.get(i));
+
+			}
+
+		} else {
+
+			m.getGrafo().adyacentes(posicion, salasAdyacentes);
+			for (Integer i : salasAdyacentes) {
+
+				if (!camino.contains(i)) {
+					caminoMasCorto(caminoCorto, camino, i, posicion2);
+					camino.remove(camino.size() - 1);
+				}
+
+			}
+
+		}
+
+	}
+
+	/**
 	 * Metodo que ejecuta las pruebas de la clase
 	 * 
 	 * @throws IOException
@@ -1527,7 +1577,7 @@ public class Mapa {
 			/**
 			 * Método que procesa línea a línea el fichero de entrada inicio.txt
 			 */
-			FicheroCarga.procesarFichero("ficherosEntrada/init_10x10_4.txt", cargador);
+			FicheroCarga.procesarFichero(args[0], cargador);
 		} catch (FileNotFoundException valor) {
 			System.err.println("Excepción capturada al procesar fichero: " + valor.getMessage());
 		} catch (IOException valor) {

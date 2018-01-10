@@ -7,7 +7,7 @@ import personajes.Arma;
  * 
  * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Entrega: EC3
+ * @Entrega: ENERO
  * @Curso: 2º
  */
 public class Arbol<T extends Comparable<T>> {
@@ -289,6 +289,46 @@ public class Arbol<T extends Comparable<T>> {
 	}
 
 	/**
+	 * Metodo que devuelve el menor Arma del arbol llamando al metodo recursivo
+	 * 
+	 * @return el mayor Arma del arbol
+	 */
+	public Arma menor() {
+
+		return menorR((Arma) datoRaiz);
+
+	}
+
+	/**
+	 * Metodo recursivo que devulve el menor elemento del arbol
+	 * 
+	 * @param mayor
+	 *            el menor arma hasta ahora
+	 * @return el menor arma de todo el arbol
+	 */
+	private Arma menorR(Arma menor) {
+		Arbol<T> aux = null;
+		Arma raiz = (Arma) datoRaiz;
+		Arma ret = menor;
+		if (!vacio()) {
+			if (raiz.getPoder() < ret.getPoder()) {
+				ret = raiz;
+			} else if (raiz.getPoder() == ret.getPoder() && raiz.getNombre().compareToIgnoreCase(ret.getNombre()) > 0) {
+				ret = raiz;
+
+			}
+
+			if ((aux = getHijoIzq()) != null)
+				ret = aux.menorR(ret);
+
+			if ((aux = getHijoDer()) != null)
+				ret = aux.menorR(ret);
+
+		}
+		return ret;
+	}
+
+	/**
 	 * Metodo recursivo que devulve el mayor elemento del arbol
 	 * 
 	 * @param mayor
@@ -302,8 +342,7 @@ public class Arbol<T extends Comparable<T>> {
 		if (!vacio()) {
 			if (raiz.getPoder() > ret.getPoder()) {
 				ret = raiz;
-			} else if (raiz.getPoder() == ret.getPoder() &&
-					raiz.getNombre().compareToIgnoreCase(ret.getNombre()) < 0) {
+			} else if (raiz.getPoder() == ret.getPoder() && raiz.getNombre().compareToIgnoreCase(ret.getNombre()) < 0) {
 				ret = raiz;
 
 			}
@@ -370,12 +409,25 @@ public class Arbol<T extends Comparable<T>> {
 
 		Arbol<Integer> arbol = new Arbol<Integer>();
 
+		Arbol<Arma> arbolA = new Arbol<Arma>();
+
 		Integer[] datos = { new Integer(20), new Integer(7), new Integer(18), new Integer(6), new Integer(5),
 				new Integer(1), new Integer(22) };
+
+		Arma[] armas = { new Arma("arma1", 21), new Arma("arma21", 0), new Arma("arma41", 213), new Arma("arma153", 6),
+				new Arma("arma132", 213) };
 
 		for (int i = 0; i < datos.length; i++) {
 			arbol.insertar(datos[i]);
 		}
+
+		for (int i = 0; i < armas.length; i++) {
+			arbolA.insertar(armas[i]);
+		}
+
+		// Probando Menor
+		System.out.println("Menor debe dar el Arma21 poder 0 : ");
+		System.out.println(arbolA.menor());
 
 		// Insertando datos repetidos
 		if (arbol.insertar(new Integer(22)) == false)

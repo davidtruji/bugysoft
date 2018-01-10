@@ -4,9 +4,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
+ * 
  * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Entrega: EC3
+ * @Entrega: ENERO
  * @Curso: 2º
  */
 public class Log {

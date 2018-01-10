@@ -18,7 +18,7 @@ import personajes.Villano;
  * 
  * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Entrega: EC3
+ * @Entrega: ENERO
  * @Curso: 2º
  */
 @SuppressWarnings("unused")

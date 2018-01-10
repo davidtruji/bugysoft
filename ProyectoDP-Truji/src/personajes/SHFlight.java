@@ -13,7 +13,7 @@ import util.Dir;
  * 
  * @Grupo: Bugysoft
  * @Autor: David Trujillo Torres y Alberto Diaz Martin
- * @Entrega: EC3
+ * @Entrega: ENERO
  * @Curso: 2º
  */
 public class SHFlight extends SuperHeroe {
@@ -76,6 +76,54 @@ public class SHFlight extends SuperHeroe {
 					rutaFlightBacktracking(caminoCorto, camino, i);
 					camino.remove(camino.size() - 1);
 				}
+
+			}
+
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see personajes.SuperHeroe#interaccionHombrePuerta(personajes.HombrePuerta)
+	 */
+	@Override
+	public void interaccionHombrePuerta(HombrePuerta hp) {
+
+		Mapa m = Mapa.getInstancia();
+
+		if (m.getSalaDailyPlanet() == getPosicion()) {
+
+			if (!getContenedorArmas().vacio()) {
+				Arma mejorArmaHeroe = peorArma();
+
+				if (hp.getContenedorArmas().pertenece(mejorArmaHeroe)) {
+					Arma armaHP = hp.getContenedorArmas().consultar(mejorArmaHeroe);
+
+					if (mejorArmaHeroe.getPoder() > armaHP.getPoder()) {
+
+						hp.getContenedorArmas().borrar(armaHP);
+						hp.ActualizarEstadoPortal();
+
+					}
+					if (hp.isPortal()) {
+
+						m.getSalaTesereacto().add(this);
+						m.getSala(m.getSalaDailyPlanet()).borrarPersonaje(this);
+					}
+
+				} else {
+
+					if (hp.isPortal()) {
+
+						m.getSalaTesereacto().add(this);
+						m.getSala(m.getSalaDailyPlanet()).borrarPersonaje(this);
+					}
+
+				}
+
+				getContenedorArmas().borrar(mejorArmaHeroe);
 
 			}
 
